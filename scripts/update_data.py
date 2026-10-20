@@ -39,14 +39,41 @@ KEYS = [k for k, _ in CLUBS]
 MIN_PLAYERS = 6000          # safety net: never publish a suspiciously small dataset
 MIN_PER_CLUB = 20
 
+LANGS = ["en", "tr", "es", "de", "fr", "it", "pt", "nl"]
 QUERY = """
-SELECT ?p ?en ?tr ?sl WHERE {
-  ?p p:P54 ?st . ?st ps:P54 wd:%s ; wikibase:rank ?rk .
+SELECT ?p ?sl %s WHERE {
+  ?p p:P54 ?st . ?st ps:P54 wd:%%s ; wikibase:rank ?rk .
   FILTER(?rk != wikibase:DeprecatedRank)
   ?p wdt:P31 wd:Q5 ; wikibase:sitelinks ?sl .
-  OPTIONAL { ?p rdfs:label ?en FILTER(lang(?en) = "en") }
-  OPTIONAL { ?p rdfs:label ?tr FILTER(lang(?tr) = "tr") }
-}"""
+  %s
+}""" % (" ".join("?" + l for l in LANGS),
+        "\n  ".join('OPTIONAL { ?p rdfs:label ?%s FILTER(lang(?%s) = "%s") }' % (l, l, l) for l in LANGS))
+
+# Greek / Cyrillic letters that look like Latin ones (a common form of vandalism: "Αrda Güler" with a Greek Alpha)
+CONFUSABLE = str.maketrans({
+    "Α":"A","Β":"B","Ε":"E","Ζ":"Z","Η":"H","Ι":"I","Κ":"K","Μ":"M","Ν":"N","Ο":"O","Ρ":"P","Τ":"T","Υ":"Y","Χ":"X",
+    "ο":"o","ν":"v","ρ":"p","τ":"t","ι":"i","κ":"k","α":"a","ε":"e",
+    "А":"A","В":"B","Е":"E","К":"K","М":"M","Н":"H","О":"O","Р":"P","С":"C","Т":"T","Х":"X","І":"I","Ј":"J","Ѕ":"S",
+    "а":"a","е":"e","о":"o","р":"p","с":"c","у":"y","х":"x","і":"i","ј":"j","ѕ":"s"})
+
+def clean(name):
+    """Fix look-alike letters inside an otherwise Latin-script name."""
+    if not name: return name
+    latin = sum(1 for ch in name if "a" <= ch.lower() <= "z" or "\u00c0" <= ch <= "\u024f")
+    letters = sum(1 for ch in name if ch.isalpha())
+    return name.translate(CONFUSABLE) if letters and latin / letters >= 0.5 else name
+
+def pick_name(b):
+    """Choose the spelling most languages agree on, so a vandalised label in one language loses."""
+    votes = {}
+    for i, l in enumerate(LANGS):
+        v = b.get(l, {}).get("value")
+        if not v: continue
+        v = clean(v)
+        if not any("a" <= ch.lower() <= "z" for ch in v): continue      # skip non-Latin scripts
+        votes.setdefault(v, [0, i])[0] += 1
+    if not votes: return None
+    return sorted(votes.items(), key=lambda kv: (-kv[1][0], kv[1][1]))[0][0]
 
 def sparql(q, tries=5):
     url = ENDPOINT + "?" + urllib.parse.urlencode({"query": q, "format": "json"})
@@ -74,7 +101,7 @@ def main():
             raise SystemExit(f"Only {len(rows)} players for {key}; refusing to publish.")
         for b in rows:
             pid = b["p"]["value"].rsplit("/", 1)[-1]
-            name = (b.get("en") or b.get("tr") or {}).get("value")
+            name = pick_name(b)
             o = people.setdefault(pid, {"n": name, "s": int(b["sl"]["value"]), "c": set()})
             o["c"].add(key)
             if not o["n"] and name: o["n"] = name
