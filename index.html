@@ -233,57 +233,90 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.js"></script>
 <script>
-/* Supabase Realtime presence, wrapped in the same small interface the game uses:
-   join(name) -> { presence(patch), onPeers(fn), onConnection(fn), leave() } */
+/* Supabase Realtime (presence + broadcast), wrapped in the small interface the game uses:
+   join(name) -> { presence(patch), emit(topic,data), on(topic,fn), onPeers(fn), onConnection(fn), leave() }
+   The channel rebuilds itself whenever it drops (locked phone screen, background tab, network change). */
 const SUPABASE_URL = "https://renjluuhiqjvavxlsdpj.supabase.co";
 const SUPABASE_KEY = "sb_publishable_aC9lOphQcUiVxXdeLmV9vA_lzUHlF9i";
 function makeRoomApi(){
   if(!window.supabase || SUPABASE_URL.indexOf('%%')===0) return null;
-  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {realtime:{params:{eventsPerSecond:20}, heartbeatIntervalMs:15000}});
+  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+    realtime:{ params:{eventsPerSecond:20}, heartbeatIntervalMs:10000, worker:true }
+  });
   const myPeer = Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
   return {
-    async join(name){
-      const ch = client.channel(name, {config:{presence:{key:myPeer}, broadcast:{self:false, ack:false}}});
+    join(name){
       const handlers = {};
-      ['me','ping','pong'].forEach(ev=>ch.on('broadcast',{event:ev}, msg=>{ const p=msg && msg.payload; if(!p) return; (handlers[ev]||[]).forEach(f=>{ try{ f({peer:p.f, data:p.d, sameTab:p.f===myPeer}); }catch(e){} }); }));
-      let state = {}, connected = false, peerFns = [], connFns = [], timer = null, closed = false;
-      const peers = () => {
-        const list = [];
-        const ps = ch.presenceState();
+      let ch = null, state = {}, connected = false, closed = false, peerFns = [], connFns = [], timer = null;
+      let retry = null, attempt = 0, gen = 0, lastPeers = [];
+      const setConn = v => { if(v===connected) return; connected = v; connFns.forEach(f=>{ try{ f(v); }catch(e){} }); };
+      const readPeers = () => {
+        if(!ch) return lastPeers;
+        const list = [], ps = ch.presenceState();
         for(const k in ps){ const arr = ps[k]; if(!arr || !arr.length) continue;
           const p = Object.assign({}, arr[arr.length-1]); delete p.presence_ref;
           list.push({peer:k, sameTab:k===myPeer, isMe:k===myPeer, presence:p}); }
-        return list;
+        lastPeers = list; return list;
       };
-      const emitPeers = () => { const p = peers(); peerFns.forEach(f=>{ try{ f({peers:p}); }catch(e){} }); };
-      const setConn = v => { if(v===connected) return; connected = v; connFns.forEach(f=>{ try{ f(v); }catch(e){} }); };
-      const flush = () => { timer = null; if(connected && !closed) ch.track(state).catch(()=>{}); };
-      ch.on('presence',{event:'sync'}, emitPeers);
-      // Phones pause the page when the screen locks; reconnect as soon as it is visible again.
-      const wake = () => { if(closed || document.visibilityState!=='visible') return;
+      const emitPeers = () => { const p = readPeers(); peerFns.forEach(f=>{ try{ f({peers:p}); }catch(e){} }); };
+      const flush = () => { timer = null; if(connected && !closed && ch) ch.track(state).catch(()=>{}); };
+
+      function schedule(){
+        if(closed || retry) return;
+        const wait = Math.min(5000, 500 * Math.pow(2, attempt++));
+        retry = setTimeout(()=>{ retry = null; open(); }, wait);
+      }
+      function open(onFirst){
+        if(closed) return;
+        const my = ++gen;
+        const old = ch; ch = null;
+        if(old){ try{ client.removeChannel(old); }catch(e){} }
         try{ if(!client.realtime.isConnected()) client.realtime.connect(); }catch(e){}
-        if(connected) flush(); };
-      document.addEventListener('visibilitychange', wake); window.addEventListener('online', wake); window.addEventListener('focus', wake);
-      await new Promise((resolve,reject)=>{
-        let done = false;
-        const to = setTimeout(()=>{ if(!done){ done=true; reject({code:'timeout'}); } }, 10000);
-        ch.subscribe(status=>{
-          if(status==='SUBSCRIBED'){ setConn(true); flush(); emitPeers(); if(!done){ done=true; clearTimeout(to); resolve(); } }
-          else if(status==='CHANNEL_ERROR' || status==='TIMED_OUT' || status==='CLOSED'){ setConn(false); if(!done && status!=='CLOSED'){ done=true; clearTimeout(to); reject({code:status}); } }
+        const c = client.channel(name, {config:{presence:{key:myPeer}, broadcast:{self:false, ack:false}}});
+        ['me','ping','pong'].forEach(ev=>c.on('broadcast',{event:ev}, msg=>{
+          if(my!==gen) return; const p = msg && msg.payload; if(!p) return;
+          (handlers[ev]||[]).forEach(f=>{ try{ f({peer:p.f, data:p.d, sameTab:p.f===myPeer}); }catch(e){} });
+        }));
+        c.on('presence',{event:'sync'}, ()=>{ if(my===gen) emitPeers(); });
+        ch = c;
+        c.subscribe(status=>{
+          if(my!==gen) return;
+          if(status==='SUBSCRIBED'){ attempt = 0; setConn(true); flush(); emitPeers(); if(onFirst){ const f=onFirst; onFirst = null; f(); } }
+          else if(status==='CHANNEL_ERROR' || status==='TIMED_OUT' || status==='CLOSED'){ setConn(false); schedule(); }
         });
-      });
-      return {
+      }
+      // Phones pause the page when the screen locks: check the line as soon as it is back.
+      const wake = () => {
+        if(closed || document.visibilityState!=='visible') return;
+        let sockOk = true; try{ sockOk = client.realtime.isConnected(); }catch(e){}
+        if(!sockOk || !connected || (ch && ch.state!=='joined')){ clearTimeout(retry); retry = null; attempt = 0; open(); }
+        else flush();
+      };
+      document.addEventListener('visibilitychange', wake); window.addEventListener('online', wake); window.addEventListener('focus', wake);
+      // Watchdog: a channel that silently stopped being "joined" gets rebuilt.
+      const dog = setInterval(()=>{ if(closed || retry || !ch) return; if(ch.state!=='joined' && ch.state!=='joining'){ setConn(false); schedule(); } }, 4000);
+
+      const api = {
         presence(patch){
           for(const k in patch){ if(patch[k]===null) delete state[k]; else state[k]=patch[k]; }
           if(!timer) timer = setTimeout(flush, 40);
           return Promise.resolve();
         },
-        emit(topic,data){ if(!connected) return Promise.resolve(); return ch.send({type:'broadcast', event:topic, payload:{f:myPeer, d:data}}).then(()=>{}, ()=>{}); },
+        emit(topic,data){ if(!connected || !ch) return Promise.resolve(); return ch.send({type:'broadcast', event:topic, payload:{f:myPeer, d:data}}).then(()=>{}, ()=>{}); },
         on(topic,fn){ (handlers[topic]=handlers[topic]||[]).push(fn); return ()=>{ handlers[topic]=(handlers[topic]||[]).filter(f=>f!==fn); }; },
-        onPeers(fn){ peerFns.push(fn); setTimeout(()=>fn({peers:peers()}),0); return ()=>{ peerFns = peerFns.filter(f=>f!==fn); }; },
+        onPeers(fn){ peerFns.push(fn); setTimeout(()=>fn({peers:readPeers()}),0); return ()=>{ peerFns = peerFns.filter(f=>f!==fn); }; },
         onConnection(fn){ connFns.push(fn); setTimeout(()=>fn(connected),0); return ()=>{ connFns = connFns.filter(f=>f!==fn); }; },
-        async leave(){ closed = true; try{ await ch.untrack(); }catch(e){} try{ await client.removeChannel(ch); }catch(e){} }
+        async leave(){
+          closed = true; clearTimeout(retry); clearInterval(dog);
+          document.removeEventListener('visibilitychange', wake); window.removeEventListener('online', wake); window.removeEventListener('focus', wake);
+          const c = ch; ch = null; setConn(false);
+          if(c){ try{ await c.untrack(); }catch(e){} try{ await client.removeChannel(c); }catch(e){} }
+        }
       };
+      return new Promise((resolve,reject)=>{
+        const to = setTimeout(()=>{ if(!connected){ closed = true; clearInterval(dog); reject({code:'timeout'}); } }, 12000);
+        open(()=>{ clearTimeout(to); resolve(api); });
+      });
     }
   };
 }
