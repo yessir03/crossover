@@ -30,7 +30,7 @@ Manuel Neuer|99|0j1q
 Harry Kane|98|0j0w
 Robin van Persie|98|0m0o131m
 Steven Gerrard|97|1g1j
-Pep Guardiola|95|050c
+Josep Guardiola|95|050c
 Gareth Bale|94|0w1n
 George Weah|94|020k0q101a1k
 Arjen Robben|93|0g0j0k1n
@@ -73,7 +73,7 @@ Fabio Cannavaro|84|0103091n
 Hugo Lloris|84|000w
 Roberto Carlos|84|031m1n
 Michael Ballack|83|0j0k0v
-Raúl|83|1n1q
+Raúl González Blanco|83|1n1q
 Sergio Busquets|82|051o
 David de Gea|81|070a0o
 Ivan Rakitić|81|050d1q
@@ -104,7 +104,7 @@ Robinho|77|020q1l1n
 Wesley Sneijder|77|031d1e1n
 Arturo Vidal|76|0103050j
 Bastian Schweinsteiger|76|0j0o
-Carlos Tevez|76|010o0q0y14
+Carlos Tévez|76|010o0q0y14
 David Silva|76|0b0e0q
 Diego Godín|76|030a0h
 Mario Mandžukić|76|01020a0j0u
@@ -124,7 +124,7 @@ Alexis Sánchez|74|03050d0l0m0o10
 Alisson Becker|74|0c1g
 Henrikh Mkhitaryan|74|030c0m0o0p18
 Javier Mascherano|74|050l0y1g
-Juan Mata Pata|74|0e0k0o1d
+Juan Mata|74|0e0k0o1d
 Lilian Thuram|74|01051a
 Nani|74|040e0o1c1m
 Rio Ferdinand|74|0o0y
@@ -169,7 +169,6 @@ André Schürrle|69|0k0p0u0v
 Bruno Fernandes|69|0o1c
 Christian Eriksen|69|030o0u0w1e
 Edin Džeko|69|03070c0q0u1m1q
-Eric Abidal|69|000511151a
 Gabriel Batistuta|69|03070c0l14
 Javier Hernández|69|0d0o0v0y1j1n
 Memphis Depay|69|00050a0g0o
@@ -178,6 +177,7 @@ Mikel Arteta|69|050b0f0m0n1k
 Patrice Evra|69|010o0y101a
 Ronald Koeman|69|050g131e
 Shinji Kagawa|69|0o0p16
+Éric Abidal|69|000511151a
 David Alaba|68|0j1n
 Dino Zoff|68|0109
 Ferran Torres|68|050e0q1k
@@ -214,6 +214,7 @@ Khvicha Kvaratskhelia|66|091k
 Alberto Gilardino|65|0207
 Ansu Fati|65|051a
 Antonio Valencia|65|0h0o
+Arda Güler|65|1m1n
 Bebeto|65|0d1s
 Branislav Ivanović|65|0k17
 Cafu|65|020c
@@ -235,17 +236,16 @@ Ricardo Carvalho|65|0k0x1a1n
 Ricardo Quaresma|65|03050k0x161c
 Samir Nasri|65|0d0m0q0y101f
 Shkodran Mustafi|65|0e0f0m1q
-Thiago Alcântara|65|050j1g
-Αrda Güler|65|1m1n
+Thiago Alcántara|65|050j1g
 Aleksandr Kerzhakov|64|0d17
 Bacary Sagna|64|0m0q
 Bruno Alves|64|0n0x171m
 Daniele De Rossi|64|0c14
 Danny Welbeck|64|0k0m0o
-Freddie Ljungberg|64|0m0y12
+Fredrik Ljungberg|64|0m0y12
 Joe Hart|64|0q0w0y12
-Julián Alvarez|64|0a0l0q
-Júlio César|64|030z
+Julián Álvarez|64|0a0l0q
+Júlio César Soares Espíndola|64|030z
 Kasper Schmeichel|64|0q121f
 Martin Ødegaard|64|0b0m1n
 Mateo Kovačić|64|030k0q1n
@@ -263,7 +263,7 @@ Fernandinho|63|0q18
 James Milner|63|0q0r0t1g
 Kevin-Prince Boateng|63|0205070p0w161q
 Kyle Walker|63|020q0r0w
-Leonardo Araújo|63|020e1k
+Leonardo Nascimento de Araújo|63|020e1k
 Leroy Sané|63|0j0q1d1q
 Marcel Desailly|63|020k10
 Maya Yoshida|63|1j1q
@@ -285,7 +285,7 @@ Jan Vertonghen|62|0w0z1e1f
 João Félix|62|020a0k0z1p
 Lucas Vázquez|62|0v1n
 Marouane Fellaini|62|0f0o
-Maxi Rodriguez|62|0a1g
+Maxi Rodríguez|62|0a1g
 Nicolás Otamendi|62|0e0l0q0x0z
 Rudi Völler|62|0c0v1019
 Tomáš Rosický|62|0m0p
@@ -308,7 +308,7 @@ Rafael Leão|61|02111c1d
 Richarlison|61|0f0w
 Thiago Motta|61|03050a1k
 Adil Rami|60|020d0e10111m
-Aleksandar Mitrovic|60|0t1b1f
+Aleksandar Mitrović|60|0t1b1f
 Andrea Barzagli|60|010u
 Benedikt Höwedes|60|011q
 Blaise Matuidi|60|011k1o
@@ -325,8 +325,8 @@ Marco Asensio|60|0r1k1m1n
 Marco Materazzi|60|03040f
 Marcos Rojo|60|0o141c
 Mark van Bommel|60|02050g0j
-Pedro|60|04050c0k
-Rafael Márquez El piojo|60|051a
+Pedro Rodríguez Ledesma|60|04050c0k
+Rafael Márquez|60|051a
 Raphinha|60|051c
 Rui Patrício|60|060c1c
 Sulley Muntari|60|02031s
@@ -349,12 +349,12 @@ Henrik Larsson|59|050o1213
 Jack Grealish|59|0f0q0r
 Jan Oblak|59|0a0z
 João Cancelo|59|0103050e0j0q0z1b
-João Moutinh0|59|0x1a1c
+João Moutinho|59|0x1a1c
 Kingsley Coman|59|010j1k1p
 Landon Donovan|59|0f0j0v1j
 Laurent Blanc|59|0305090o10
 Maicon|59|030c0q1a
-Marc Hagit Cucurella|59|050k1n
+Marc Cucurella|59|050k1n
 Milan Baroš|59|000r1d1g
 Patrick Kluivert|59|02050e0g0t111e
 Paul Gascoigne|59|040f0n0t0w
@@ -362,7 +362,7 @@ Raul Meireles|59|0k0x1g1m
 Robert Pires|59|0h0m0r10
 Stephan El Shaarawy|59|020c1a
 Vedran Ćorluka|59|0q0v0w
-Adriano|58|03070c
+Adriano Leite Ribeiro|58|03070c
 Aurélien Tchouaméni|58|1a1n
 Douglas Costa|58|010j181j
 Dušan Vlahović|58|010716
@@ -375,7 +375,7 @@ Jari Litmanen|58|051e1g
 Jermain Defoe|58|0n0w0y
 Jules Koundé|58|050d
 Lucas Digne|58|050c0f0r111k
-Lucas Hernandez|58|0a0j141k
+Lucas Hernández|58|0a0j141k
 Luis Aragonés|58|0a0i1n
 Martín Demichelis|58|0a0j0l0q
 Matthijs de Ligt|58|010j0o1e
@@ -400,7 +400,7 @@ David Ospina|57|090m1p
 Dries Mertens|57|090g1d
 Esteban Cambiasso|57|030l151n
 Fernando Muslera|57|041d
-Filipe Luís|57|0a0k1e
+Filipe Luís Kasmirski|57|0a0k1e
 Florian Wirtz|57|0v1g
 Georginio Wijnaldum|57|0c0g0t131g1k1s
 Ibrahima Konaté|57|1g1n
@@ -408,7 +408,7 @@ Jean-Pierre Papin|57|020j101r
 Jesse Lingard|57|0o0y
 John Arne Riise|57|0c1a1g
 Jorginho|57|0j0v
-Junichi Inamoto|57|0m1d
+Jun'ichi Inamoto|57|0m1d
 Leon Goretzka|57|0j0r1q
 Luca Toni|57|01070c0j
 Marko Arnautović|57|030y19
@@ -423,7 +423,7 @@ Salomon Kalou|57|0k1113
 Simon Mignolet|57|1g1r
 Aleksandar Kolarov|56|03040c0q
 Arkadiusz Milik|56|01090v101e
-Danilo|56|010q0x1n
+Danilo Luiz da Silva|56|010q0x1n
 Dejan Stanković|56|0304
 Denis Law|56|0o0q
 Ezequiel Garay|56|0e0z171n
@@ -455,20 +455,21 @@ Youri Tielemans|56|0o0r1a1f
 Łukasz Fabiański|56|0m0y
 Alexandre Lacazette|55|000m
 Ander Herrera|55|080o141k
-Andy Robertson|55|0w1g
-Brahim Díaz|55|020q1n
+Andrew Robertson|55|0w1g
+Brahim Abdelkader Díaz|55|020q1n
 Bryan Ruiz|55|0g1c
 Christian Vieri|55|0102030406070a1a
 Claudio Pizarro|55|0j0k19
 Daniele Massaro|55|02070c
 Danny Rose|55|0t0w
 Domagoj Vida|55|0v16
+Eric Maxim Choupo-Moting|55|0j0s1k1q
 Fabinho|55|1a1g1h1n1s
 Fabián Ruiz|55|090i1k
 Giorgos Karagounis|55|030z
 Giovani dos Santos|55|050h0w1d1j
 Hajime Hosogai|55|0v1i
-Haris Seferovic|55|070b0z1d
+Haris Seferović|55|070b0z1d
 Hatem Ben Arfa|55|000t101k
 Iago Aspas|55|0d1g
 Ignazio Abate|55|0209
@@ -495,24 +496,23 @@ Thomas Meunier|55|0p111h1k1r
 Yannick Carrasco|55|0a1a
 Yassine Bounou|55|0a0d1b
 Éder Militão|55|0x1n
-Éric Maxim Choupo-Moting|55|0j0s1k1q
 Éver Banega|55|030a0d0e14
 Aaron Lennon|54|0f0w
 Alessandro Florenzi|54|020c0e1k
-Andrcu Onana|54|030o1e1h
+André Onana|54|030o1e1h
 Aymeric Laporte|54|080q1p
 Bernd Leno|54|0m0v
 Bradley Barcola|54|001g1k
 Daniel Van Buyten|54|0j0q0s10
 Djibril Cissé|54|04101g
-Ederson|54|0q0z1m
+Ederson Moraes|54|0q0z1m
 Eiður Guðjohnsen|54|050g0k0w1a1r
 Emile Heskey|54|0r1g
 Emmanuel Petit|54|050k0m1a
 Gabriel Martinelli|54|0m1b
+Georgios Samaras|54|0q121b
 Gerald Vanenburg|54|0g1e
 Gianluca Vialli|54|010k
-Giorgos Samaras|54|0q121b
 Gylfi Sigurðsson|54|0f0w
 Hamit Altıntop|54|0j1d1n1q
 Hernanes|54|010304
@@ -523,9 +523,9 @@ Kalidou Koulibaly|54|090k1b
 Martín Cáceres|54|010405070d0h1j
 Medhi Benatia|54|010c0j10
 Moussa Sissoko|54|0t0w
-Neto|54|0105070e0m
 Nigel de Jong|54|020q0s1d1e1j
 Niko Kovač|54|0j0s0v
+Norberto Murara Neto|54|0105070e0m
 Nuno Mendes|54|1c1k
 Nélson Semedo|54|050z1m
 Pablo Zabaleta|54|0q0y
@@ -534,13 +534,13 @@ Philippe Mexès|54|020c
 Rafael Pereira da Silva|54|000o
 Riccardo Montolivo|54|020607
 Robert Enke|54|050z1m
-Rodrigo De Paul|54|0a0e1o
+Rodrigo de Paul|54|0a0e1o
 Ryo Miyaichi|54|0m13
 Teddy Sheringham|54|0o0w0y
 Victor Moses|54|030k0y1g1m
 Vincent Aboubakar|54|0x161p
 Adrian Mutu|53|0103070k
-Anderson|53|070o0x
+Anderson Luís de Abreu Oliveira|53|070o0x
 Andriy Yarmolenko|53|0p0y
 Andy Carroll|53|0t0y1g
 Breel Embolo|53|1a1q
@@ -576,7 +576,7 @@ Obafemi Martins|53|030t0u
 Oleksandr Zinchenko|53|0g0m0q181e
 Radja Nainggolan|53|030c
 Raphaël Guerreiro|53|0j0p
-Ricardo Rodriguez|53|020g0i0u
+Ricardo Rodríguez|53|020g0i0u
 Roberto Ayala|53|02090e0h0l
 Rodrigo Bentancur|53|010w14
 Rúben Dias|53|0q0z
@@ -586,7 +586,7 @@ Sead Kolašinac|53|060m101q
 Seydou Doumbia|53|0c0t1c
 Sol Campbell|53|0m0t0w0y
 Takehiro Tomiyasu|53|0m1e
-Théo Hernandez|53|020b1b1n
+Theo Hernández|53|020b1b1n
 Txiki Begiristain|53|050b
 Yoann Gourcuff|53|0002
 Álvaro Negredo|53|0d0e0q161n
@@ -594,7 +594,7 @@ Yoann Gourcuff|53|0002
 Ademola Lookman|52|060a0f
 Alberto Aquilani|52|0102070c1c1g
 Alex Iwobi|52|0f0m
-Alex Song|52|050m0y
+Alexandre Song|52|050m0y
 Alfreð Finnbogason|52|0b15
 Aliaksandr Hleb|52|050m0u
 Alpay Özalan|52|0r161m
@@ -645,17 +645,17 @@ William Saliba|52|0m10
 Wout Weghorst|52|0o0u16
 Yerry Mina|52|05070f
 Šime Vrsaljko|52|030a15
-Aggelos Charisteas|51|0v13191e1p1q
 Alberto Moreno|51|0d0h1g
 Alcides Ghiggia|51|020c
 André Gomes|51|050e0f0z11
 André Silva|51|020b0d0x19
 Andrés Guardado|51|0e0g0i0v
+Angelos Charisteas|51|0v13191e1p1q
 Arthur Melo|51|0105071g
 Christian Abbiati|51|01020a
 Claudio Caniggia|51|060c0l0n0z14
 Corentin Tolisso|51|000j
-Daniel González Güiza|51|051m
+Daniel Güiza|51|051m
 Davide Astori|51|02070c
 Fabio Grosso|51|000103
 Ferland Mendy|51|001n
@@ -666,7 +666,8 @@ Jay-Jay Okocha|51|1k1m
 Joey Barton|51|0n0q0t10
 Jon Andoni Goikoetxea|51|05080b
 José Callejón|51|07091n
-Juanfran Torres|51|0a1n
+José Salomón Rondón|51|0f0l0t17
+Juan Francisco Torres|51|0a1n
 Jürgen Kohler|51|010j0p
 Khalid Boulahrouz|51|0d0k0s131c
 Kurt Zouma|51|0f0k0y
@@ -691,7 +692,6 @@ Piotr Zieliński|51|0309
 Rayan Cherki|51|000q
 Robert Green|51|0k0y
 Ryan Gravenberch|51|0j1e1g
-Salomón Rondón|51|0f0l0t17
 Sardar Azmoun|51|0c0v17
 Saúl Ñíguez|51|0a0d0k
 Stevan Jovetić|51|03070d0q151a
@@ -710,7 +710,7 @@ Antonio Candreva|50|010304
 Artur Boruc|50|0712
 Christian Karembeu|50|151n
 Demetrio Albertini|50|020405060a
-Denís Suárez|50|050d0h0m0q
+Denis Suárez|50|050d0h0m0q
 Diego Lugano|50|1k1m
 Dwight Yorke|50|0o0r
 Edmundo|50|0709
@@ -782,6 +782,7 @@ Karim Adeyemi|49|050p
 Kevin Großkreutz|49|0p1d
 Kō Itakura|49|0q1e1q
 Lassana Diarra|49|0k0m101k1n
+Lucas Paquetá|49|00020y
 Marco Borriello|49|0102060c0y
 Mauricio Isla|49|01101m
 Michael Krohn-Dehli|49|0d1e
@@ -803,14 +804,13 @@ Simone Inzaghi|49|0406
 Simone Pepe|49|010c
 Stewart Downing|49|0r0y1g
 Stipe Pletikosa|49|0w18
-Valentín morón|49|00020y
 Valon Behrami|49|0407090s0y
 Vasilis Torosidis|49|0c15
 Wilfried Bony|49|0q1s
 Wissam Ben Yedder|49|0d1a
 Xavi Simons|49|0g0w1k
 Andoni Zubizarreta|48|05080b0e
-Antony dos Santos|48|0i0o1e
+Antony|48|0i0o1e
 Ariel Ortega|48|0e0l1m
 Bernd Schuster|48|050a0v1n
 Brian Laudrup|48|02070j0k0n1e
@@ -821,9 +821,9 @@ Cristian Romero|48|01060a0w
 Cédric Soares|48|030m1c
 David James|48|0q0r0y1g
 Edmílson|48|00050h
-Eduardo Carvalho|48|0k0z1l
 Eduardo Vargas|48|090e0f
-Endrick|48|001n
+Eduardo dos Reis Carvalho|48|0k0z1l
+Endrick Felipe|48|001n
 Exequiel Palacios|48|0l0v
 Fernando Morientes|48|0e101a1g1n
 Florian Thauvin|48|0t1011
@@ -855,7 +855,7 @@ Nuno Gomes|48|070z
 Oleg Salenko|48|0e0n17
 Olof Mellberg|48|010h0r15
 Phil Neville|48|0f0o
-Rafinha|48|03050b1k
+Rafael Alcántara|48|03050b1k
 Roberto Di Matteo|48|040k
 Shaun Wright-Phillips|48|0k0q
 Simone Perrotta|48|010c
@@ -864,8 +864,8 @@ Sofiane Feghouli|48|0e0y1d
 Sébastien Haller|48|0p0y1e
 Tiago Mendes|48|00010a0k0z
 Tim Krul|48|0t1e
-Valdo|48|0z1k
-Abedi Pele|47|001011
+Valdo Filho|48|0z1k
+Abédi Pelé|47|001011
 Adriano Correia Claro|47|050d16
 Aiden McGeady|47|0f12
 Alessio Romagnoli|47|02040c
@@ -888,6 +888,7 @@ Hasan Salihamidžić|47|010j0s0u
 Hirving Lozano|47|090g1j
 Jaap Stam|47|02040g0o1e
 Jimmy Floyd Hasselbaink|47|0a0k
+Joaquín Sánchez|47|070e0i
 José Altafini|47|010209
 João Mário|47|030y0z161c
 Juan Fernando Quintero|47|0l0x
@@ -904,14 +905,14 @@ Massimo Oddo|47|0204090j
 Mathieu Flamini|47|020m10
 Matthew Upson|47|0m0y
 Mattéo Guendouzi|47|040m101m
-Maxi Pereira|47|0x0z
+Maximiliano Pereira|47|0x0z
 Miranda|47|030a
-Mykhailo Mudryk|47|0k0w18
+Mychajlo Mudryk|47|0k0w18
 Naby Keïta|47|191g
 Nolito|47|050d0q0z
-Rodrigo|47|0e0z1n
+Rodrigo Moreno Machado|47|0e0z1n
 Roy Makaay|47|0j13
-Sergio Canales Madrazo|47|0b0e0i1n
+Sergio Canales|47|0b0e0i1n
 Simone Zaza|47|01060e0y
 Suso|47|020d1g
 Thiago Neves|47|0s1b
@@ -919,7 +920,6 @@ Vítor Baía|47|050x
 Willy Caballero|47|0k0q14
 Yevhen Konoplyanka|47|0d181q
 Yossi Benayoun|47|0k0m0y1e1g
-elpisha|47|070e0i
 Ángel Correa|47|0a0l
 Aaron Ramsdale|46|0m0t
 Adnan Januzaj|46|0b0d0o0p1l
@@ -932,7 +932,7 @@ Andreas Isaksson|46|010g0q
 Antonio Cabrini|46|0106
 Antonio Rukavina|46|0h0p
 Asier Illarramendi|46|0b1n
-Baltazar|46|0a0x
+Baltazar Maria de Morais Júnior|46|0a0x
 Benni McCarthy|46|0x0y1e
 Beto|46|0d0x1c
 Blerim Džemaili|46|091d
@@ -940,11 +940,11 @@ Bogdan Lobonț|46|070c1e
 Carlos Mozer|46|0z10
 Christian Poulsen|46|010d1e1g1q
 Cristian Rodríguez|46|0a0x1k
-Dani Parejo|46|0e0h1n
+Daniel Parejo|46|0e0h1n
 Darren Bent|46|0r0w
 Davy Klaassen|46|030f191e
 Donyell Malen|46|0c0g0p0r
-Enzo Nicolás Pérez|46|0e0l0z
+Enzo Pérez|46|0e0l0z
 Fabricio Coloccini|46|020a0h0t14
 Folarin Balogun|46|0m1a
 Francisco Conceição|46|010x1e
@@ -957,8 +957,8 @@ Johan Djourou|46|0m0s
 John Carew|46|000c0e0r0y16
 José Bosingwa|46|0k0x1h
 Jozy Altidore|46|0h1i
-Juan|46|0c0v
 Juan Bernat|46|0e0h0j0z1k
+Juan Silveira dos Santos|46|0c0v
 Juliano Belletti|46|050h0k
 Kalvin Phillips|46|0q0y
 Kasper Dolberg|46|0d1e1f
@@ -986,7 +986,7 @@ Santiago Cañizares|46|0e1n
 Sebastian Giovinco|46|011b
 Sebastián Abreu|46|0b0l
 Sebastián Coates|46|1c1g
-Serhii Rebrov|46|0w0y181m
+Serhiy Rebrov|46|0w0y181m
 Stefan Effenberg|46|070j0u
 Stefan Savić|46|070a0q1h
 Stephen Appiah|46|011m
@@ -1001,6 +1001,7 @@ Wilfried Zaha|46|000o1d
 Willy Sagnol|46|0j1a
 Wim Jansen|46|131e
 Youssef En-Nesyri|46|0d1m1s
+Alejandro Grimaldo|45|0a0v0z
 Aleksandr Kokorin|45|0717
 Alessandro Bastoni|45|0306
 Angelo Ogbonna|45|010y
@@ -1016,7 +1017,7 @@ Eric Bailly|45|0h0o1016
 Federico Fazio|45|0c0d0w
 Fernando Redondo|45|021n
 Filip Kostić|45|010g0s1m
-Frank Leboeuf|45|0k10
+Frank Lebœuf|45|0k10
 Gabriel Magalhães|45|0m11
 Hans-Jörg Butt|45|0j0s0v0z
 Hayden Foxe|45|0y1e
@@ -1030,7 +1031,7 @@ Joris Mathijsen|45|0s13
 Jurriën Timber|45|0m1e
 Kieran Tierney|45|0m12
 Marco Tardelli|45|0103
-Mariano Díaz|45|000d1n
+Mariano Díaz Mejía|45|000d1n
 Marouane Chamakh|45|0m0y
 Mathew Ryan|45|0b0c0e0m1r
 Mehmet Topal|45|0e161d1l1m
@@ -1059,7 +1060,6 @@ Tin Jedvaj|45|0c0v
 Tom Heaton|45|0o0r
 William Carvalho|45|0i1c
 Zvjezdan Misimović|45|0j0u1d
-Álex Grimaldo|45|0a0v0z
 Álvaro Pereira|45|030x
 Adem Ljajić|44|03070c16
 Admir Mehmedi|44|0u0v
@@ -1078,7 +1078,7 @@ Christian Corrêa Dionisio|44|1d1k
 Conor Gallagher|44|0a0k0w
 Cristian Zaccardo|44|020u
 Danijel Pranjić|44|0j1c
-Danilo Pereira|44|0x1k1s
+Danilo Luís Hélio Pereira|44|0x1k1s
 Diego Ribas da Cunha|44|010a0u0x191m
 Edson Álvarez|44|0y1e1m
 Elano|44|0q181d
@@ -1095,6 +1095,7 @@ Georges Mikautadze|44|000h1e
 Giacomo Bonaventura|44|020607
 Gonzalo Montiel|44|0d0l
 Gonçalo Guedes|44|0b0e0h0z1k
+Harald Schumacher|44|0j0p1m1q
 Hwang Hee-chan|44|0s1q
 Isaac Cuenca|44|051e1i
 Ismael Saibari|44|0g0j
@@ -1146,7 +1147,6 @@ Teemu Pukki|44|0d121q
 Teun Koopmeiners|44|0106
 Thomas Delaney|44|0d0p191f
 Tim Borowski|44|0j19
-Toni Schumacher|44|0j0p1m1q
 Tranquillo Barnetta|44|0v1q
 Weston McKennie|44|011q
 William Troost-Ekong|44|0w1i
@@ -1156,9 +1156,10 @@ Alan Smith|43|0o0t
 Albert Riera|43|0q151d1g
 Albin Ekdal|43|010s
 Alen Halilović|43|02050s
+Alexander Manninger|43|01070m
 Andriy Voronin|43|0v1g
-Argel Fuchs|43|0x0z
-Bernard|43|0f18
+Argélico Fucks|43|0x0z
+Bernard Anício Caldeira Duarte|43|0f18
 Borja Iglesias|43|0e0h0i0v
 Bruno Martins Indi|43|0x13
 Christian Maggio|43|0709
@@ -1169,16 +1170,16 @@ Dean Huijsen|43|010c1n
 Dedryck Boyata|43|0q121r
 Dennis Rommedahl|43|0g151e
 Didier Zokora|43|0d0w1h
-Ebi Smolarek|43|0p13
 Edson Braafheid|43|040j12
 El Hadji Diouf|43|0n1g
-Eljif Elmas|43|06091m
+Elif Elmas|43|06091m
 Elliot Anderson|43|0q0t
 Elseid Hysaj|43|0409
+Euzebiusz Smolarek|43|0p13
 Ezri Konsa|43|0m0r
 Gabriel Mercado|43|0d0l
 Gaël Kakuta|43|040d0k
-Geremi|43|0k0t1n
+Geremi Njitap|43|0k0t1n
 Giorgi Mamardashvili|43|0e1g
 Giuseppe Rossi|43|070h0o0t
 Hakan Yakın|43|1d1k
@@ -1189,15 +1190,15 @@ Jackson Martínez|43|0a0x
 Jonathan David|43|010a11
 Jonathan de Guzmán|43|090h13
 Josip Iličić|43|0607
-José Enrique|43|0e0h0t1g
+José Enrique Sánchez|43|0e0h0t1g
 José Fonte|43|0y0z11
 Juan Foyth|43|0h0w
 Juan Musso|43|060a
 Jérémy Mathieu|43|050e1c
 Júlio Baptista|43|0c0d0m1n
-Keita Balde|43|03041a
+Keita Baldé|43|03041a
 Kim Min-jae|43|090j1m
-Kostas Mitroglou|43|0g0z10151d
+Konstantinos Mitroglou|43|0g0z10151d
 Krzysztof Piątek|43|02071l
 Luigi Di Biagio|43|03040c
 Maniche|43|030a0k0x0z1c
@@ -1211,7 +1212,7 @@ Pat Jennings|43|0f0m0w
 Piotr Trochowski|43|0d0j0s
 Ray Clemence|43|0w1g
 René Adler|43|0s0v
-Ricardo|43|0i1c
+Ricardo Pereira|43|0i1c
 Richard Dunne|43|0f0q0r
 Ron Vlaar|43|0r13
 Ruben Loftus-Cheek|43|020k
@@ -1226,7 +1227,7 @@ Vágner Love|43|161a
 Zé Roberto|43|0j0s0v1n
 Óscar Cardozo|43|0z151h
 Željko Petrović|43|0d0g
-Achille Emaná|42|0i1b
+Achille Emana|42|0i1b
 Adrien Silva|42|1a1c
 Alessandro Matri|42|01020407
 Alessio Cerci|42|0206070a0c
@@ -1234,7 +1235,7 @@ Alexis Saelemaekers|42|020c1f
 Altay Bayındır|42|0o1m
 André Ooijer|42|0g1e
 Andrés Palop|42|0d0e0h0v
-Carlos Sánchez|42|070r0y
+Carlos Alberto Sánchez Moreno|42|070r0y
 Celestine Babayaro|42|0k0t1f1j
 Cheick Tioté|42|0t1f
 Cheikhou Kouyaté|42|0y1f
@@ -1248,8 +1249,8 @@ David Suazo|42|030z
 Dejan Kulusevski|42|01060w
 Dennis Aogo|42|0s1q
 Denílson de Oliveira|42|0i1p
+Diego Laxalt|42|020312
 Diego Llorente|42|0b0c0i1n
-Diego Walter|42|020312
 Dino Baggio|42|010304
 Dominic Solanke|42|0k0w1g
 Douglas Luiz|42|010q0r
@@ -1257,7 +1258,7 @@ Felipe Anderson|42|040y
 Francisco Trincão|42|051c
 Franco Causio|42|0103
 Fraser Forster|42|0t0w12
-Frédéric baldi|42|000d0w0y
+Frédéric Kanouté|42|000d0w0y
 Gonzalo Castro|42|0p0v
 Gökhan İnler|42|09161l
 Heiko Westermann|42|0i0s1e1q
@@ -1283,7 +1284,7 @@ Marko Livaja|42|0306
 Martín Palermo|42|0h0i14
 Miklós Fehér|42|0x0z
 Nicky Butt|42|0o0t
-Nicolas Nkoulou|42|00101a
+Nicolas N'Koulou|42|00101a
 Oscar Ruggeri|42|0l141n
 Pablo Armero|42|02090y
 Pau Torres|42|0h0r
@@ -1302,7 +1303,7 @@ Urby Emanuelson|42|02060c1e
 Zdeněk Grygera|42|011e
 Ádám Szalai|42|1n1q
 Ørjan Nyland|42|0d0r
-Alan Ball Jr.|41|0f0m
+Alan Ball|41|0f0m
 Alou Diarra|41|000j0n0y101g
 André Carrillo|41|0z1b1c
 Aziz Behich|41|0g1i1l1p
@@ -1330,6 +1331,7 @@ Francesco Acerbi|41|020304
 Francis Coquelin|41|0e0h0m
 Fábio Aurélio|41|0e1g
 Gabriel Barbosa|41|030z
+Gelson Fernandes|41|0q1c
 Germán Pezzella|41|070i0l
 Gianluca Pessotto|41|0102
 Giourkas Seitaridis|41|0a0x
@@ -1338,25 +1340,23 @@ Glenn Hoddle|41|0k0w1a
 Graeme Souness|41|0n0w1g
 Guillermo Varela|41|0o1n
 Gábor Király|41|0r0v0y
-Gélson Fernandes|41|0q1c
 Jean Makoun|41|000r1115
 Jean-Clair Todibo|41|050y0z1q
 Joakim Mæhle|41|060u
 Jonjo Shelvey|41|0t1g
 Jordan Veretout|41|00070c0r10
 José Sosa|41|02090a0j161h1m
-Kevin Gameiro|41|0a0d0e1k
 Kevin Nolan|41|0t0y
+Kévin Gameiro|41|0a0d0e1k
 Marc-Vivien Foé|41|000q0y
 Markus Babbel|41|0j0s1g
 Mikel San José|41|081g
 Mohamed Sissoko|41|01070e1g1k1n
-Mubarak Wakaso|41|0h121s
 Muhamed Bešić|41|0f0s
 Nicolás Lodeiro|41|141e
 Nordin Amrabat|41|0g1d
 Rafael Tolói|41|060c
-Ricky Álvarez|41|030x
+Ricardo Gabriel Álvarez|41|030x
 Rubén Baraja|41|0a0e
 Stéphane Mbia|41|0d101h
 Thilo Kehrer|41|0y1a1e1k1q
@@ -1365,6 +1365,7 @@ Ubaldo Fillol|41|0a0l
 Vieirinha|41|0u0x
 Vlad Chiricheș|41|090w
 Vladimír Weiss|41|0n0q15
+Wakaso Mubarak|41|0h121s
 Youssouf Fofana|41|020d1a
 Álvaro Fernández|41|0k0o0z1n
 Aaron Mokoena|40|0v1e
@@ -1374,7 +1375,7 @@ Alexander Nübel|40|0j161a1q
 Alfredo Foni|40|0104
 Ali Karimi|40|0j1q
 Aliou Cissé|40|111k
-Allan|40|090f
+Allan Marques Loureiro|40|090f
 Amauri|40|010709
 Andreas Pereira|40|040e0o
 Antolín Alcaraz|40|070f1r
@@ -1387,11 +1388,10 @@ Claudio López|40|040e
 Cosmin Contra|40|020a
 Cristian Ansaldi|40|030a0j17
 Cédric Bakambu|40|0h0i10151d1i
-Dani Osvaldo|40|010306070c0x14
 Danny Drinkwater|40|0k0o0r
 David Pizarro|40|03070c0q
 Dmytro Chyhrynskyi|40|0518
-Edu Coimbra|40|151m
+Eduardo Antunes Coimbra|40|151m
 Enzo Scifo|40|031a1f
 Gabriel Paletta|40|0206141g
 Gelson Martins|40|0a151a1c
@@ -1418,13 +1418,13 @@ Layvin Kurzawa|40|1a1k
 Leander Dendoncker|40|0r1f
 Lucas Ocampos|40|020d0l101a1e
 Luciano Vietto|40|0a0d0h
-Luis Fernandez|40|0i1k
-Lukas Hradecky|40|0v1a
+Luis Fernández|40|0i1k
+Lukáš Hrádecký|40|0v1a
 Lutsharel Geertruida|40|0g13
 Manuel Lanzini|40|0l0y
 Mathias Jørgensen|40|0g1f1j1m
 Matteo Politano|40|03090c
-Matías Fernandez|40|070h1c
+Matías Fernández|40|070h1c
 Maxi López|40|02050l
 Michael Gregoritsch|40|0s1q
 Mickaël Landreau|40|111k
@@ -1432,7 +1432,8 @@ Milan Jovanović|40|181f1g
 Miroslav Stoch|40|0k1i1m
 Nilmar|40|000h
 Oguchi Onyewu|40|020t1c
-Orkun Kökçü|40|0z1316
+Orkun Kökcü|40|0z1316
+Pablo Osvaldo|40|010306070c0x14
 Rio Mavuba|40|0h11
 Rolando|40|03090x101f
 Roman Yaremchuk|40|000e0z151r
@@ -1447,7 +1448,7 @@ Tore André Flo|40|0k0n
 Victor Obinna|40|030y
 Zeki Çelik|40|010c111i
 Zlatko Zahovič|40|0e0x0z15
-Adrián|39|0i0y1g
+Adrián San Miguel del Castillo|39|0i0y1g
 Alen Bokšić|39|010410
 Alessandro Schöpf|39|0j1q
 Andrei Kanchelskis|39|070f0n0o0q181b
@@ -1471,17 +1472,18 @@ Fraizer Campbell|39|0o0w
 Francesco Graziani|39|070c
 Freddy Adu|39|0z1a
 Fulvio Collovati|39|02030c
+Gabriel Paulista|39|0a0e0h0m16
 Gabriele Oriali|39|0307
 Geoffrey Kondogbia|39|030d0e1a
 Gunnar Gren|39|0207
 Jack Rodwell|39|0f0q
-Jakub Kiwior|39|0m0x
+Jakub Piotr Kiwior|39|0m0x
 Jan Vennegoor of Hesselink|39|0g12
 Jeffrén Suárez|39|051c
 Jermaine Pennant|39|0m1g
 Joaquín Correa|39|0103040d
 Johan Elmander|39|131d
-John Brooks|39|0u0z
+John Anthony Brooks|39|0u0z
 Juan Esnáider|39|010a0l0x1n
 Julio Ricardo Cruz|39|03040l13
 Karl-Heinz Riedle|39|040p191g
@@ -1489,7 +1491,7 @@ Klaus Allofs|39|1019
 Konstantinos Mavropanos|39|0m0y
 Kurt Hamrin|39|01020709
 Les Ferdinand|39|0t0w0y16
-Lucas Pérez|39|0g0m0y
+Lucas Pérez Martínez|39|0g0m0y
 Ludwig Augustinsson|39|0d0r191f
 Mahamadou Diarra|39|001a1n
 Manuel Ugarte|39|0o1c1k
@@ -1520,7 +1522,7 @@ Santiago Giménez|39|020x13
 Sebastian Boenisch|39|0v191q
 Sergio Rico|39|0d1k
 Serhou Guirassy|39|0p11
-Sotiris Kyrgiakos|39|0n0u1g
+Sotirios Kyrgiakos|39|0n0u1g
 Stephen Warnock|39|0r1g
 Strahinja Pavlović|39|021a
 Tarcisio Burgnich|39|010309
@@ -1530,7 +1532,6 @@ Trevor Francis|39|060n0q
 Udo Lattek|39|050j0p0v
 Wilfred Bouma|39|0g0r
 Zoltán Czibor|39|050c
-gabriel putita del leon|39|0a0e0h0m16
 Angelo Palombo|38|0307
 Armando Broja|38|0f0k
 Atiba Hutchinson|38|0g16
@@ -1565,7 +1566,7 @@ Jason Denayer|38|000q121d
 Jetro Willems|38|0g0t
 Jonathan Woodgate|38|0t0w1n
 Joseba Etxeberria|38|080b
-Juanito|38|0a0i
+Juan Gutiérrez Moreno|38|0a0i
 Kieron Dyer|38|0t0y
 Koen Casteels|38|0u19
 Kostas Manolas|38|090c15
@@ -1582,6 +1583,7 @@ Mike Hanke|38|0u1q
 Milos Kerkez|38|021g
 Mohamed Zidan|38|050p0s19
 Nick Woltemade|38|010t19
+Nicolás Gaitán|38|0a0z14
 Nicolò Zaniolo|38|0307
 Patrik Berger|38|0p0r1g
 Paulo Sousa|38|01030p0z1c
@@ -1607,7 +1609,6 @@ Victor Ikpeba|38|0i0p1a1s
 Vikash Dhorasoo|38|00021k
 Viv Anderson|38|0m0o
 Víctor Muñoz|38|1g1n
-nisola gaitani|38|0a0z14
 Çağlar Söyüncü|38|0a1m
 Ömer Toprak|38|0p0v19
 Albert Ferrer|37|050k
@@ -1625,7 +1626,7 @@ Felipe Caicedo|37|03040q1c
 Fernando Navarro|37|050d
 Filip Đuričić|37|0z1f
 Giuseppe Signori|37|0304
-Henrique|37|05090v
+Henrique Adriano Buss|37|05090v
 Ibrahim Mbaye|37|0r1k
 Jacek Krzynówek|37|0u0v
 Jarell Quansah|37|0v1g
@@ -1652,7 +1653,7 @@ Mauro Tassotti|37|0204
 Max Meyer|37|1m1q
 Maxence Lacroix|37|0k0u
 Michael Reiziger|37|02050g1e
-Miguel Ángel Moyá|37|0a0b0e
+Miguel Ángel Moyà|37|0a0b0e
 Milan Borjan|37|0l14
 Miloš Veljković|37|0w19
 Mladen Krstajić|37|191q
@@ -1673,8 +1674,8 @@ Steven Bergwijn|37|0g1e1s
 Stuart Pearce|37|0q0t0y
 Sunday Oliseh|37|010p1e
 Sébastien Frey|37|03071i
+Tanguy Kouassi|37|0d0j111k
 Tanguy Ndombele|37|00090w1d
-Tanguy Nianzou|37|0d0j111k
 Terry Venables|37|0k0w
 Tomáš Sivok|37|161i
 Tomáš Vaclík|37|0d15
@@ -1705,14 +1706,14 @@ Christophe Galtier|36|1011
 Clément Grenier|36|000c
 Cristiano Lucarelli|36|06090e18
 Dan Gosling|36|0f0t
-Dani Aranzubia|36|080a
+Daniel Aranzubia|36|080a
 Danko Lazović|36|0g0v1317
 Darko Kovačević|36|01040b15
 David Jarolím|36|0j0s
 Davide Frattesi|36|0304
 Davide Santon|36|030c0t
 Dodi Lukebakio|36|0z1f
-Douglas|36|050z16
+Douglas Pereira dos Santos|36|050z16
 Emiliano Insúa|36|0a141c1d1g1j
 Eren Albayrak|36|1h1i1l
 Eric Gerets|36|020g
@@ -1787,8 +1788,7 @@ Aitor Karanka|35|081n
 Albert Guðmundsson|35|04070g
 Albert Luque|35|050t1e
 Alberto Paloschi|35|0206
-Aleix García|35|0h0q0v
-Alejandro Remiro|35|080b
+Aleix García Serrano|35|0h0q0v
 Alfonso Pérez|35|050i101n1s
 Aly Cissokho|35|000e0r0x1g
 Amar Dedić|35|0t0z10
@@ -1796,7 +1796,7 @@ Amine Harit|35|101q
 Andrea Poli|35|0203
 Angelo Di Livio|35|01070c
 Antonio Sanabria|35|0c0i
-Arnaut Danjuma|35|0e0f0h0w1r
+Arnaut Groeneveld|35|0e0f0h0w1r
 Arthur Masuaku|35|0y15
 Bebé|35|0o0z16
 Benoît Badiashile|35|090k1a
@@ -1826,7 +1826,7 @@ Iliman Ndiaye|35|0f0q10
 Isaac Kiese Thelin|35|0v1f
 James Chester|35|0o0r
 Jamie Redknapp|35|0w1g
-Jason Culina|35|0g1e
+Jason Čulina|35|0g1e
 Jermaine Jones|35|0v161j1q
 Jordan Lukaku|35|041f
 Jorge Sánchez Ramos|35|0x1e
@@ -1838,7 +1838,7 @@ Lars Jacobsen|35|0f0s0y
 Ludovic Obraniak|35|1119
 Maghnes Akliouche|35|1a1k
 Manolo Gabbiadini|35|010609
-Marc Guiu Paz|35|050k
+Marc Guiu|35|050k
 Marcelo Martins Moreno|35|1819
 Mario Bolatti|35|070x
 Mario Stanić|35|0k0z1r
@@ -1859,7 +1859,7 @@ Ray Wilkins|35|020k0n0o1k
 Rick Karsdorp|35|0c13
 Roméo Lavia|35|0k0q
 Sadiq Umar|35|0b0c0e0n
-Sergei Semak|35|171k
+Sergey Semak|35|171k
 Sergio Asenjo|35|0a0h
 Shabani Nonda|35|0c1a1d
 Shane Duffy|35|0f12
@@ -1876,7 +1876,8 @@ Vincent Janssen|35|0r0w1m
 Vitor Roque|35|050i
 Wim Kieft|35|0g1e
 Zoltán Stieber|35|0r0s
-Álvaro Rafael González|35|0414
+Álex Remiro|35|080b
+Álvaro González|35|0414
 İrfan Kahveci|35|1l1m
 Abdelaziz Barrada|34|101k
 Abel Balbo|34|070c0l14
@@ -1898,7 +1899,7 @@ Danilo D'Ambrosio|34|0307
 Denny Landzaat|34|131e
 Douglas Santos|34|0s17
 Dávid Hancko|34|070a13
-Fagner|34|0g0u
+Fagner Conserva Lemos|34|0g0u
 Finidi George|34|0i1e
 Florian Grillitsch|34|191e
 Fran García|34|0i1n
@@ -1910,11 +1911,11 @@ Ilaix Moriba|34|050e
 Jan Wouters|34|0g0j131e
 Jared Borgetti|34|0k1s
 Javier Aquino|34|050h
-Jonas|34|0e0z
+Jonas Gonçalves Oliveira|34|0e0z
 Jorge Andrade|34|010x
 João Vieira Pinto|34|0a0z1c
 Juninho Paulista|34|0a12
-Khéphren Thuram|34|011a
+Khéphren Thuram-Ulien|34|011a
 Lacina Traoré|34|0f1a
 Lazar Marković|34|0z1g1m
 Lee Young-pyo|34|0g0p0w1b
@@ -1953,7 +1954,7 @@ Steven Naismith|34|0f0n
 Stéphane Guivarc'h|34|0n0t
 Thomas Doll|34|040s
 Uroš Spajić|34|131f
-Vitolo|34|0a0d
+Víctor Machín Pérez|34|0a0d
 Wesley Sonck|34|1e1r
 Yaya Sanogo|34|0m1e
 Émile Mpenza|34|0q0s1q
@@ -1966,12 +1967,12 @@ Amarildo Tavares da Silveira|33|02070c
 Amedeo Amadei|33|0306090c
 Andrés D'Alessandro|33|0l0u
 Anton Ferdinand|33|0y1i
-Arnau Francisco Tenas Bazan|33|0h1k
+Arnau Tenas|33|0h1k
 Aurélien Chedjou|33|0h111d1i1l
 Aymen Abdennour|33|0e10191a
-Ben Gannon-Doak|33|121g
+Ben Doak|33|121g
 Boulaye Dia|33|040h
-Boško Balaman|33|0r1r
+Boško Balaban|33|0r1r
 Bruma|33|0b0g0z151c1d1m
 Charles N'Zogbia|33|0r0t
 Claudio Reyna|33|0n0q0u0v
@@ -1981,7 +1982,7 @@ Cristiano Zanetti|33|0103070c
 César Sánchez|33|0e0w1n
 Daniel Fonseca|33|01090c0l
 Danny Murphy|33|0w1g
-Diego Carlos|33|0d0r1m
+Diego Carlos Santos Silva|33|0d0r1m
 Diego Reyes|33|0b0x1m
 Dirceu|33|090a
 Eike Immel|33|0p0q
@@ -1990,11 +1991,11 @@ Enes Ünal|33|0h0q1i
 Eusebio Sacristán|33|050a
 Florin Răducioiu|33|020y1a
 Fran Mérida|33|050a0b0m
-Gabri García|33|051e
+Gabri|33|051e
 Gabriel Obertan|33|0o0t
 Garry Mendes Rodrigues|33|1d1s
 Germán Burgos|33|0a0l
-Gerson Santos Putin|33|070c
+Gerson|33|070c
 Gilberto da Silva Melo|33|030w
 Hans Sarpei|33|0u0v1q
 Herbert Prohaska|33|030c
@@ -2079,8 +2080,8 @@ Bryan Gil|32|0d0e0w
 Chris Hughton|32|0w0y
 Christian Wörns|32|0p0v1k
 Colin Kâzım-Richards|32|1213151d1i1m
-Cris|32|000v1d
 Cristhian Mosquera|32|0e0m
+Cristiano Marques Gomes|32|000v1d
 Danny Blanchflower|32|0r0w
 Diego Moreira|32|020k0z
 Edimilson Fernandes|32|070y
@@ -2093,7 +2094,7 @@ Gary Caldwell|32|0t12
 Giuseppe Giannini|32|090c
 Gonzalo Rodríguez|32|070h
 Guglielmo Vicario|32|010w
-Gus Poyet|32|0i0k0w
+Gustavo Poyet|32|0i0k0w
 Guy Demel|32|0m0p0s0y
 Gökhan Zan|32|161d
 Habib Beye|32|0r0t10
@@ -2111,11 +2112,11 @@ Josep Samitier|32|051n
 José Chamot|32|02040a
 Julien Faubert|32|0y1n
 Kenny Tete|32|001e
-Kerlon Moura Souza|32|031e
+Kerlon|32|031e
 Kevin Mbabu|32|0n0t
 Leandro Cufré|32|0c1a
 Luc Nilis|32|0g0r1f
-Lucas Silva|32|101n
+Lucas Silva Borges|32|101n
 Luciano Narsingh|32|0g1e
 Mancini|32|02030c
 Marco Motta|32|01060c
@@ -2133,18 +2134,18 @@ Nicola Legrottaglie|32|0102
 Nikola Katić|32|0n1q
 Nils Petersen|32|0j19
 Norman Whiteside|32|0f0o
-Oh Hyeon-gyu|32|1216
+Oh Hyun-gyu|32|1216
 Oleguer Presas|32|051e
 Pablo Contreras|32|151a1c
 Patrick Müller|32|001a
-Paulo Sérgio|32|0c0j0v
+Paulo Sérgio Silvestre do Nascimento|32|0c0j0v
 Pedro Obiang|32|0a0y
 Petri Pasanen|32|191e
 Rabiu Afolabi|32|091a
 Rafa Mir|32|050d0e
 Rafael Gordillo|32|0i1n
 Riccardo Saponara|32|0207
-Roger Ibañez|32|0406
+Roger Ibañez da Silva|32|0406
 Roy Carroll|32|0n0o0y15
 Ryan Shawcross|32|0o1o
 Sandro Salvadore|32|0102
@@ -2167,13 +2168,13 @@ Andrea Bertolacci|31|020c
 Andrea Dossena|31|091g
 Andy van der Meyde|31|030f0g1e
 Angel Gomes|31|0o11
-Antonio Mirante el flecheiro|31|010c
+Antonio Mirante|31|010c
 Brian McBride|31|0f0u
 Carlos Baleba|31|0o11
 Carlos Pavón|31|091j
 Claudio Borghi|31|020l
 Cristiano Biraghi|31|030607
-Daniel Ayala|31|0d1g
+Daniel Sánchez Ayala|31|0d1g
 Demarai Gray|31|0f0v
 Didier Six|31|0r101d
 Diego Capel|31|050d1c
@@ -2181,12 +2182,12 @@ Diego Placente|31|0l0v
 Dieumerci Mbokani|31|0u1a1f
 Dmitri Alenichev|31|0c0x
 Dmitri Bulykin|31|0v1e1f
-Edu|31|0e0m
+Eduardo César Gaspar|31|0e0m
 Eduardo Gonçalves de Oliveira|31|161q
 Felipe Augusto de Almeida Monteiro|31|0a0x
 Felipe Santana|31|151q
 Fernando Gomes|31|0x1c
-Florent Sinama Pongolle|31|0a1c1g
+Florent Sinama-Pongolle|31|0a1c1g
 Frank Arnesen|31|0e0g1e1f
 Glen Kamara|31|0m0n
 Guillermo Amor|31|05070h
@@ -2230,7 +2231,7 @@ Nicolás Pareja|31|0d1f
 Niki Zimling|31|1e1r
 Olivier Dacourt|31|030c0f
 Orlando Engelaar|31|0g1q
-Pablo Gabriel García|31|020a1n
+Pablo García|31|020a1n
 Paul McGrath|31|0o0r
 Paul Wanner|31|0g0j
 Rafael Alkorta|31|081n
@@ -2246,7 +2247,7 @@ Robert de Pinho de Souza|31|0g0i1s
 Roberto Pruzzo|31|070c
 Rogelio Funes Mori|31|0l0z
 Romeo Benetti|31|0102030c
-Segundo Castillo De Barberan|31|0f1b
+Segundo Castillo|31|0f1b
 Servet Çetin|31|1d1m
 Shaka Hislop|31|0t0y
 Sidney Sam|31|0s0v1q
@@ -2271,7 +2272,7 @@ Zakaria Bakkali|31|0e0g
 Abdulelah Al-Amri|30|1p1s
 Adrian Ilie|30|0e161d
 Albert Celades|30|051n
-Alejandro Domínguez|30|0e0l1517
+Alejandro Damián Domínguez|30|0e0l1517
 Alejandro Scopelli|30|030c0z
 Alex Teixeira|30|03181g
 Amadou Diawara|30|090c
@@ -2295,7 +2296,7 @@ Facundo Roncaglia|30|0714
 Frank Rost|30|0s191q
 Fábio Silva|30|0g0n0p0x1f
 Fábio Vieira|30|0m0s0x
-Gabriel|30|0209
+Gabriel Vasconcelos Ferreira|30|0209
 George Graham|30|0k0m0o0r
 Gerard López|30|050e1a
 Giancarlo De Sisti|30|070c
@@ -2310,6 +2311,7 @@ Ismael Urzaiz|30|081e1n
 Ismaïl Aissati|30|0g1e
 James Garner|30|0f0o
 Jan Heintze|30|0g0v
+Javier Arizmendi|30|0a0e
 Javier Garrido|30|040b0q
 Joe Jordan|30|020o
 John Sivebæk|30|0o1a
@@ -2334,7 +2336,7 @@ Miguel Torres Gómez|30|151n
 Mikel Balenziaga|30|080b
 Miodrag Belodedici|30|0e0h
 Nacer Barazite|30|0m1a
-Nat Phillips|30|121g
+Nathaniel Phillips|30|121g
 Niall Quinn|30|0m0q
 Nikos Machlas|30|0d1e
 Omar Elabdellaoui|30|0q1315
@@ -2354,7 +2356,7 @@ Prince Tagoe|30|1i1s
 Quincy Owusu-Abeyie|30|0m1e
 Raimond Aumann|30|0j16
 Raphaël Wicky|30|0a0s19
-Reinaldo|30|1k1s
+Reinaldo da Cruz Oliveira|30|1k1s
 Renato Ibarra|30|051n
 Richmond Boakye|30|0106
 Ricky van Wolfswinkel|30|0i1c
@@ -2375,7 +2377,6 @@ Vivian Woodward|30|0k0w
 Willi Schulz|30|0s1q
 Yangel Herrera|30|0b0q
 Yordan Letchkov|30|0s1016
-Ángel Javier Arizmendi|30|0a0e
 Abdullah Al-Mayouf|29|1b1s
 Alaixys Romao|29|1015
 Albert Sambi Lokonga|29|0d0m0s1f
@@ -2385,15 +2386,15 @@ Anass Salah-Eddine|29|0c1e
 Andrea Petagna|29|0206
 Arthur Numan|29|0g0n
 Bruno Metsu|29|111f
-Cata Díaz|29|0a14
 Chris Sutton|29|0k0r12
 Ciriaco Sforza|29|030j
 César Rodríguez Álvarez|29|050i
+Daniel Díaz|29|0a14
 Daniele Padelli|29|031g
 Danny Guthrie|29|0o0t1g
 Darius Vassell|29|0q0r
 Darío Cvitanich|29|0l141e
-David Ngog|29|1g1k
+David N'Gog|29|1g1k
 Davie Selke|29|0s191l
 Denis Vavro|29|040u
 Derek Cornelius|29|0n10
@@ -2451,6 +2452,7 @@ Matt Miazga|29|0k1f
 Mattia Cassani|29|0107
 Maurice Edu|29|0n1i
 Mehmet Aurélio|29|0i161h1m
+Mert Nobre|29|161m
 Michele Andreolo|29|0409
 Milenko Ačimovič|29|0w111s
 Modeste Mbami|29|101k1s
@@ -2458,17 +2460,16 @@ Modibo Maïga|29|0y1p
 Morgan Amalfitano|29|0y1011
 Morgan Sanson|29|0r10
 Mutiu Adepoju|29|0b1n1s
-Márcio Nobre|29|161m
 Mário Coluna|29|000z
 Neil Lennon|29|0q12
 Nevio Scala|29|0203070c
-Odysseas Vlachodimos|29|0d0t0z
+Odisseas Vlachodimos|29|0d0t0z
 Olivier Kapo|29|01121a
 Omar Hawsawi|29|1p1s
 Papy Djilobodji|29|0k19
 Patrick Owomoyela|29|0p0s19
 Paul Konchesky|29|0w0y1g
-Pedro António Pereira Gonçalves|29|071c
+Pedro Gonçalves|29|071c
 Ray Kennedy|29|0m1g
 Ricardo Gomes|29|0z1k
 Ricardo Sá Pinto|29|0b1c
@@ -2481,7 +2482,7 @@ Rubén Pardo|29|0b0i
 Rubén Sosa|29|03040p
 Rémi Garde|29|000m0r
 Sander Westerveld|29|0b0f1g
-Sergei Yuran|29|0x0z
+Sergey Yuran|29|0x0z
 Sérgio Oliveira|29|0x1d
 Tanju Çolak|29|1d1m
 Teemu Tainio|29|0w1e
@@ -2497,7 +2498,6 @@ Zakaria Labyad|29|0g1c1e
 Éder Álvarez Balanta|29|0l1q1r
 Óscar Córdoba|29|1416
 Abdoulay Konko|28|0104060d
-Alberto Costa|28|070e
 Ariel Ibagaza|28|0a0h15
 Aristide Guarneri|28|0309
 Ayden Heaven|28|0m0o
@@ -2553,13 +2553,13 @@ Jonas Thern|28|090c0n0z
 Jonathan Santana|28|0l0u
 Jonathas de Jesus|28|0b0d
 Jordan Larsson|28|051q
-Jorge Carrascalle|28|0d0l
+Jorge Carrascal|28|0d0l
 Josuha Guilavogui|28|0a0u
 José Campaña|28|0d0x
 José Francisco Molina|28|0a0e0h
 José Manuel Moreno|28|0l14
 José Ramón Alexanko|28|0508
-Juanito|28|0a1n
+Juan Gómez González|28|0a1n
 Kiernan Dewsbury-Hall|28|0f0k
 Klaus Fichtel|28|191q
 Lee Bowyer|28|0t0y
@@ -2568,10 +2568,10 @@ Lorenzo De Silvestri|28|0407
 Lucas Chevalier|28|111k
 Luiz Henrique|28|0i17
 Léo Baptistão|28|0a0h0i
-Mamadou Niang Babacar Ndiaye|28|10161m
+Mamadou Niang|28|10161m
 Manor Solomon|28|0w18
+Manu del Moral|28|0a0d
 Manuel da Costa|28|070g0y151h1l1s
-Manuel del Moral|28|0a0d
 Mario Bertini|28|0307
 Martin Terrier|28|0011
 Matías Silvestre|28|020314
@@ -2592,10 +2592,10 @@ Pierre Womé|28|030c19
 Rachid Ghezzal|28|001a
 Rami Shaaban|28|0m0y
 Ricardo Gareca|28|0l14
-Ricardo Rocha|28|1c1n
+Ricardo Roberto Barreto da Rocha|28|1c1n
 Rüdiger Abramczik|28|0p1d1q
 Samed Yeşil|28|0v1g
-Samet Akaydın|28|1h1m
+Samet Akaydin|28|1h1m
 Samuel Lino|28|0a0e
 Stephen Carr|28|0t0w
 Stjepan Tomas|28|1d1m
@@ -2604,6 +2604,7 @@ Søren Larsen|28|131q
 Thomas Dooley|28|0v1q
 Thomas Helveg|28|0203
 Timothée Kolodziejczak|28|000d
+Tino Costa|28|070e
 Tom Lawrence|28|0f0o
 Tommy Docherty|28|0k0m12
 Vahid Hashemian|28|0j0s
@@ -2641,9 +2642,9 @@ Francisco Yeste|27|0815
 Fritz Laband|27|0s19
 Gai Assulin|27|050q
 Gaizka Toquero|27|080b
-Georgi Kinkladze|27|0q141e
 Germán Denis|27|0609
 Giancarlo Bercellino|27|0104
+Giorgi Kinkladze|27|0q141e
 Glenn Strömberg|27|060z
 Guilherme Siqueira|27|03040a0e0z
 Gökhan Gönül|27|161m
@@ -2655,11 +2656,11 @@ Isaac Hayden|27|0m0t
 Ishak Belfodil|27|0003
 Ivan Cavaleiro|27|0z1a
 Jarrad Branthwaite|27|0f0g
-Javier García Portillo|27|071n1r
+Javier Portillo|27|071n1r
 Javier Urruticoechea|27|050b
 José Roberto de Oliveira|27|0z1q
 José Ángel Crespo|27|0d0r
-Julio Alberto|27|050a
+Julio Alberto Moreno|27|050a
 Julio dos Santos|27|0j0u
 Jérémie Bréchet|27|00030b0g
 Kenny Sansom|27|0f0m0t
@@ -2674,6 +2675,7 @@ Mateus Fernandes|27|0w0y1c
 Matteo Brighi|27|01060c
 Michael Johnson|27|0f0q
 Michael Tarnat|27|0j0q
+Miguel Ángel Alonso|27|050b
 Mika Väyrynen|27|0g1j
 Miku|27|0e12
 Miroslav Karhan|27|0i0u16
@@ -2685,16 +2687,15 @@ Otman Bakkal|27|0g13
 Ousmane Dabo|27|0304060q1a
 Paul Bosvelt|27|0q13
 Paul Merson|27|0m0r
-Periko Alonso|27|050b
 Pierre-Michel Lasogga|27|0s0u0v1q
 Rafael Santos Borré|27|0a0h0l19
 Ravel Morrison|27|040o0y
 Reinhard Libuda|27|0p1q
 Robert Acquafresca|27|0306
-Robert Fernández|27|050e0h
 Roberto Anzolin|27|0106
+Roberto Fernández Bonillo|27|050e0h
 Rubén Pérez del Mármol|27|0a0i
-Rômulo|27|010407
+Rômulo Souza Orestes Caldeira|27|010407
 Salif Keïta|27|0e101c
 Sascha Riether|27|0u1q
 Sebastiano Esposito|27|031f
@@ -2704,17 +2705,17 @@ Stefano Okaka|27|0c1f
 Steven Vitória|27|0x0z
 Sébastien Corchia|27|0d0z11
 Tamás Hajnal|27|0p1q
-Taty Castellanos|27|040y
 Timothée Atouba|27|0s0w1e
 Tom De Mul|27|0d1e
+Valentín Castellanos|27|040y
 Valère Germain|27|101a
 Vedran Runje|27|1016
-Wesley|27|0r1r
 Wesley Hoedt|27|041f
+Wesley Moraes Ferreira da Silva|27|0r1r
 Wim Suurbier|27|1a1e1q
 Yankuba Minteh|27|0t13
 Yvon Douis|27|111a
-Álvaro Fernández|27|0d1a
+Álvaro Fernández Llorente|27|0d1a
 Ángel López|27|0h0i
 Éric Deflandre|27|001r
 Øyvind Leonhardsen|27|0r0w1g
@@ -2759,7 +2760,7 @@ Gert Verheyen|26|1f1r
 Giovanni Sio|26|0b0u
 Giuliano|26|171l1m1p
 Giuliano Sarti|26|010307
-Heinz Kwiatkowski|26|0p1q
+Heinrich Kwiatkowski|26|0p1q
 Henry Onyekuru|26|0f1d
 Herbert Kilpin|26|0203
 Hernán Pérez|26|0h15
@@ -2774,7 +2775,7 @@ Juanfran|26|0e161e
 Jörg Heinrich|26|070p
 Kenneth Vermeer|26|131e1r
 Liam Miller|26|0o12
-Lincoln|26|1d1q
+Lincoln Cássio de Souza Soares|26|1d1q
 Ljubomir Fejsa|26|0z15
 Lucien Muller|26|051n
 Luiz Felipe Ramos Marchi|26|040i101s
@@ -2793,7 +2794,7 @@ Nelson Vivas|26|030l0m14
 Pavel Srniček|26|0t0y
 Pietro Arcari|26|0209
 Ramón Grosso|26|0a1n
-Ricardo|26|0a0o
+Ricardo López Felipe|26|0a0o
 Ricardo van Rhijn|26|1e1r
 Rodrigo Mora|26|0c0x
 Rubén Olivera|26|01070a
@@ -2831,13 +2832,13 @@ Carlos Fernández Luna|25|0b0d
 Caspar Memering|25|0s1q
 Dany Nounkeu|25|161d1i
 David Martin|25|0y1g
-Delvin N'Dinga|25|151a
+Delvin Ndinga|25|151a
 Dino Sani|25|0214
 Eduard Sobol|25|181r
 Emanuel Mammana|25|000l17
 Enzo Zidane|25|011n
 Eraldo Pecci|25|0709
-Ernesto Javier Chevantón|25|060d1a
+Fabián Monzón|25|000i14
 Filip De Wilde|25|1c1f
 Francesco Antonioli|25|020c
 Frédéric Veseli|25|0o0q
@@ -2855,6 +2856,7 @@ Hugo Ibarra|25|0x141a
 Humberto Maschio|25|030607
 Héctor Fort|25|050b
 Ivan Nielsen|25|0g13
+Javier Chevantón|25|060d1a
 Jelle Van Damme|25|191e1f1j
 Jesús Garay|25|0508
 John Collins|25|0f121a
@@ -2876,8 +2878,7 @@ Lewis Hall|25|0k0t
 Lluís Carreras|25|050a
 Luca Cigarini|25|06090d
 Lucas Beltrán|25|070e0l
-Luciano Fabián Monzón|25|000i14
-Luis Oliveira|25|071f
+Luís Oliveira|25|071f
 Marcos Leonardo|25|0z1b1e
 Martí Ventolrà|25|050d
 Marvelous Nakamba|25|0r1r
@@ -2918,12 +2919,12 @@ Thomas Buffel|25|0n13
 Tony Dorigo|25|0k0r
 Tony Sylva|25|111a1h
 Trevor Sinclair|25|0q0y
-Umut burugudut bulut|25|1d1h
+Umut Bulut|25|1d1h
 Valentín Carboni|25|0310
 Valerio Fiori|25|020407
 Volkan Babacan|25|1l1m
 Volodymyr Lyutyi|25|1i1q
-Víctor Sánchez|25|0i1n
+Víctor Sánchez del Amo|25|0i1n
 Willy Aubameyang|25|020p
 Abdulellah Al-Malki|24|1b1s
 Adama Traoré|24|111a
@@ -2957,7 +2958,7 @@ Dieter Burdenski|24|191q
 Djamel Belmadi|24|0q101k1s
 Dorlan Pabón|24|0e0i
 Džoni Novak|24|151m
-Elias|24|0a1c
+Elias Mendes Trindade|24|0a1c
 Emre Aşık|24|161d1m
 Fabio Cudicini|24|020c
 Fatih Akyel|24|1d1h1m
@@ -2969,9 +2970,9 @@ Franck Sauzée|24|06101a
 Frédéric Piquionne|24|000y1a
 Félix Sesúmaga|24|0508
 Gaby Mudingayi|24|0304
+Georgios Georgiadis|24|0t15
 Geovanni Deiberson Maurício|24|050q0z
 Giannelli Imbula|24|0e0x10
-Giorgos Georgiadis|24|0t15
 Giovanni Stroppa|24|0204
 Giuseppe Savoldi|24|0609
 Hrvoje Milić|24|0709
@@ -2989,7 +2990,7 @@ Joseba Llorente|24|0b0h
 Joseph-Désiré Job|24|001s
 Josephine Henning|24|000m0u1k
 Juan Bautista Agüero|24|0d1n
-Júlio César|24|010p19
+Júlio César da Silva|24|010p19
 Kenan Kodro|24|080b
 Kevin Sheedy|24|0f0t1g
 Lamine Diatta|24|000t1016
@@ -2997,7 +2998,7 @@ Lefter Küçükandonyadis|24|071m
 Leonardo Cilaurren|24|080l
 Lucidio Sentimenti|24|0104
 Luigi De Agostini|24|0103
-Luis Antonio Jiménez|24|0304070y
+Luis Jiménez|24|0304070y
 Manfred Burgsmüller|24|0p19
 Manuel Sanchís Martínez|24|051n
 Marcel Tisserand|24|0u1a
@@ -3060,7 +3061,7 @@ Aldo Donati|23|030c
 Alex Pritchard|23|0w0y
 Alexandre Moreno Lopera|23|050i0r
 Alfredo Rojas|23|0a0i0l14
-Ali Lajami|23|1b1p
+Ali Lawgami|23|1b1p
 Andrzej Juskowiak|23|0u151c
 Andy Gray|23|0f0n0r
 Anthony Gardner|23|0f0w
@@ -3069,13 +3070,13 @@ Attilio Lombardo|23|0104
 Ayhan Akman|23|161d
 Ben Davies|23|0n1g
 Bertrand Crasson|23|091f
-Borja Bastón|23|0a0r
+Borja González|23|0a0r
 Borja Viguera|23|080b
 Bruno Mora|23|0102
 Bryan Zaragoza|23|0c0j
 Caio Henrique|23|0a1a1e
-Carlos Jorge Neto Martins|23|0z1c
-Carlos Paredes|23|0x1c
+Carlos Humberto Paredes|23|0x1c
+Carlos Martins|23|0z1c
 Colin Hendry|23|0n0q
 Cyril Domoraud|23|0203101a
 Damià Abella|23|050i
@@ -3089,7 +3090,7 @@ Elvir Bolić|23|1d1m
 Enrique Romero|23|0e0i
 Eulogio Martínez|23|050a
 Evaristo de Macedo|23|051n
-Fabricio Agosto|23|0i16
+Fabricio Agosto Ramírez|23|0i16
 Fernando Cruz|23|0z1k
 Filip Novák|23|1h1m
 François Van der Elst|23|0y1f
@@ -3102,6 +3103,7 @@ Giorgio Ghezzi|23|0203
 Giuseppe Galderisi|23|010204
 Giuseppe Moro|23|070c
 Gonzalo Bergessio|23|0z1n
+Gonzalo Nicolás Martínez|23|0l1p
 Gorka Elustondo|23|080b
 Guillermo Gorostiza|23|080e
 Hannu Tihinen|23|0y1f
@@ -3128,7 +3130,7 @@ Luciano Spinosi|23|01020c
 Luis García Postigo|23|0a0b
 Léo Duarte|23|021l
 Maksim Romaschenko|23|1h1i
-Marcelinho Paraíba|23|0u101h
+Marcelinho|23|0u101h
 Marco Ballotta|23|0304
 Mariano González|23|030x
 Mario Gila|23|02041n
@@ -3146,10 +3148,10 @@ Ottavio Bianchi|23|020609
 Paolo Orlandoni|23|0304
 Patrice Loko|23|001k
 Patrick Suffo|23|051b
+Pedro Fernández Sarmiento|23|051k
 Pedro María Artola|23|050b
 Philippe Sandler|23|0q1f
 Pierre Issa|23|0k10
-Pity Martínez|23|0l1p
 Ramón de la Fuente Leal|23|080a
 Reece Oxford|23|0w0y
 Ronny Rosenthal|23|0w1g1r
@@ -3169,7 +3171,7 @@ Turgay Şeren|23|0l1d
 Ulrich van Gobbel|23|131d
 Unai López|23|080b
 Valérien Ismaël|23|0j19
-Víctor Vázquez Solsona|23|051r
+Víctor Vázquez|23|051r
 Walter Junghans|23|0j0v1q
 Zoltán Varga|23|0p1e
 Zoran Mirković|23|01061m
@@ -3185,7 +3187,6 @@ Alejo Véliz|22|0d0w
 Andreas Andersson|22|020t
 André André|22|0x1s
 Anthony Mounier|22|0006
-Antonio Latorre Grueso|22|0e0g
 Artur Moraes|22|0c0z
 Bent Christensen Arensøe|22|151q
 Bobby Collins|22|0f12
@@ -3201,7 +3202,7 @@ Edmundo Suárez|22|080e
 Egil Østenstad|22|0n0q
 Emre Çolak|22|1d1l
 Eyal Berkovic|22|0q0y12
-Ezequiel Fernández|22|0v14
+Ezequiel Fernández|22|0v14
 Fabio Miretti|22|0116
 Federico Mattiello|22|0106
 Filip Benković|22|121h
@@ -3228,7 +3229,7 @@ Javier Farinós|22|030e0h
 John Bostock|22|0w1i
 John Hansen|22|0104
 Jonathan Maidana|22|0l14
-Josef de Souza|22|0x1m
+Josef de Souza Dias|22|0x1m
 José Luis Martí|22|0b0d
 Juan Carlos Lorenzo|22|0a0l14
 Juan Carlos Pérez López|22|0i1n
@@ -3245,9 +3246,9 @@ Marc Rieper|22|0y12
 Marcel Artelesa|22|101a
 Marco Palestra|22|060k
 Marcos Assunção|22|0c0i
-Marcão|22|0d1d
+Marcos do Nascimento Teixeira|22|0d1d
 Martín Marculeta|22|0a0b
-Matías Ezequiel Suárez|22|0l1f
+Matías Suárez|22|0l1f
 Mauricio Aros|22|131b
 Michel De Wolf|22|101f
 Michele Pazienza|22|010709
@@ -3267,13 +3268,13 @@ Ramón Heredia|22|0a1k
 Riccardo Carapellese|22|0102
 Riza Durmisi|22|040i
 Roberto Tricella|22|0103
-Rodrigo Riep|22|050f0l15
 Roy Aitken|22|0r0t12
 Rudi Assauer|22|0p19
 Russell Latapy|22|0n0x
 Ryan Fredericks|22|0w0y
 Saud Kariri|22|1b1s
 Sebastián Battaglia|22|0h14
+Sebastián Riep|22|050f0l15
 Silvio Marić|22|0t0x
 Silvio Proto|22|041f
 Simón Lecue|22|0e0i1n
@@ -3285,7 +3286,8 @@ Sílvio Manuel Pereira|22|0a0z
 Taylor Harwood-Bellis|22|0q1f
 Thiago Pitarch|22|0a1n
 Titi Camara|22|0y101g1s
-Tomás Reñones Crego|22|050a
+Tomás Reñones|22|050a
+Toni Lato|22|0e0g
 Ugo Ehiogu|22|0n0r
 Ustaritz Aldekoaotalora|22|080i
 Vadis Odjidja-Ofoe|22|0s1f1r
@@ -3305,6 +3307,7 @@ Andreas Reinke|21|0s19
 André Bergdølmo|21|0p1e
 Antonio Mohamed|21|0714
 Antonio Núñez|21|1g1n
+Athanasios Petsos|21|0v19
 Aurelio Milani|21|030607
 Bernd Dreher|21|0j0v
 Bjørn Tore Kvarme|21|0b1g
@@ -3345,7 +3348,7 @@ Jean-François Domergue|21|001011
 Jean-François Larios|21|000a
 Jimmy Nicholl|21|0n0o
 Jonathan Pereira Rodríguez|21|0h0i
-Jonathan Silvá|21|0c141c
+Jonathan Silva|21|0c141c
 Joonas Kolkka|21|0g13
 Jorge Cuenca|21|050h
 Josué Pesqueira|21|0x1i
@@ -3395,7 +3398,6 @@ Sergei Ovchinnikov|21|0x0z
 Sergio Gori|21|0103
 Stefano Sorrentino|21|0104
 Tayfun Korkut|21|0b161m
-Thanos Petsos|21|0v19
 Tommy Lawton|21|0f0k0m
 Toni Jiménez|21|050a
 Trevor Steven|21|0f0n10
@@ -3417,7 +3419,7 @@ Bobby Smith|20|0k0w
 Bobo Baldé|20|1012
 Boukary Dramé|20|060b1k
 Bruno Cheyrou|20|10111g
-Bruno Ngotty|20|0002101k
+Bruno N'Gotty|20|0002101k
 Carlos Eduardo Ventura|20|0x0z
 Carlos Manuel|20|0z1c
 Cyril Théréau|20|071f
@@ -3494,7 +3496,7 @@ Mariano Pavone|20|0i0l14
 Mario David|20|020c
 Massimo Donati|20|020612
 Massimo Taibi|20|02060o
-Matías Emilio Delgado|20|0l16
+Matías Delgado|20|0l16
 Matías Nahuel|20|050h0i
 Mehdi Ben Slimane|20|101p
 Milton Viera|20|1415
@@ -3580,7 +3582,6 @@ Gianfranco Leoncini|19|0106
 Gilles Grimandi|19|0m1a
 Giulio Donati|19|030v
 Glenn Roeder|19|0t0y
-Goku Román|19|050h0q
 Graham Rix|19|0k0m
 Hans Nowak|19|0j1q
 Harry Vos|19|0g13
@@ -3588,21 +3589,22 @@ Hughie Gallacher|19|0k0t
 Ibrahima Bakayoko|19|0f10
 Ignacio Insa Bohigues|19|0e0h
 Jacopo Sala|19|060k0s
-Jaime Lazcano Escolá|19|0a1n
+Jaime Lazcano|19|0a1n
 Javier Camuñas|19|0h1n
 Jean-Philippe Durand|19|0010
 Jeremy Dudziak|19|0p0s
 Jimmy Rimmer|19|0m0o0r
+Joan Ángel Román|19|050h0q
 John Hollins|19|0k0m
 Jonathan Rowe|19|0610
 Jordi Figueras Montel|19|0i1n1r
-Jorge Orosmán da Silva|19|0a0l
+Jorge da Silva|19|0a0l
 Joseph Alcazar|19|1011
 Josico|19|0h1m
 José Ángel Pozo|19|0q1n
 João Virgínia|19|0f0m0z
+Juan Francisco Moreno Fuertes|19|0i1n
 Juan Santisteban|19|0i1n
-Juanfran|19|0i1n
 Justo Tejada|19|051n
 Jérémy Clément|19|000n1k
 Júlio César Santos Correa|19|020b0z151n
@@ -3632,15 +3634,15 @@ Mbaye Diagne|19|011d1r
 Michael Brown|19|0q0w
 Mustafa Doğan|19|161m
 Nelson Gutiérrez|19|040l
+Nico Serrano|19|080h
 Nicolás Bertolo|19|0l14
-Nicolás Serrano|19|080h
 Nigel Spink|19|0r0y
 Nii Lamptey|19|0g0r1f
 Oriol Busquets|19|0105
-Pablo Alfaro Armengot|19|050a0d
-Paddy Crerand|19|0o12
+Pablo Alfaro|19|050a0d
 Paolo Vanoli|19|070n
 Pasquale Foggia|19|0204
+Pat Crerand|19|0o12
 Paul Okon|19|04071r
 Pelé|19|030x15
 Peter Doherty|19|0o0q
@@ -3653,7 +3655,7 @@ Renato Cesarini|19|010l
 Richard Dutruel|19|051k
 Roberto Baronio|19|040607
 Roberto Muzzi|19|040c
-Rodri|19|050d
+Rodrigo Ríos Lozano|19|050d
 Roger García Junyent|19|050h1e
 Roman Kosecki|19|0a1d
 Ruben Buriani|19|02090c
@@ -3673,7 +3675,7 @@ Valentin Eysseric|19|071a
 Víctor Benítez|19|02030c14
 Víctor Unamuno|19|080i
 Warner Hahn|19|131e1f
-Willy Giesemann|19|0j0s0u
+Willi Giesemann|19|0j0s0u
 Xavi Torres|19|050i
 Yalçın Ayhan|19|1d1l
 Zouhair Feddal|19|0i1c
@@ -3686,7 +3688,7 @@ Ali Benarbia|18|0q1a1k
 Allenby Chilton|18|0o1g
 Andoni Gorosabel|18|080b
 André Guy|18|0011
-António Oliveira|18|0i0x1c
+António Luís Alves Ribeiro Oliveira|18|0i0x1c
 António Sousa|18|0x1c
 Basarab Panduru|18|0x0z
 Benito Carbone|18|03090c0r
@@ -3719,8 +3721,8 @@ Fernando Baiano|18|0u1s
 Fitz Hall|18|0t0y
 Florian Jozefzoon|18|0g1e
 Francisco Antúnez|18|0d0i
+Georgios Efrem|18|0m0n
 Gerardo García León|18|0b0e0h1n
-Giorgos Efrem|18|0m0n
 Giuliano Giannichedda|18|0104
 Giulio Migliaccio|18|0607
 Gordon Hodgson|18|0r1g
@@ -3736,7 +3738,7 @@ John Veldman|18|0g1e
 Johnny Carey|18|0f0o0q1g
 Jon Toral|18|050m0n
 Jorge López Montaña|18|0e0h
-José Manuel Casado Bizcocho|18|050d
+José Manuel Casado|18|050d
 José Milton Melgar|18|0l14
 Juan Carlos Rodríguez|18|050a0e
 Juan Manuel Villa|18|0b1n
@@ -3802,9 +3804,9 @@ Siobhan Chamberlain|18|0k0m
 Stefano Borgonovo|18|0207
 Terry Phelan|18|0f0k0q
 Thierno Barry|18|0f0h
+Thomas Nordahl|18|011f
 Tijani Belaïd|18|030g
 Toifilou Maoulida|18|101a
-Tomas Nordahl|18|011f
 Tony Cottee|18|0f0y
 Tyrone Mears|18|0q0y10
 Wilfried Puis|18|1f1r
@@ -3850,12 +3852,12 @@ Eduard Abazi|17|0q0z
 El Chadaille Bitshiabu|17|1d1k
 Emerson Moisés Costa|17|0a0n0x
 Enrique de Lucas|17|0k1k
-Ernesto Farías Caicedo|17|0l0x
+Ernesto Farías|17|0l0x
 Fabio Rossitto|17|0709
 Federico Giunti|17|0216
 Felipe dal Belo|17|0307
-Fernando Fernández Escribano|17|0i1n
-Fernando Guidicelli|17|1c1n
+Fernando Giudicelli|17|1c1n
+Fernando Miguel Fernández Escribano|17|0i1n
 Fernando Sánchez Cipitria|17|0i1n
 Francesco Romano|17|0209
 Frank Swift|17|0q1g
@@ -3888,7 +3890,6 @@ Jurgen Colin|17|0g1e
 Jörg Albertz|17|0n0s
 Kano|17|0k0y
 Kevin Richardson|17|0b0f0m0r
-Koke|17|101c
 Lauri Dalla Valle|17|031g
 Lincoln Henrique|17|1i1m
 Lionel Letizi|17|0n1k
@@ -3911,8 +3912,8 @@ Ottavio Bugatti|17|0309
 Ouasim Bouy|17|010s
 Paul Walsh|17|0q0w1g
 Paulo Machado|17|0x15
-Pedro Mendes|17|1c1n
-Pruden|17|0a1n
+Pedro Filipe Mendes|17|1c1n
+Pruden Sánchez|17|0a1n
 Rafael Iriondo|17|080b0i
 René Schneider|17|0p0s
 Ricardo Rocha|17|0w0z
@@ -3920,6 +3921,7 @@ Rino Ferrario|17|0103
 Rodolfo Esteban Cardoso|17|0s1419
 Santiago Vernazza|17|020l
 Savio Nsereko|17|070y
+Sergio Contreras Pardo|17|101c
 Stephen Henderson|17|0r0y
 Steve Howey|17|0q0t
 Stéphane Dalmat|17|030w101k
@@ -3928,7 +3930,7 @@ Thierry Laurey|17|101k
 Tom De Sutter|17|1f1i1r
 Tomáš Jun|17|161h
 Virgilio Levratto|17|0304
-Víctor|17|0h1n
+Víctor Manuel Fernández Gutiérrez|17|0h1n
 Wesley Gassova|17|0b1p
 Wilfried Dalmat|17|101r
 Xabier Castillo|17|080b
@@ -3960,6 +3962,7 @@ Chad Deering|16|0u191q
 Chris Willock|16|0m0z
 Christian Eduardo Giménez|16|1014
 Cristian Ceballos|16|050w
+César Meli|16|0z14
 César Peixoto|16|0x0z
 Dani Rodríguez|16|050b
 David Watson|16|0q19
@@ -3975,18 +3978,16 @@ Eurico Gomes|16|0x0z1c
 Falko Götz|16|0v1d
 Fernando Peres|16|0x1c
 Francisco Javier Peral|16|0515
-Francisco Llorente Gento|16|0a1n
 Franck Dumas|16|0t101a
 Franco Israel|16|011c
 Franco Semioli|16|0307
 Gabriel Schürrer|16|0b15
 Gary Kagelmacher|16|1a1n
 Gary Mackay-Steven|16|121g
-Giannis Anastasiou|16|1e1f
 Giovanni Pasquale|16|0103
 Gregorio Blasco|16|080l
 Guido Gratton|16|03040709
-Guido nahuel Vadalá|16|0114
+Guido Vadalá|16|0114
 Hami Mandıralı|16|1h1q
 Ibrahim Al-Shahrani|16|1p1s
 Iñigo Díaz de Cerio|16|080b
@@ -4020,7 +4021,6 @@ Lukas Schmitz|16|191q
 Luke Chadwick|16|0o0y
 Marc-Antoine Fortuné|16|1112
 Marcello Trotta|16|090q
-Marcelo Meli|16|0z14
 Marcelo Pagani|16|030l
 Mark Kennedy|16|0q1g
 Marko Vejinović|16|131e
@@ -4037,13 +4037,14 @@ Neil Ruddock|16|0w0y1g
 Noel Cantwell|16|0o0y
 Nuno Assis|16|0z1c1s
 Oskars Kļava|16|0r0t1a
+Paco Llorente|16|0a1n
 Patxi Ferreira|16|080a0d0e
 Paulo Nagamura|16|0m1j
 Pedro María Zabalza|16|0508
 Pelé|16|020z
 Petar Borota|16|0k0x
 Peter Houtman|16|131c1r
-Pierino Fanna|16|010306
+Pietro Fanna|16|010306
 Quique Estebaranz|16|050a0d
 Renato Cappellini|16|03070c
 Robert Sadowski|16|001a
@@ -4051,7 +4052,7 @@ Rodrigo Mora|16|0l0z1p
 Romeo Menti|16|010207
 Ronnie Simpson|16|0t12
 Ross McCormack|16|0n0r
-Ruben Pereira|16|010414
+Rubén Pereira|16|010414
 Rui Águas|16|0x0z
 Sandy Turnbull|16|0o0q
 Selçuk Yula|16|1d1m
@@ -4071,11 +4072,12 @@ Vasili Kulkov|16|0x0z17
 Victor Agali|16|101q
 Vladlen Yurchenko|16|0v18
 Werner Lorant|16|0p1q
+Yannis Anastasiou|16|1e1f
 Yaw Preko|16|1f1m
 Éric Roy|16|0010
 Özcan Arkoç|16|0s161m
 Abdullah Al-Hafith|15|1b1s
-Ahmed Reda Madouni|15|0p0v
+Ahmed Madouni|15|0p0v
 Alessandro Potenza|15|0307
 Alexandru Curtianu|15|0s17
 Ameen Bokhari|15|1p1s
@@ -4114,14 +4116,14 @@ Edwin Zoetebier|15|0g13
 Emirhan İlkhan|15|161l
 Ernesto Cucchiaroni|15|0214
 Erol Bulut|15|151h1i1m
-Esteban Staniscia|15|030l14
 Eugène Kabongo|15|001f
-Evaldo Fabiano|15|0x1c
-Fabián Rinaudo papá de Almafria de Las Rosas|15|141c
+Evaldo dos Santos Fabiano|15|0x1c
+Fabián Rinaudo|15|141c
 Federico Higuaín|15|0l16
 Federico Insúa|15|141i
-Felipe Aliste Lopes|15|0u1f
+Felipe Lopes|15|0u1f
 Ferdinando Coppola|15|020609
+Fernando Macedo da Silva|15|050a
 Frank Barson|15|0o0r
 Frank McGarvey|15|121g
 Gaspar Rubio|15|0a1n
@@ -4147,8 +4149,8 @@ Joos Valgaeren|15|121r
 Jorge Alberto Mendonça|15|050a
 José Luis Romero|15|050i
 Juan Carlos Heredia|15|050l0x
-Juan Familia Castillo|15|0k1e
-Juan Urquizu|15|081n
+Juan Familia-Castillo|15|0k1e
+Juan Urkizu|15|081n
 Jérémy Berthod|15|001a
 Kadri Aytaç|15|1d1m
 Keith Gillespie|15|0o0t
@@ -4185,7 +4187,6 @@ Mohamed Bangura|15|121l
 Mohammed Gargo|15|0j0p
 Moussa Saïb|15|0e0w1a1p
 Naci Ünüvar|15|1e1h
-Nano|15|050a
 Nicolás Figal|15|141o
 Nicolás Valentini|15|0714
 Nigel Hasselbaink|15|050g1e
@@ -4212,6 +4213,7 @@ Ruud Boffin|15|0g0y
 Sam Hardy|15|0r1g
 Samuel Okunowo|15|050z
 Sean Steur|15|0t1e
+Sebastián Rambert|15|030l14
 Sergio Corino|15|080b
 Sébastien Puygrenier|15|171a
 Theo Lucius|15|0g13
@@ -4219,7 +4221,7 @@ Tommy Coyne|15|0y12
 Tonel|15|0x1c
 Vasiliy Danilov|15|1718
 Walter Gómez|15|020l
-Weldon|15|0z1p
+Weldon Santos de Andrade|15|0z1p
 Yanko Daucik|15|0a0i1n
 Ángel Cuéllar|15|050i
 Ángel Pedraza|15|050h
@@ -4306,7 +4308,6 @@ Khalid Sinouh|14|0g0s
 Lamare Bogarde|14|050r
 Laurent Delorge|14|1e1f
 Les Allen|14|0k0w
-Levent Mercan|14|1m1q
 Lorenzo Amoruso|14|070n
 Luiz Alberto da Silva Oliveira|14|0b14
 Manuel Herrera Yagüe|14|0i1n
@@ -4323,6 +4324,7 @@ Moses Ashikodi|14|0n0y
 Mouhamadou-Naby Sarr|14|001c
 Muhammet Demir|14|1h1i
 Murdo MacLeod|14|0p12
+Münir Mercan|14|1m1q
 Nano Rivas|14|0a0i
 Nico Rijnders|14|1e1r
 Oktay Derelioğlu|14|161h1m
@@ -4351,7 +4353,7 @@ Roberto Ríos|14|080i
 Rodrigo Defendi|14|0c0w
 Roger Magnusson|14|0110
 Ronnie Ekelund|14|050q
-Ruben Bentancourt|14|060g
+Rubén Bentancourt|14|060g
 Ruel Fox|14|0t0w
 Samuele Dalla Bona|14|0206090k
 Scott Duncan|14|0n0t12
@@ -4423,13 +4425,13 @@ David Henen|13|0f151a1f
 Davide Brivio|13|0607
 Diego Cagna|13|0h14
 Diego Falcinelli|13|0307
-Dimitris Eleftheropoulos|13|020c15
+Dimitrios Eleftheropoulos|13|020c15
 Domenico Marocchino|13|0106
 Don Hutchison|13|0f0y1g
 Duncan McKenzie|13|0f0k1f
 Dunia Susi|13|0k0m
 Eduardo Luís|13|0x0z
-Eduardo Nicolás Tuzzio|13|0l10
+Eduardo Tuzzio|13|0l10
 Edvin Murati|13|111k
 Egemen Korkmaz|13|161h1i1m
 Erwin Kostedde|13|0p19
@@ -4447,7 +4449,7 @@ Gemma Bonner|13|0k1g
 Geoff Barnett|13|0f0m
 Geoff Strong|13|0m1g
 George Allan|13|121g
-Gert Bals|13|0g1e
+Gerrit Bals|13|0g1e
 Gianfranco Zigoni|13|010c
 Giorgio Stivanello|13|0104
 Giovanni Sacco|13|010406
@@ -4487,12 +4489,12 @@ Julian Palmieri|13|0011
 Kenny Swain|13|0k0r
 Kevin MacDonald|13|0n1g
 Klaus Täuber|13|0v1q
-Lautaro leguizamon|13|1d1n
 Lawrence Vigouroux|13|0w1g
 Len Shackleton|13|0m0t
 Lorenzo Juarros García|13|080b
 Lucas Castromán|13|0414
 Lucas Mareque|13|0l0x
+Lucas Ontivero|13|1d1n
 Lucien Cossou|13|001a
 Luigi Sala|13|0206
 Luis Olaso|13|0a1n
@@ -4512,7 +4514,7 @@ Matt Moussilou|13|1011
 Matías Abelairas|13|0l0n
 Mehmet Akgün|13|0p16
 Michael Lamey|13|0g1e
-Mohamed Camara|13|050b
+Mohamed El Yaagoubi|13|050b
 Moritz Jenz|13|0u121q
 Naim Kryeziu|13|090c
 Nathan Oduwa|13|0n0w
@@ -4529,7 +4531,7 @@ Ray Clarke|13|0t0w1e1r
 Raúl Moro|13|041e
 Ricardo Serna|13|050d
 Rob Jones|13|0y1g
-Robert Mario Flores|13|0h0l
+Robert Flores|13|0h0l
 Roberto Trotta|13|0c0l
 Rohan Ricketts|13|0m0w
 Ronald Spelbos|13|1e1r
@@ -4537,7 +4539,7 @@ Samuel Dahl|13|0c0z
 Santiago Idígoras|13|0b0e
 Santiago Silva|13|0714
 Sebastiano Siviglia|13|04060c
-Sebastián Rivas|13|030l1a1c
+Sebastián Ribas|13|030l1a1c
 Sefa Yılmaz|13|0u1h
 Senne Lynen|13|191r
 Serkan Balcı|13|1h1m
@@ -4560,7 +4562,7 @@ Willie Maley|13|0q12
 Yeso Amalfi|13|10141a
 Yusuf Akçiçek|13|1b1m
 Zafer Biryol|13|161i1m
-Álex Carbonell|13|050e
+Àlex Carbonell|13|050e
 Álvaro Novo|13|0a0b
 Éric Assadourian|13|0011
 İbrahim Akın|13|161l
@@ -4621,11 +4623,11 @@ Jehad Muntasser|12|060m
 Jimmy Bannister|12|0o0q
 Jimmy Bloomfield|12|0m0y
 Jimmy Brain|12|0m0w
-Jo Potter|12|0f0m
 John Deehan|12|0q0r
 John Goossens|12|131e
 Johnny Brooks|12|0k0w
 Jordy Gaspar|12|001a
+Josanne Potter|12|0f0m
 Josep Maria Comadevall|12|050i
 José Antonio Salguero García|12|0d1n
 José Calado|12|0i0z
@@ -4678,7 +4680,7 @@ René Eijkelkamp|12|0g1q1r
 Richard Daddy Owubokiri|12|0z1b
 Richard Hughes|12|060m
 Rodrigo Archubi|12|0l15
-Rubén da Silva|12|040l14
+Rubén Da Silva|12|040l14
 Sabin Ilie|12|0e1m
 Salih Dursun|12|1d1h
 Salvatore Fresi|12|01030709
@@ -4686,7 +4688,7 @@ Serafín Aedo|12|0i0l
 Sercan Yıldırım|12|1d1i
 Sergio Clerici|12|04060709
 Sergio Marcos González|12|0a0h
-Serhiy Shcherbakov|12|181c
+Serhiy Scherbakov|12|181c
 Simone Loria|12|01060c
 Sixto Peralta|12|030l
 Steinar Nilsen|12|0209
@@ -4710,6 +4712,7 @@ Yusuf Şimşek|12|161i1m
 Óscar Téllez|12|0e0h
 Ömer Rıza|12|0m0y1h
 Adriano Rossato|11|0b0x
+Alberto Matxinbarrena Aguirrebengoa|11|0b1n
 Alberto Perea|11|050a
 Alexander Bade|11|0p0s
 Alfons Groenendijk|11|0q1e
@@ -4772,7 +4775,7 @@ Guillermo Sanguinetti|11|040f
 Gökhan Süzen|11|161l
 Günay Güvenç|11|161d
 Hallam Hope|11|0f0q
-Hasan Kâmil Sporel|11|1d1m
+Hasan Kamil Sporel|11|1d1m
 Heraldo Bezerra|11|0a14
 Herbert Burdenski|11|191q
 Hugo Ventura|11|0x1c
@@ -4800,7 +4803,7 @@ José García Castro|11|0d0l1n
 José Luis Pérez-Paya|11|0a0b1n
 José Padrón|11|050d
 José Pérez Serer|11|050e0h
-João Resende Alves|11|0z1k
+João Alves|11|0z1k
 João Tomás|11|0i0z
 Juan Francisco Rodríguez Herrera|11|0a0d
 Juan Gilberto Funes|11|0l1415
@@ -4872,7 +4875,7 @@ Samuel Johnson|11|1f1m
 Sandro Mendes|11|0h0x
 Sergio Castelletti|11|0407
 Sergio Herrera|11|1p1s
-Sherjill Mac-Donald|11|0s1e1f
+Sherjill MacDonald|11|0s1e1f
 Sid Castle|11|0k0w
 Stephen Hughes|11|0f0m
 Steve Harkness|11|0z1g
@@ -4997,7 +5000,7 @@ Howard Gayle|10|0t1g
 Hussain Shae'an|10|1b1p
 Jack Peddie|10|0o0t
 Jaguaré|10|05101c
-Jan Everse, Jr.|10|131e
+Jan Everse|10|131e
 Jean-Jacques N'Domba|10|0010
 Jim Furnell|10|0m1g
 Jimmy Walker|10|0w0y
@@ -5006,7 +5009,7 @@ John Beresford|10|0q0t
 John Burridge|10|0q0r0t
 John Campbell|10|0r12
 John Harris|10|0k0w
-John Mosquera|10|0l19
+John Jairo Mosquera|10|0l19
 John Thorrington|10|0o0v
 Johnnie Jackson|10|0w0y
 Jon Harley|10|0k0y
@@ -5014,12 +5017,12 @@ Jonathan Carril|10|050a
 Jordy Brouwer|10|1e1g
 José Caeiro|10|0b0e
 José Gálvez Estévez|10|0e0i
-José María García Lasfuentes|10|05080i
+José María García Lafuente|10|05080i
 José Tavares|10|0x0z
 Juan Carlos Álvarez|10|0d0e
 Juan José López|10|0l14
+Juan Luis Redondo|10|0d0i
 Juan Ramón Fernández|10|0l0p
-Juan Redondo|10|0d0i
 Kemal Aslan|10|1i1m
 Kevin Horlock|10|0q0y
 Kiatprawut Saiwaeo|10|0q1r
@@ -5104,9 +5107,9 @@ Youssef Haraoui|10|1i1k
 Éric Pécout|10|1a1k
 Óscar Álvarez Sanjuán|10|050i
 İsmet Uluğ|10|1d1m
-Abdullah Al-Garni|9|1p1s
+Abdulaziz Solmaz|9|1h1l
+Abdullah Al-Karni|9|1p1s
 Abdurahman Al-Obaid|9|1b1p
-Abdülaziz Solmaz|9|1h1l
 Adriano Novellini|9|0106
 Ahmet Şahin|9|1h1l
 Alejandro Escalona|9|0l0z
@@ -5124,7 +5127,7 @@ Antonio Oviedo|9|0a0d1n
 Antonio Paganin|9|0306
 Aredio Gimona|9|0102
 Arnaud Dos Santos|9|111a
-Attila Ladinszky|9|0i131f
+Attila Ladinsky|9|0i131f
 Aydın Karabulut|9|161i
 Benno Möhlmann|9|0s19
 Bernard Guignedoux|9|1a1k
@@ -5405,7 +5408,6 @@ Fred Pagnam|8|0m1g
 Frédéric Peiremans|8|0b1f
 Félix Huete|8|0a1n
 Félix de los Heros|8|050d
-Gennadiy Popovich|8|1718
 Geoffrey Claeys|8|131f
 George Hunt|8|0m0w1g
 George Jobey|8|0m0t
@@ -5419,6 +5421,7 @@ Gustavo Carrer|8|0203
 Gustavo Neffa|8|0114
 Harry Lowe|8|0b0w
 Heleen Jaques|8|1f1r
+Hennadiy Popovych|8|1718
 Henri Toivomäki|8|061e
 Henrik Nielsen|8|111m
 Horace Armitage|8|1d1m
@@ -5481,7 +5484,7 @@ Mirza Varešanović|8|151i
 Mustafa Keçeli|8|1h1i
 Mustafa Yücedağ|8|1d1e1m
 Mário Tilico|8|0a1s
-Mülâyim Erdem|8|1d1l
+Mülayim Erdem|8|1d1l
 Nicola Caccia|8|0609
 Nordin Jbari|8|1f1r
 Oscar Basso|8|030l
@@ -5524,7 +5527,7 @@ Uwe Hain|8|0s0u
 Valerio Cassani|8|0206
 Vinicio Verza|8|0102
 Vittorio Tosto|8|0709
-Walter Rozitsky|8|051n
+Walter Rositzky|8|051n
 Warren Aspinall|8|0f0r
 William Viali|8|0607
 Willie Fagan|8|121g
@@ -5575,7 +5578,6 @@ Christian Mouritsen|7|0q0t
 Claudio Cabrera|7|0l14
 Colin Viljoen|7|0k0q
 Corrado Colombo|7|0306
-Càndid Gardoy i Martín|7|081n
 Daniele De Vezze|7|070c
 Darío Felman|7|0e14
 David Cross|7|0q0y
@@ -5584,7 +5586,7 @@ Davide Dionigi|7|020709
 Detlev Dammeier|7|0s0u
 Dick Forshaw|7|0f1g
 Didier Santini|7|1011
-Djair|7|041b
+Djair Kaye de Brito|7|041b
 Domenico Maggiora|7|010c
 Eder Vilarchao|7|080i
 Emanuel Bentil|7|0j1j
@@ -5656,12 +5658,12 @@ Jack Bell|7|0f12
 Jack Wilson|7|0o0t
 Jackie Sheldon|7|0f0o1g
 James McBride|7|0q1g
+James McNulty|7|0f1g
 Jason Banton|7|0m0w1g
 Javier Oliete|7|050h
 Jim McDonagh|7|0f0o
 Jim Standen|7|0m0y
 Jimmy Algerino|7|1a1k
-Jimmy McNulty|7|0f1g
 Jimmy Sharp|7|0k0m0n
 Joaquim Dinis|7|0x1c
 Joaquín Enrique Valerio|7|0i1n
@@ -5670,7 +5672,7 @@ John Hunter|7|0m1g
 José María Martín Rodríguez|7|050a0e
 José María Sánchez Lage|7|0e0l
 José Valle|7|0c0x
-João Manuel Pinto|7|0x0z
+João Manuel Pinto Tomé|7|0x0z
 Juan Carlos Morrone|7|0407
 Juan José Estella|7|050d
 Julio César Toresani|7|0l14
@@ -5688,6 +5690,7 @@ Luciano Tessari|7|070c
 Luigi Balzarini|7|0206
 Luís Filipe|7|0a0z1c
 Líbero Parri|7|0e0h
+Makala|7|081n
 Manfred Kastl|7|0s0v
 Manfred Pohlschmidt|7|0s1q
 Manfred Ritschel|7|0p1q
@@ -5697,8 +5700,8 @@ Marco Ambrosio|7|060k
 Marco Pacione|7|0106
 Marcos Joaquim dos Santos|7|0g1c
 Marianela Szymanowski|7|0a0i
+Mario Bo|7|0103
 Mario Bortolazzi|7|020607
-Mario Bò|7|0103
 Martin Spanring|7|1i1q
 Martin van Geel|7|131e
 Massimo Orlando|7|01020607
@@ -5723,7 +5726,7 @@ Pat Heard|7|0f0r0t
 Paul Kitson|7|0t0y
 Paul Rideout|7|0f0n0r
 Paulo Jorge Vieira Alves|7|0z1s
-Pedro Pablo Areso Aramburu|7|050i0l
+Pedro Areso|7|050i0l
 Philippe Brunel|7|1011
 Pierluigi Brivio|7|0609
 Pizo Gómez|7|080a
@@ -5750,7 +5753,7 @@ Sauveur Rodriguez|7|0010
 Sead Kapetanović|7|0p0u
 Serdar Topraktepe|7|161i
 Sertan Eser|7|161i1l
-Seyit Cem Ünsal|7|051h
+Seyit Cem Unsal|7|051h
 Spase Dilevski|7|0g0w
 Stan Crowther|7|0k0o0r
 Stefan Blank|7|191q
@@ -5840,7 +5843,7 @@ Claudio Vinazzani|6|0409
 Colin Lee|6|0k0w
 Colin Pates|6|0k0m
 Cristian Daminuță|6|0203
-Cristina Pizarro Mingo|6|0a0b
+Cristina Pizarro|6|0a0b
 Dan Doyle|6|0f12
 Daniele Daino|6|0209
 Dave Dunmore|6|0w0y
@@ -6151,6 +6154,7 @@ Carlo Perrone|5|040c
 Carlo Soldo|5|0304
 Carlo Villa|5|0203
 Carlo l'Ami|5|0g13
+Carlos Horacio Salinas|5|0l14
 Carlos Medrano|5|050l
 Charles Randall|5|0m0t
 Charlie Walker|5|0m0y
@@ -6590,12 +6594,12 @@ James Buchan|4|0m0q
 James Cairns|4|0o0q
 James Fisher|4|0o0r
 James Harrop|4|0r1g
+James Harrower|4|0t1g
 Jason Cundy|4|0k0w
 Jean-Claude Nadon|4|0011
 Jean-Marc Martinez|4|0010
 Jessica King|4|0f1g
 Jimmy Fell|4|0f0t
-Jimmy Harrower|4|0t1g
 Jimmy Hay|4|0t12
 Jimmy Smith|4|0n1g
 Jimmy Townley|4|0k0w
@@ -6682,7 +6686,7 @@ Roberto Massaro|4|0207
 Ronnie Starling|4|0r0t
 Ronny Toma|4|0203
 Ruud Suurendonk|4|1a1e
-Saeed Ghorab|4|1p1s
+Saeed Ghareeb|4|1p1s
 Sailor Brown|4|0q0r
 Salvador Arqueta|4|080i
 Salvatore Campilongo|4|0204
@@ -6810,7 +6814,7 @@ Giacomo Vianello|3|0609
 Gilbert Glidden|3|0f0o
 Giovanni Molino|3|0409
 Giulio Rossi|3|0102
-Gregorio de Sena Manterola|3|080b
+Gregorio Sena|3|080b
 Grégory Campi|3|111a
 Guglielmo Borgo|3|0102
 Guy Hatchi|3|0010
@@ -6848,7 +6852,7 @@ John McNamee|3|0t12
 John McTavish|3|0t0w
 John Sissons|3|0k0y
 Johnny Paton|3|0k12
-Jordi Vila i Soler|3|050i
+Jordi Vila Soler|3|050i
 José María Sansinenea|3|0a0b1n
 Juan Rocasolano Camacho|3|050i
 Juan Trujillo Domínguez|3|050i
@@ -6959,7 +6963,7 @@ Arthur Marshall|2|0f0o
 Asier Grande|2|080h
 Aurelio Santagostino|2|0206
 Badr Al-Deayea|2|1b1p
-Bahattin Güneş|2|1h1l
+Bahaddin Güneş|2|1h1l
 Bekir Gür|2|1d1l
 Benedetto Stella|2|02040607
 Bill Whittaker|2|0k0y1g
@@ -7044,7 +7048,6 @@ Ike Tate|2|0t0y
 Imanol Salazar|2|0l1c
 Irlian Ceka|2|040c
 Jack Britton|2|0w12
-Jack Tennant|2|0t1g
 Jack Whitley|2|0f0k0r
 Jackie Milburn|2|0k0t
 James Reid|2|0w0y
@@ -7065,6 +7068,7 @@ John Campbell|2|0n0y
 John Connolly|2|0f0t
 John Divers|2|0f12
 John Payne|2|0q0y
+John Tennant|2|0t1g
 John Watson|2|0f0w
 John Whitehead|2|0f1g
 Josep Canal i Viñas|2|051n
@@ -7153,7 +7157,7 @@ Tommy Hynds|2|0m0q12
 Tommy McDonald|2|0n0t
 Tuncay Mesçi|2|161h
 Tuncay Soyak|2|1d1h
-Urbano Ruiz|2|080i
+Urbano Ruiz Bilbao|2|080i
 Venerino Papa|2|021f
 Vincenzo Gasperi|2|0406
 Vincenzo Occhetta|2|0102
