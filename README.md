@@ -8,3 +8,9 @@ A two-player online football duel. Each player picks a club (10, 15 or 20 second
 
 - Oyuncu verisi / player data: [Wikidata](https://www.wikidata.org) (CC0)
 - Online eşleşme / matchmaking: Supabase Realtime (presence + broadcast)
+
+## Oyuncu verisi nasıl güncelleniyor / How the player data is updated
+
+- `scripts/update_data.py` Wikidata'dan 65 kulübün tüm oyuncu kayıtlarını çeker, `data/players.txt` dosyasını yazar ve oyunun içine (`index.html`) yerleştirir.
+- `.github/workflows/update-data.yml` bunu **her ayın 1'inde** otomatik çalıştırır. Transfer döneminden hemen sonra güncellemek için GitHub'da **Actions → Oyuncu verisini güncelle → Run workflow**.
+- Wikidata'da eksik bir transfer varsa `data/extra.txt` dosyasına `Oyuncu Adı|Kulüp,Kulüp` satırı ekle; bir sonraki güncellemede oyuna girer.

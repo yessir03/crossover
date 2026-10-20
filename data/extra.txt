@@ -1,0 +1,4 @@
+# Wikidata'da eksik kalan transferleri buraya elle ekleyebilirsin.
+# Biçim: Oyuncu Adı|Kulüp,Kulüp   (kulüp adları oyundaki gibi: Galatasaray, Manchester City, Real Madrid...)
+# Örnek:
+# Hakim Ziyech|Ajax,Chelsea,Galatasaray

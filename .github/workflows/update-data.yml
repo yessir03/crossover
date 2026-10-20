@@ -1,0 +1,34 @@
+name: Oyuncu verisini güncelle
+
+# Pulls the latest club histories from Wikidata and republishes the site.
+# Runs on the 1st of every month (Wikidata keeps catching up after each transfer window)
+# and whenever you press "Run workflow" on the Actions tab.
+on:
+  schedule:
+    - cron: "17 4 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Wikidata'dan çek
+        run: python scripts/update_data.py
+      - name: Değişiklik varsa kaydet
+        run: |
+          if git diff --quiet -- data/players.txt; then
+            echo "Oyuncu verisinde değişiklik yok."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add data/ index.html
+          git commit -m "Oyuncu verisi güncellendi ($(sed -n 1p data/last-update.txt), $(sed -n 2p data/last-update.txt))"
+          git push
