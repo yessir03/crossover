@@ -243,7 +243,9 @@ function makeRoomApi(){
   const myPeer = Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
   return {
     async join(name){
-      const ch = client.channel(name, {config:{presence:{key:myPeer}}});
+      const ch = client.channel(name, {config:{presence:{key:myPeer}, broadcast:{self:false, ack:false}}});
+      const handlers = {};
+      ['me','ping','pong'].forEach(ev=>ch.on('broadcast',{event:ev}, msg=>{ const p=msg && msg.payload; if(!p) return; (handlers[ev]||[]).forEach(f=>{ try{ f({peer:p.f, data:p.d, sameTab:p.f===myPeer}); }catch(e){} }); }));
       let state = {}, connected = false, peerFns = [], connFns = [], timer = null, closed = false;
       const peers = () => {
         const list = [];
@@ -271,6 +273,8 @@ function makeRoomApi(){
           if(!timer) timer = setTimeout(flush, 40);
           return Promise.resolve();
         },
+        emit(topic,data){ if(!connected) return Promise.resolve(); return ch.send({type:'broadcast', event:topic, payload:{f:myPeer, d:data}}).then(()=>{}, ()=>{}); },
+        on(topic,fn){ (handlers[topic]=handlers[topic]||[]).push(fn); return ()=>{ handlers[topic]=(handlers[topic]||[]).filter(f=>f!==fn); }; },
         onPeers(fn){ peerFns.push(fn); setTimeout(()=>fn({peers:peers()}),0); return ()=>{ peerFns = peerFns.filter(f=>f!==fn); }; },
         onConnection(fn){ connFns.push(fn); setTimeout(()=>fn(connected),0); return ()=>{ connFns = connFns.filter(f=>f!==fn); }; },
         async leave(){ closed = true; try{ await ch.untrack(); }catch(e){} try{ await client.removeChannel(ch); }catch(e){} }
@@ -549,6 +553,14 @@ $('#joinBtn').addEventListener('click',()=>{
 $('#codeIn').addEventListener('keydown',e=>{ if(e.key==='Enter') $('#joinBtn').click(); });
 
 let unsubs=[];
+/* Fast path: every change to my state is also sent as an instant message ('me'),
+   so the other phone doesn't wait for the slower presence sync.
+   Clock sync: guests ping the host and keep an offset, so both countdowns run on the host's clock. */
+let FAST={}, SEQ=0, OFFSET=0, SYNCED=false, SYNC_HOST=null, SAMPLES=[], pingTimer=null;
+const hostNow = () => now() + OFFSET;
+function emit(topic,data){ if(R && R.emit) R.emit(topic,data).catch(()=>{}); }
+function listen(topic,fn){ if(R && R.on) unsubs.push(R.on(topic, m=>{ if(!m || m.sameTab) return; fn(m.peer, m.data); })); }
+function sendPing(){ if(mode==='online') emit('ping',{t0:now()}); }
 async function enter(c,nick){
   try{ R = await roomApi.join('oo-'+c); }
   catch(e){ $('#netNote').textContent=t('joinFail',{e:(e&&e.code)||'error'}); $('#netNote').className='note warn'; return; }
@@ -556,6 +568,19 @@ async function enter(c,nick){
   MY={nick, joinedAt:now(), ready:0};
   R.presence(MY).catch(()=>{});
   unsubs.push(R.onPeers(ch=>{ peers=ch.peers; step(); }, err=>{ conn(t('connClosed',{e:err.code})); }));
+  FAST={}; SEQ=0; OFFSET=0; SYNCED=false; SYNC_HOST=null; SAMPLES=[];
+  listen('me',(peer,d)=>{ if(d && typeof d==='object' && (!FAST[peer] || (d.seq||0)>=(FAST[peer].seq||0))){ FAST[peer]=d; step(); } });
+  listen('ping',(peer,d)=>{ const h=players()[0]; if(h && h.sameTab && d) emit('pong',{to:peer,t0:d.t0,h:now()}); });
+  listen('pong',(peer,d)=>{
+    if(!d || d.to!==myPeerId()) return;
+    const t1=now(), rtt=t1-d.t0; if(rtt<0||rtt>5000) return;
+    if(SYNC_HOST!==peer){ SYNC_HOST=peer; SAMPLES=[]; }
+    SAMPLES.push({rtt, off:d.h-(d.t0+rtt/2)}); SAMPLES=SAMPLES.slice(-8);
+    const best=SAMPLES.reduce((a,b)=>b.rtt<a.rtt?b:a); OFFSET=best.off; SYNCED=true;
+  });
+  clearInterval(pingTimer); let pings=0;
+  pingTimer=setInterval(()=>{ pings++; if(pings<=6 || pings%5===0) sendPing(); },1500);
+  emit('me',Object.assign({},MY,{seq:SEQ}));
   let lostAt=0;
   unsubs.push(R.onConnection(ok=>{ if(ok){ lostAt=0; conn(''); } else { lostAt=now(); setTimeout(()=>{ if(lostAt && now()-lostAt>=1900) conn(t('connLost')); },2000); } }));
   $('#home').hidden=true; $('#game').hidden=false;
@@ -566,16 +591,23 @@ async function enter(c,nick){
 function conn(t){ $('#conn').hidden=!t; $('#conn').textContent=t; }
 function setMy(patch){
   for(const k in patch){ if(patch[k]===null) delete MY[k]; else MY[k]=patch[k]; }
-  if(R) R.presence(patch).catch(()=>{});
+  SEQ++; MY.seq=SEQ;
+  if(R){ R.presence(Object.assign({},patch,{seq:SEQ})).catch(()=>{}); emit('me',Object.assign({},MY)); }
 }
+function myPeerId(){ const me=peers.find(p=>p.sameTab); return me ? me.peer : null; }
 function players(){
-  const list = peers.map(p=> p.sameTab ? Object.assign({},p,{presence:MY}) : p).filter(p=>p.presence && p.presence.nick);
+  const list = peers.map(p=>{
+    if(p.sameTab) return Object.assign({},p,{presence:MY});
+    const f=FAST[p.peer];   // newer state from the instant message wins over presence
+    return (f && (f.seq||0)>=((p.presence&&p.presence.seq)||0)) ? Object.assign({},p,{presence:f}) : p;
+  }).filter(p=>p.presence && p.presence.nick);
   if(!list.some(p=>p.sameTab) && MY.nick) list.push({peer:'me',sameTab:true,presence:MY});
   list.sort((a,b)=>((a.presence.joinedAt||0)-(b.presence.joinedAt||0)) || (a.peer<b.peer?-1:1));
   return list;
 }
 const fresh = () => ({phase:'lobby', r:0, scores:{}, at:now()});
 function setG(patch){ G=Object.assign({},G,patch,{at:now()}); lastGame=G; setMy({game:G}); }
+function phaseElapsed(game,amHost){ if(amHost) return (now()-game.at)/1000; if(SYNCED && SYNC_HOST && game.at) return Math.max(0,(hostNow()-game.at)/1000); return (now()-seen.at)/1000; }
 
 function hostStep(ps){
   const t=now();
@@ -614,13 +646,14 @@ function step(){
   } else {
     if(G){ G=null; setMy({game:null}); }
     if(host && host.presence.game) lastGame=host.presence.game;
+    if(host && SYNC_HOST && SYNC_HOST!==host.peer){ SYNCED=false; SAMPLES=[]; sendPing(); }
   }
   const game = amHost ? G : (lastGame||fresh());
   const key=game.phase+':'+game.r;
   if(key!==seen.key){ seen={key,at:now()}; onPhase(game); }
   const amPlayer = duo.some(p=>p.sameTab);
   const opp = duo.find(p=>!p.sameTab) || null;
-  const elapsed=(now()-seen.at)/1000;
+  const elapsed=phaseElapsed(game,amHost);
 
   // auto-pick when my 10 seconds run out
   if(game.phase==='pick' && amPlayer && elapsed>=10 && !(MY.pick && MY.pick.r===game.r)) pickTeam(rnd(CLUBS).id, true);
@@ -735,13 +768,13 @@ $('#guessForm').addEventListener('submit',e=>{
   if(!CUR||CUR.game.phase!=='guess'||!CUR.amPlayer) return;
   const g=CUR.game, duo=CUR.duo;
   if(MY.hit && MY.hit.r===g.r) return;
-  if((now()-seen.at)/1000>=10) return;
+  if(phaseElapsed(g, !!(CUR.duo[0]&&CUR.duo[0].sameTab))>=10) return;
   const t=g.teams||{}; const list=common(t[duo[0].peer], t[duo[1].peer]);
   const hit=matchGuess(text,list);
   const prev=guessesOf(MY,g.r);
   const entry = hit ? {n:text,ok:1,p:hit.name} : {n:text,ok:0};
   const patch={guesses:{r:g.r, list:[...prev,entry].slice(-12)}};
-  if(hit) patch.hit={r:g.r, name:hit.name, at:now()};
+  if(hit) patch.hit={r:g.r, name:hit.name, at:(duo[0]&&duo[0].sameTab)?now():hostNow()};
   setMy(patch); step();
 });
 
@@ -799,6 +832,7 @@ $('#copyCode').addEventListener('click',()=>{
 });
 $('#leave').addEventListener('click',async()=>{
   if(mode==='online'){ unsubs.forEach(u=>{try{u()}catch(e){}}); unsubs=[]; try{ await R.leave(); }catch(e){} R=null; }
+  clearInterval(pingTimer); FAST={};
   mode='home'; MY={}; peers=[]; G=null; lastGame=null; PR=null; conn('');
   $('#game').hidden=true; $('#home').hidden=false;
 });
