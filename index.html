@@ -106,7 +106,7 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
 .match{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
 .club{display:flex;flex-direction:column;gap:6px;min-width:0}
 .club.r{align-items:flex-end;text-align:right}
-.club .nm{font-family:var(--display);font-weight:900;font-size:clamp(21px,6.2vw,34px);line-height:.95;text-transform:uppercase;overflow-wrap:break-word;min-width:0;max-width:100%}
+.club .nm{font-family:var(--display);font-weight:900;font-size:clamp(21px,6.2vw,34px);line-height:.95;text-transform:uppercase;overflow-wrap:normal;word-break:keep-all;min-width:0;max-width:100%;overflow:hidden}
 .club .by{font-size:12px;color:var(--muted)}
 .club .sw{width:22px;height:22px}
 .x{font-family:var(--display);font-weight:900;font-size:28px;color:var(--amber)}
@@ -115,6 +115,7 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
 .guessform input{flex:1;min-width:0;font-size:17px}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .cols h3{margin:0 0 6px;font-size:12px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.passrow{align-items:center}
 .glist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;min-width:0}
 .glist li{overflow-wrap:anywhere;font-size:15px}
 .glist li.bad{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:3px}
@@ -206,6 +207,7 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
         <input id="guessIn" placeholder="İki takımda da oynamış oyuncu…" data-ip="guessPh" autocomplete="off" autocapitalize="words" enterkeyhint="send">
         <button class="btn primary" id="guessBtn" data-i="send">Gönder</button>
       </form>
+      <div class="status passrow"><button id="passBtn" class="btn ghost small" type="button" data-i="pass">Pas geç</button><span id="passOpp" class="pill"></span></div>
       <div class="cols">
         <div><h3 data-i="yourGuesses">Senin tahminlerin</h3><ul class="glist" id="listMe"></ul></div>
         <div id="oppCol"><h3 data-i="opponent">Rakip</h3><ul class="glist" id="listOpp"></ul></div>
@@ -351,7 +353,7 @@ const STR = {
   netOk:'Odayı kur, kodu arkadaşına gönder. O da bu sayfayı açıp kodu girsin.',
   netOkSite:'Odayı kur, davet linkini arkadaşına gönder. Linke tıklayınca kod hazır gelir.',
   needNick:'Önce bir takma ad yaz.', badCode:'Oda kodu 4 karakter olmalı.', joinFail:'Odaya bağlanılamadı ({e}). Biraz sonra tekrar dene.',
-  connClosed:'Bağlantı kapandı ({e}).', connLost:'Bağlantı koptu, yeniden bağlanıyor…', roomFull:'Oda dolu. Maçı izleyici olarak takip ediyorsun.', botName:'Bot', botWaiting:'Bot seçimini bekliyor', botPicked:'Bot seçimini yaptı', oppAway:'Rakibin bağlantısı koptu, geri dönmesi bekleniyor…', away:'bağlantı yok',
+  connClosed:'Bağlantı kapandı ({e}).', connLost:'Bağlantı koptu, yeniden bağlanıyor…', roomFull:'Oda dolu. Maçı izleyici olarak takip ediyorsun.', botName:'Bot', botWaiting:'Bot seçimini bekliyor', pass:'Pas geç', youPassed:'Pas geçtin', oppPassed:'Rakip pas geçti', oppPlaying:'Rakip hâlâ düşünüyor', bothPassed:'İkiniz de pas geçtiniz.', passedSolo:'Pas geçtin.', botPicked:'Bot seçimini yaptı', oppAway:'Rakibin bağlantısı koptu, geri dönmesi bekleniyor…', away:'bağlantı yok',
   shareText:'Ortak Oyuncu düellosu, oda kodu: {c}',
   foot:'Oyuncu verisi: Wikidata (CC0) · 65 kulüp, en az iki kulüpte oynamış 6.600+ futbolcu · Ekim 2026'
  },
@@ -382,7 +384,7 @@ const STR = {
   netOk:'Create a room and send the code to your friend. They open this page and enter it.',
   netOkSite:'Create a room and send the invite link to your friend. The code is filled in when they open it.',
   needNick:'Enter a nickname first.', badCode:'Room codes are 4 characters.', joinFail:"Couldn't join the room ({e}). Try again in a moment.",
-  connClosed:'Connection closed ({e}).', connLost:'Connection lost, reconnecting…', roomFull:'The room is full. You are watching as a spectator.', botName:'Bot', botWaiting:'Bot is waiting for your pick', botPicked:'Bot has picked', oppAway:'Your opponent lost connection. Waiting for them to come back…', away:'offline',
+  connClosed:'Connection closed ({e}).', connLost:'Connection lost, reconnecting…', roomFull:'The room is full. You are watching as a spectator.', botName:'Bot', botWaiting:'Bot is waiting for your pick', pass:'Pass', youPassed:'You passed', oppPassed:'Opponent passed', oppPlaying:'Opponent is still thinking', bothPassed:'You both passed.', passedSolo:'You passed.', botPicked:'Bot has picked', oppAway:'Your opponent lost connection. Waiting for them to come back…', away:'offline',
   shareText:'Ortak Oyuncu duel, room code: {c}',
   foot:'Player data: Wikidata (CC0) · 65 clubs, 6,600+ footballers who played for at least two of them · October 2026'
  }
@@ -668,7 +670,7 @@ function hostStep(ps){
   if(ps.length<2){ if(G.phase!=='lobby' && G.phase!=='result') setG({phase:'lobby'}); return; }
   const want=G.r+1;
   if((G.phase==='lobby'||G.phase==='result') && ps.every(p=>(p.presence.ready||0)>=want)){
-    setG({phase:'pick', r:want, teams:null, winner:null, winName:null}); return;
+    setG({phase:'pick', r:want, teams:null, winner:null, winName:null, passed:false}); return;
   }
   if(G.phase==='nomatch' && t-G.at>3500){ setG({phase:'pick', r:want, teams:null, winner:null, winName:null}); return; }
   if(G.phase==='pick'){
@@ -682,6 +684,7 @@ function hostStep(ps){
   }
   if(G.phase==='guess'){
     const hits=ps.filter(p=>p.presence.hit && p.presence.hit.r===G.r);
+    if(!hits.length && ps.every(p=>p.presence.pass===G.r)){ setG({phase:'result', winner:null, winName:null, passed:true}); return; }
     if(hits.length){
       hits.sort((x,y)=>x.presence.hit.at-y.presence.hit.at);
       const w=hits[0], scores=Object.assign({},G.scores); scores[w.peer]=(scores[w.peer]||0)+1;
@@ -753,13 +756,15 @@ function step(){
   if(game.phase==='guess'){
     renderGuess({a:ca,b:cb,byA:duo[0]&&duo[0].presence.nick,byB:duo[1]&&duo[1].presence.nick,
       left:10-elapsed, mine:guessesOf(MY,game.r), opp: opp?guessesOf(opp.presence,game.r):[], showOpp:true,
-      locked: !amPlayer || elapsed>=10 || !!(MY.hit && MY.hit.r===game.r)});
+      locked: !amPlayer || elapsed>=10 || !!(MY.hit && MY.hit.r===game.r) || MY.pass===game.r,
+      passed: MY.pass===game.r, canPass: amPlayer && elapsed<10 && !(MY.hit && MY.hit.r===game.r),
+      oppPassed: !!(opp && opp.presence.pass===game.r), solo:false});
     return;
   }
   if(game.phase==='result'){
     const winP = duo.find(p=>p.peer===game.winner);
     const title = !game.winner ? t('timeUp') : (winP&&winP.sameTab ? t('youWon') : t('theyWon',{n:winP?winP.presence.nick:t('opponent')}));
-    const sub = game.winner ? t('rightAnswer',{p:game.winName}) : t('nobody');
+    const sub = game.winner ? t('rightAnswer',{p:game.winName}) : game.passed ? t('bothPassed') : t('nobody');
     const guessed=new Set([...guessesOf(MY,game.r), ...(opp?guessesOf(opp.presence,game.r):[])].filter(g=>g.ok).map(g=>g.p));
     const meR=(MY.ready||0)>=game.r+1, opR=opp && (opp.presence.ready||0)>=game.r+1;
     renderResult({a:ca,b:cb,title,win:!!(winP&&winP.sameTab),sub,guessed});
@@ -790,16 +795,26 @@ $('#nextBtn').addEventListener('click',()=>{
 });
 
 /* ---------- shared renderers ---------- */
+// shrink a club name until its longest word fits the column, instead of breaking the word
+function fitName(el){
+  const key=el.textContent+'|'+el.clientWidth; if(el.__fit===key) return; el.__fit=key;
+  el.style.fontSize=''; let fs=parseFloat(getComputedStyle(el).fontSize)||28;
+  while(el.scrollWidth>el.clientWidth+1 && fs>13){ fs-=1; el.style.fontSize=fs+'px'; }
+}
 function renderGuess(v){
   show('pGuess');
   swatch($('#swA'),v.a); swatch($('#swB'),v.b);
   setText($('#clubA'),v.a?v.a.name:'?'); setText($('#clubB'),v.b?v.b.name:'?');
   $('#clubA').lang=(v.a&&v.a.g==='Türkiye')?'tr':'en'; $('#clubB').lang=(v.b&&v.b.g==='Türkiye')?'tr':'en';
+  fitName($('#clubA')); fitName($('#clubB'));
   setText($('#byA'),v.byA?t('picked',{n:v.byA}):''); setText($('#byB'),v.byB?t('picked',{n:v.byB}):'');
   clock($('#guessClock'),v.left,10);
   $('#guessIn').disabled=v.locked; $('#guessBtn').disabled=v.locked;
   setHTML($('#listMe'), listHTML(v.mine,t('noGuesses')));
   $('#oppCol').hidden=!v.showOpp;
+  const pb=$('#passBtn'); pb.disabled=!v.canPass || v.passed; setText(pb, v.passed ? t('youPassed') : t('pass'));
+  const po=$('#passOpp'); po.hidden=v.solo; po.classList.toggle('on',!!v.oppPassed);
+  if(!v.solo) setText(po, v.oppPassed ? t('oppPassed') : t('oppPlaying'));
   if(v.showOpp) setHTML($('#listOpp'), listHTML(v.opp,t('noGuesses')));
 }
 function listHTML(list,empty){
@@ -845,7 +860,7 @@ $('#practiceBtn').addEventListener('click',()=>{
   practiceRound();
 });
 function practiceRound(){
-  Object.assign(PR,{r:PR.r+1,a:null,b:null,at:now(),guesses:[],hit:null,phase:'pick'});
+  Object.assign(PR,{r:PR.r+1,a:null,b:null,at:now(),guesses:[],hit:null,passed:false,phase:'pick'});
   $('#filter').value=''; grid.querySelectorAll('.team,.grp').forEach(el=>el.hidden=false);
   practiceRender();
 }
@@ -888,15 +903,21 @@ function practiceRender(){
   const a=CLUB[PR.a], b=CLUB[PR.b];
   if(PR.phase==='guess' && left<=0) PR.phase='result';
   if(PR.phase==='guess'){
-    renderGuess({a,b,left,byA:me,byB:t('botName'),mine:PR.guesses,opp:[],showOpp:false,locked:false});
+    renderGuess({a,b,left,byA:me,byB:t('botName'),mine:PR.guesses,opp:[],showOpp:false,locked:false,canPass:true,passed:false,solo:true});
   } else {
     renderResult({a,b,win:!!PR.hit,title:PR.hit?t('gotIt'):t('timeUp'),
-      sub:PR.hit?t('rightAnswer',{p:PR.hit}):t('nobodyPractice'),
+      sub:PR.hit?t('rightAnswer',{p:PR.hit}):PR.passed?t('passedSolo'):t('nobodyPractice'),
       guessed:new Set(PR.hit?[PR.hit]:[])});
     $('#nextMe').hidden=$('#nextOpp').hidden=true;
     $('#nextBtn').disabled=false; setText($('#nextBtn'),t('newRound'));
   }
 }
+
+$('#passBtn').addEventListener('click',()=>{
+  if(mode==='practice'){ if(PR && PR.phase==='guess'){ PR.passed=true; PR.phase='result'; practiceRender(); } return; }
+  if(mode!=='online' || !CUR || CUR.game.phase!=='guess' || !CUR.amPlayer) return;
+  setMy({pass:CUR.game.r}); step();
+});
 
 /* ---------- room bar ---------- */
 $('#copyCode').addEventListener('click',()=>{
