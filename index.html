@@ -106,7 +106,7 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
 .match{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
 .club{display:flex;flex-direction:column;gap:6px;min-width:0}
 .club.r{align-items:flex-end;text-align:right}
-.club .nm{font-family:var(--display);font-weight:900;font-size:clamp(24px,7vw,34px);line-height:.95;text-transform:uppercase;overflow-wrap:anywhere}
+.club .nm{font-family:var(--display);font-weight:900;font-size:clamp(21px,6.2vw,34px);line-height:.95;text-transform:uppercase;overflow-wrap:break-word;min-width:0;max-width:100%}
 .club .by{font-size:12px;color:var(--muted)}
 .club .sw{width:22px;height:22px}
 .x{font-family:var(--display);font-weight:900;font-size:28px;color:var(--amber)}
@@ -351,7 +351,7 @@ const STR = {
   netOk:'Odayı kur, kodu arkadaşına gönder. O da bu sayfayı açıp kodu girsin.',
   netOkSite:'Odayı kur, davet linkini arkadaşına gönder. Linke tıklayınca kod hazır gelir.',
   needNick:'Önce bir takma ad yaz.', badCode:'Oda kodu 4 karakter olmalı.', joinFail:'Odaya bağlanılamadı ({e}). Biraz sonra tekrar dene.',
-  connClosed:'Bağlantı kapandı ({e}).', connLost:'Bağlantı koptu, yeniden bağlanıyor…', roomFull:'Oda dolu. Maçı izleyici olarak takip ediyorsun.', oppAway:'Rakibin bağlantısı koptu, geri dönmesi bekleniyor…', away:'bağlantı yok',
+  connClosed:'Bağlantı kapandı ({e}).', connLost:'Bağlantı koptu, yeniden bağlanıyor…', roomFull:'Oda dolu. Maçı izleyici olarak takip ediyorsun.', botName:'Bot', botWaiting:'Bot seçimini bekliyor', botPicked:'Bot seçimini yaptı', oppAway:'Rakibin bağlantısı koptu, geri dönmesi bekleniyor…', away:'bağlantı yok',
   shareText:'Ortak Oyuncu düellosu, oda kodu: {c}',
   foot:'Oyuncu verisi: Wikidata (CC0) · 65 kulüp, en az iki kulüpte oynamış 6.600+ futbolcu · Ekim 2026'
  },
@@ -382,7 +382,7 @@ const STR = {
   netOk:'Create a room and send the code to your friend. They open this page and enter it.',
   netOkSite:'Create a room and send the invite link to your friend. The code is filled in when they open it.',
   needNick:'Enter a nickname first.', badCode:'Room codes are 4 characters.', joinFail:"Couldn't join the room ({e}). Try again in a moment.",
-  connClosed:'Connection closed ({e}).', connLost:'Connection lost, reconnecting…', roomFull:'The room is full. You are watching as a spectator.', oppAway:'Your opponent lost connection. Waiting for them to come back…', away:'offline',
+  connClosed:'Connection closed ({e}).', connLost:'Connection lost, reconnecting…', roomFull:'The room is full. You are watching as a spectator.', botName:'Bot', botWaiting:'Bot is waiting for your pick', botPicked:'Bot has picked', oppAway:'Your opponent lost connection. Waiting for them to come back…', away:'offline',
   shareText:'Ortak Oyuncu duel, room code: {c}',
   foot:'Player data: Wikidata (CC0) · 65 clubs, 6,600+ footballers who played for at least two of them · October 2026'
  }
@@ -778,6 +778,7 @@ function onPhase(game){
   if(game.phase==='guess'){ $('#guessIn').value=''; setTimeout(()=>{ if(CUR&&CUR.amPlayer!==false) $('#guessIn').focus(); },50); }
 }
 function pickTeam(id,auto){
+  if(mode==='practice'){ practicePick(id); return; }
   if(mode!=='online'||!CUR||CUR.game.phase!=='pick'||!CUR.amPlayer) return;
   if(MY.pick && MY.pick.r===CUR.game.r) return;
   setMy({pick:{r:CUR.game.r, team:id, auto:!!auto}}); step();
@@ -793,6 +794,7 @@ function renderGuess(v){
   show('pGuess');
   swatch($('#swA'),v.a); swatch($('#swB'),v.b);
   setText($('#clubA'),v.a?v.a.name:'?'); setText($('#clubB'),v.b?v.b.name:'?');
+  $('#clubA').lang=(v.a&&v.a.g==='Türkiye')?'tr':'en'; $('#clubB').lang=(v.b&&v.b.g==='Türkiye')?'tr':'en';
   setText($('#byA'),v.byA?t('picked',{n:v.byA}):''); setText($('#byB'),v.byB?t('picked',{n:v.byB}):'');
   clock($('#guessClock'),v.left,10);
   $('#guessIn').disabled=v.locked; $('#guessBtn').disabled=v.locked;
@@ -843,9 +845,20 @@ $('#practiceBtn').addEventListener('click',()=>{
   practiceRound();
 });
 function practiceRound(){
-  let a,b,n=0;
-  do{ a=rnd(CLUBS).id; b=rnd(CLUBS).id; n++; } while(common(a,b).length<3 && n<2000);
-  Object.assign(PR,{r:PR.r+1,a,b,at:now(),guesses:[],hit:null,phase:'guess'});
+  Object.assign(PR,{r:PR.r+1,a:null,b:null,at:now(),guesses:[],hit:null,phase:'pick'});
+  $('#filter').value=''; grid.querySelectorAll('.team,.grp').forEach(el=>el.hidden=false);
+  practiceRender();
+}
+// The bot answers your pick with a club that shares players with it (3+ when possible), so every round is playable.
+function botPick(mine){
+  const ok=n=>CLUBS.filter(c=>c.id!==mine && common(mine,c.id).length>=n);
+  let pool=ok(3); if(!pool.length) pool=ok(1);
+  if(!pool.length) pool=CLUBS.filter(c=>c.id!==mine);
+  return rnd(pool).id;
+}
+function practicePick(id){
+  if(!PR || PR.phase!=='pick') return;
+  PR.a=id; PR.b=botPick(id); PR.phase='guess'; PR.at=now();
   $('#guessIn').value=''; setTimeout(()=>$('#guessIn').focus(),50);
   practiceRender();
 }
@@ -858,13 +871,24 @@ function practiceGuess(text){
   practiceRender();
 }
 function practiceRender(){
-  setText($('#nameA'), $('#nick').value.trim()||t('youShort')); setText($('#tagA'),t('correct'));
+  const me=$('#nick').value.trim()||t('youShort');
+  setText($('#nameA'), me); setText($('#tagA'),t('correct'));
   setText($('#nameB'),t('roundsLbl')); setText($('#tagB'),t('played'));
   setText($('#score'), PR.score+' : '+PR.r);
-  const a=CLUB[PR.a], b=CLUB[PR.b], left=10-(now()-PR.at)/1000;
+  const left=10-(now()-PR.at)/1000;
+  if(PR.phase==='pick'){
+    if(left<=0){ practicePick(rnd(CLUBS).id); return; }
+    show('pPick'); setText($('#pickRound'),t('round',{n:PR.r}));
+    clock($('#pickClock'),left,10);
+    grid.querySelectorAll('.team').forEach(b=>{ b.classList.remove('sel'); b.disabled=false; });
+    setText($('#pickMine'), t('notPicked'));
+    $('#pickOpp').classList.remove('on'); setText($('#pickOpp'), t('botWaiting'));
+    return;
+  }
+  const a=CLUB[PR.a], b=CLUB[PR.b];
   if(PR.phase==='guess' && left<=0) PR.phase='result';
   if(PR.phase==='guess'){
-    renderGuess({a,b,left,mine:PR.guesses,opp:[],showOpp:false,locked:false});
+    renderGuess({a,b,left,byA:me,byB:t('botName'),mine:PR.guesses,opp:[],showOpp:false,locked:false});
   } else {
     renderResult({a,b,win:!!PR.hit,title:PR.hit?t('gotIt'):t('timeUp'),
       sub:PR.hit?t('rightAnswer',{p:PR.hit}):t('nobodyPractice'),
