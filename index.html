@@ -10,7 +10,7 @@
 <style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 </head>
 <body>
-<title>Ortak Oyuncu</title>
+<title>Crossover</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Big+Shoulders+Display:wght@700;800;900&family=Space+Mono:wght@700&display=swap">
 <style>
 /* Layout: one narrow match-centre column on mown turf — scoreboard on top, the live phase panel below it */
@@ -142,7 +142,7 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
 <div class="wrap">
   <header class="mast">
     <div class="mast-top"><div class="eyebrow" data-i="eyebrow">Futbol düellosu · 10 sn seçim · 10 sn tahmin</div><button id="langBtn" class="lang" type="button">EN</button></div>
-    <h1>Ortak Oyuncu</h1>
+    <h1>Crossover</h1>
     <p class="lede" data-i="lede">İki oyuncu aynı anda birer takım seçer. İki takımda da forma giymiş bir futbolcuyu ilk yazan turu alır.</p>
   </header>
 
@@ -363,7 +363,7 @@ const STR = {
   netOkSite:'Odayı kur, davet linkini arkadaşına gönder. Linke tıklayınca kod hazır gelir.',
   needNick:'Önce bir takma ad yaz.', badCode:'Oda kodu 4 karakter olmalı.', joinFail:'Odaya bağlanılamadı ({e}). Biraz sonra tekrar dene.',
   connClosed:'Bağlantı kapandı ({e}).', connLost:'Bağlantı koptu, yeniden bağlanıyor…', roomFull:'Oda dolu. Maçı izleyici olarak takip ediyorsun.', botName:'Bot', botWaiting:'Bot seçimini bekliyor', pass:'Pas geç', youPassed:'Pas geçtin', oppPassed:'Rakip pas geçti', oppPlaying:'Rakip hâlâ düşünüyor', bothPassed:'İkiniz de pas geçtiniz.', passedSolo:'Pas geçtin.', botPicked:'Bot seçimini yaptı', oppAway:'Rakibin bağlantısı koptu, geri dönmesi bekleniyor…', away:'bağlantı yok',
-  shareText:'Ortak Oyuncu düellosu, oda kodu: {c}',
+  shareText:'Crossover düellosu, oda kodu: {c}',
   foot:'Oyuncu verisi: Wikidata (CC0) · 65 kulüp, en az iki kulüpte oynamış 6.600+ futbolcu · Ekim 2026'
  },
  en:{
@@ -394,7 +394,7 @@ const STR = {
   netOkSite:'Create a room and send the invite link to your friend. The code is filled in when they open it.',
   needNick:'Enter a nickname first.', badCode:'Room codes are 4 characters.', joinFail:"Couldn't join the room ({e}). Try again in a moment.",
   connClosed:'Connection closed ({e}).', connLost:'Connection lost, reconnecting…', roomFull:'The room is full. You are watching as a spectator.', botName:'Bot', botWaiting:'Bot is waiting for your pick', pass:'Pass', youPassed:'You passed', oppPassed:'Opponent passed', oppPlaying:'Opponent is still thinking', bothPassed:'You both passed.', passedSolo:'You passed.', botPicked:'Bot has picked', oppAway:'Your opponent lost connection. Waiting for them to come back…', away:'offline',
-  shareText:'Ortak Oyuncu duel, room code: {c}',
+  shareText:'Crossover duel, room code: {c}',
   foot:'Player data: Wikidata (CC0) · 65 clubs, 6,600+ footballers who played for at least two of them · October 2026'
  }
 };
@@ -950,7 +950,7 @@ $('#copyCode').addEventListener('click',()=>{
   const done=x=>{ btn.textContent=x; setTimeout(()=>btn.textContent=label(),1800); };
   if(IS_SITE){
     const link=location.origin+location.pathname+'#'+c;
-    if(navigator.share){ navigator.share({title:'Ortak Oyuncu',text:t('shareText',{c}),url:link}).catch(()=>{}); return; }
+    if(navigator.share){ navigator.share({title:'Crossover',text:t('shareText',{c}),url:link}).catch(()=>{}); return; }
     try{ navigator.clipboard.writeText(link).then(()=>done(t('linkCopied')),()=>done(link)); }catch(e){ done(link); }
     return;
   }
