@@ -239,7 +239,7 @@ const SUPABASE_URL = "https://renjluuhiqjvavxlsdpj.supabase.co";
 const SUPABASE_KEY = "sb_publishable_aC9lOphQcUiVxXdeLmV9vA_lzUHlF9i";
 function makeRoomApi(){
   if(!window.supabase || SUPABASE_URL.indexOf('%%')===0) return null;
-  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {realtime:{params:{eventsPerSecond:20}}});
+  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {realtime:{params:{eventsPerSecond:20}, heartbeatIntervalMs:15000}});
   const myPeer = Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
   return {
     async join(name){
@@ -259,11 +259,16 @@ function makeRoomApi(){
       const setConn = v => { if(v===connected) return; connected = v; connFns.forEach(f=>{ try{ f(v); }catch(e){} }); };
       const flush = () => { timer = null; if(connected && !closed) ch.track(state).catch(()=>{}); };
       ch.on('presence',{event:'sync'}, emitPeers);
+      // Phones pause the page when the screen locks; reconnect as soon as it is visible again.
+      const wake = () => { if(closed || document.visibilityState!=='visible') return;
+        try{ if(!client.realtime.isConnected()) client.realtime.connect(); }catch(e){}
+        if(connected) flush(); };
+      document.addEventListener('visibilitychange', wake); window.addEventListener('online', wake); window.addEventListener('focus', wake);
       await new Promise((resolve,reject)=>{
         let done = false;
         const to = setTimeout(()=>{ if(!done){ done=true; reject({code:'timeout'}); } }, 10000);
         ch.subscribe(status=>{
-          if(status==='SUBSCRIBED'){ setConn(true); flush(); if(!done){ done=true; clearTimeout(to); resolve(); } }
+          if(status==='SUBSCRIBED'){ setConn(true); flush(); emitPeers(); if(!done){ done=true; clearTimeout(to); resolve(); } }
           else if(status==='CHANNEL_ERROR' || status==='TIMED_OUT' || status==='CLOSED'){ setConn(false); if(!done && status!=='CLOSED'){ done=true; clearTimeout(to); reject({code:status}); } }
         });
       });
@@ -313,7 +318,7 @@ const STR = {
   netOk:'Odayı kur, kodu arkadaşına gönder. O da bu sayfayı açıp kodu girsin.',
   netOkSite:'Odayı kur, davet linkini arkadaşına gönder. Linke tıklayınca kod hazır gelir.',
   needNick:'Önce bir takma ad yaz.', badCode:'Oda kodu 4 karakter olmalı.', joinFail:'Odaya bağlanılamadı ({e}). Biraz sonra tekrar dene.',
-  connClosed:'Bağlantı kapandı ({e}).', connLost:'Bağlantı koptu, yeniden bağlanıyor…', roomFull:'Oda dolu. Maçı izleyici olarak takip ediyorsun.',
+  connClosed:'Bağlantı kapandı ({e}).', connLost:'Bağlantı koptu, yeniden bağlanıyor…', roomFull:'Oda dolu. Maçı izleyici olarak takip ediyorsun.', oppAway:'Rakibin bağlantısı koptu, geri dönmesi bekleniyor…', away:'bağlantı yok',
   shareText:'Ortak Oyuncu düellosu, oda kodu: {c}',
   foot:'Oyuncu verisi: Wikidata (CC0) · 65 kulüp, en az iki kulüpte oynamış 6.600+ futbolcu · Ekim 2026'
  },
@@ -344,7 +349,7 @@ const STR = {
   netOk:'Create a room and send the code to your friend. They open this page and enter it.',
   netOkSite:'Create a room and send the invite link to your friend. The code is filled in when they open it.',
   needNick:'Enter a nickname first.', badCode:'Room codes are 4 characters.', joinFail:"Couldn't join the room ({e}). Try again in a moment.",
-  connClosed:'Connection closed ({e}).', connLost:'Connection lost, reconnecting…', roomFull:'The room is full. You are watching as a spectator.',
+  connClosed:'Connection closed ({e}).', connLost:'Connection lost, reconnecting…', roomFull:'The room is full. You are watching as a spectator.', oppAway:'Your opponent lost connection. Waiting for them to come back…', away:'offline',
   shareText:'Ortak Oyuncu duel, room code: {c}',
   foot:'Player data: Wikidata (CC0) · 65 clubs, 6,600+ footballers who played for at least two of them · October 2026'
  }
@@ -553,6 +558,10 @@ $('#joinBtn').addEventListener('click',()=>{
 $('#codeIn').addEventListener('keydown',e=>{ if(e.key==='Enter') $('#joinBtn').click(); });
 
 let unsubs=[];
+/* A player whose connection drops is kept in the game as "away" for GRACE ms,
+   so a locked screen or a network blip doesn't reset the round or hand the host role over. */
+const GRACE=25000; let GHOST={}, OWN_LOST=false;
+const CID=(function(){ try{ let v=sessionStorage.getItem('oo-cid'); if(!v){ v=Math.random().toString(36).slice(2,12); sessionStorage.setItem('oo-cid',v); } return v; }catch(e){ return Math.random().toString(36).slice(2,12); } })();
 /* Fast path: every change to my state is also sent as an instant message ('me'),
    so the other phone doesn't wait for the slower presence sync.
    Clock sync: guests ping the host and keep an offset, so both countdowns run on the host's clock. */
@@ -565,7 +574,9 @@ async function enter(c,nick){
   try{ R = await roomApi.join('oo-'+c); }
   catch(e){ $('#netNote').textContent=t('joinFail',{e:(e&&e.code)||'error'}); $('#netNote').className='note warn'; return; }
   code=c; mode='online'; G=null; lastGame=null; seen={key:'',at:0}; peers=[];
-  MY={nick, joinedAt:now(), ready:0};
+  const jk='oo-j-'+c; let joined=now();
+  try{ const v=+sessionStorage.getItem(jk); if(v) joined=v; else sessionStorage.setItem(jk,String(joined)); }catch(e){}
+  MY={nick, cid:CID, joinedAt:joined, ready:0}; GHOST={}; OWN_LOST=false;
   R.presence(MY).catch(()=>{});
   unsubs.push(R.onPeers(ch=>{ peers=ch.peers; step(); }, err=>{ conn(t('connClosed',{e:err.code})); }));
   FAST={}; SEQ=0; OFFSET=0; SYNCED=false; SYNC_HOST=null; SAMPLES=[];
@@ -579,10 +590,11 @@ async function enter(c,nick){
     const best=SAMPLES.reduce((a,b)=>b.rtt<a.rtt?b:a); OFFSET=best.off; SYNCED=true;
   });
   clearInterval(pingTimer); let pings=0;
+  document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible' && mode==='online'){ sendPing(); emit('me',Object.assign({},MY)); step(); } });
   pingTimer=setInterval(()=>{ pings++; if(pings<=6 || pings%5===0) sendPing(); },1500);
   emit('me',Object.assign({},MY,{seq:SEQ}));
   let lostAt=0;
-  unsubs.push(R.onConnection(ok=>{ if(ok){ lostAt=0; conn(''); } else { lostAt=now(); setTimeout(()=>{ if(lostAt && now()-lostAt>=1900) conn(t('connLost')); },2000); } }));
+  unsubs.push(R.onConnection(ok=>{ if(ok){ lostAt=0; OWN_LOST=false; sendPing(); step(); } else { lostAt=now(); setTimeout(()=>{ if(lostAt && now()-lostAt>=1900){ OWN_LOST=true; step(); } },2000); } }));
   $('#home').hidden=true; $('#game').hidden=false;
   $('#roomLabel').textContent=t('room'); setText($('#roomCode'),c.toUpperCase()); setHTML($('#waitText'),t('waitText',{code:c.toUpperCase()}));
   $('#copyCode').hidden=false;
@@ -600,13 +612,19 @@ function players(){
     if(p.sameTab) return Object.assign({},p,{presence:MY});
     const f=FAST[p.peer];   // newer state from the instant message wins over presence
     return (f && (f.seq||0)>=((p.presence&&p.presence.seq)||0)) ? Object.assign({},p,{presence:f}) : p;
-  }).filter(p=>p.presence && p.presence.nick);
-  if(!list.some(p=>p.sameTab) && MY.nick) list.push({peer:'me',sameTab:true,presence:MY});
-  list.sort((a,b)=>((a.presence.joinedAt||0)-(b.presence.joinedAt||0)) || (a.peer<b.peer?-1:1));
-  return list;
+  }).filter(p=>p.presence && p.presence.nick)
+    .map(p=>Object.assign({},p,{tp:p.peer, peer:p.presence.cid||p.peer, away:false}));
+  if(!list.some(p=>p.sameTab) && MY.nick) list.push({peer:CID, tp:null, sameTab:true, presence:MY, away:false});
+  const by={};   // one entry per player, even if a reload left an old connection behind
+  for(const p of list){ const o=by[p.peer]; if(!o || p.sameTab || (!o.sameTab && (p.presence.seq||0)>(o.presence.seq||0))) by[p.peer]=p; }
+  const t0=now(), out=Object.values(by);
+  for(const p of out) if(!p.sameTab) GHOST[p.peer]={p, t:t0};
+  for(const id in GHOST){ if(by[id]) continue; if(t0-GHOST[id].t<GRACE) out.push(Object.assign({},GHOST[id].p,{away:true})); else delete GHOST[id]; }
+  out.sort((a,b)=>((a.presence.joinedAt||0)-(b.presence.joinedAt||0)) || (a.peer<b.peer?-1:1));
+  return out;
 }
 const fresh = () => ({phase:'lobby', r:0, scores:{}, at:now()});
-function setG(patch){ G=Object.assign({},G,patch,{at:now()}); lastGame=G; setMy({game:G}); }
+function setG(patch){ G=Object.assign({},G,patch,{at:now(), v:((G&&G.v)||0)+1}); lastGame=G; setMy({game:G}); }
 function phaseElapsed(game,amHost){ if(amHost) return (now()-game.at)/1000; if(SYNCED && SYNC_HOST && game.at) return Math.max(0,(hostNow()-game.at)/1000); return (now()-seen.at)/1000; }
 
 function hostStep(ps){
@@ -641,12 +659,14 @@ function step(){
   const ps=players(), duo=ps.slice(0,2), host=duo[0];
   const amHost = !!(host && host.sameTab);
   if(amHost){
-    if(!G){ G=Object.assign({}, lastGame||fresh(), {at:now()}); setMy({game:G}); }
+    if(!G){ G=Object.assign({}, lastGame||fresh(), {at:now(), v:((lastGame&&lastGame.v)||0)+1}); setMy({game:G}); }
+    else { const o=duo.find(p=>!p.sameTab && p.presence.game && (p.presence.game.v||0)>(G.v||0));
+      if(o){ G=Object.assign({}, o.presence.game, {at:now(), v:o.presence.game.v+1}); lastGame=G; setMy({game:G}); } }
     hostStep(duo);
   } else {
     if(G){ G=null; setMy({game:null}); }
     if(host && host.presence.game) lastGame=host.presence.game;
-    if(host && SYNC_HOST && SYNC_HOST!==host.peer){ SYNCED=false; SAMPLES=[]; sendPing(); }
+    if(host && host.tp && SYNC_HOST && SYNC_HOST!==host.tp){ SYNCED=false; SAMPLES=[]; sendPing(); }
   }
   const game = amHost ? G : (lastGame||fresh());
   const key=game.phase+':'+game.r;
@@ -663,7 +683,8 @@ function step(){
   setText($('#nameA'), A?A.presence.nick:'—'); setText($('#tagA'), A?(A.sameTab?t('you'):t('rival')):'');
   setText($('#nameB'), B?B.presence.nick:t('waiting')); setText($('#tagB'), B?(B.sameTab?t('you'):t('rival')):'');
   setText($('#score'), (A?sc[A.peer]||0:0)+' : '+(B?sc[B.peer]||0:0));
-  if(!amPlayer && ps.length>2) conn(t('roomFull'));
+  conn(OWN_LOST ? t('connLost') : (opp && opp.away) ? t('oppAway') : (!amPlayer && ps.length>2) ? t('roomFull') : '');
+  if(A&&A.away) setText($('#tagA'), t('away')); if(B&&B.away) setText($('#tagB'), t('away'));
 
   CUR={game,duo,amPlayer,opp};
 
