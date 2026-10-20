@@ -560,6 +560,8 @@ $('#langBtn').addEventListener('click',()=>{ LANG = LANG==='tr'?'en':'tr'; try{ 
 (async()=>{
   try{ roomApi = makeRoomApi(); }catch(e){ roomApi=null; }
   roomChecked=true; updateNet();
+  // the phone reloaded the page mid-game: go straight back into the same room
+  try{ const r=sessionStorage.getItem('oo-room'), n=store.get('oo-nick'); if(roomApi && r && n && mode==='home') enter(r, n); }catch(e){}
 })();
 relabel();
 function updateNet(){
@@ -610,6 +612,7 @@ async function enter(c,nick){
   const jk='oo-j-'+c; let joined=now();
   try{ const v=+sessionStorage.getItem(jk); if(v) joined=v; else sessionStorage.setItem(jk,String(joined)); }catch(e){}
   MY={nick, cid:CID, joinedAt:joined, ready:0}; GHOST={}; OWN_LOST=false;
+  try{ sessionStorage.setItem('oo-room', c); }catch(e){}
   R.presence(MY).catch(()=>{});
   unsubs.push(R.onPeers(ch=>{ peers=ch.peers; step(); }, err=>{ conn(t('connClosed',{e:err.code})); }));
   FAST={}; SEQ=0; OFFSET=0; SYNCED=false; SYNC_HOST=null; SAMPLES=[];
@@ -886,7 +889,7 @@ $('#copyCode').addEventListener('click',()=>{
 });
 $('#leave').addEventListener('click',async()=>{
   if(mode==='online'){ unsubs.forEach(u=>{try{u()}catch(e){}}); unsubs=[]; try{ await R.leave(); }catch(e){} R=null; }
-  clearInterval(pingTimer); FAST={};
+  clearInterval(pingTimer); FAST={}; try{ sessionStorage.removeItem('oo-room'); }catch(e){}
   mode='home'; MY={}; peers=[]; G=null; lastGame=null; PR=null; conn('');
   $('#game').hidden=true; $('#home').hidden=false;
 });
