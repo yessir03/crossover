@@ -116,6 +116,11 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .cols h3{margin:0 0 6px;font-size:12px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .passrow{align-items:center}
+.durrow{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:99px;padding:3px;gap:3px}
+.seg button{font:inherit;font-family:var(--mono);font-size:13px;font-weight:700;color:var(--chalk);background:transparent;border:0;border-radius:99px;padding:6px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--amber);color:var(--ink)}
+.seg button:disabled{opacity:.45;cursor:default}
 .glist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;min-width:0}
 .glist li{overflow-wrap:anywhere;font-size:15px}
 .glist li.bad{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:3px}
@@ -145,6 +150,7 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
     <div class="card">
       <label for="nick" data-i="nickLabel">Takma adın</label>
       <input id="nick" maxlength="16" placeholder="örn. Yasir" data-ip="nickPh" autocomplete="off">
+      <div class="durrow"><span class="eyebrow" data-i="durLabel">Tur süresi</span><div class="seg" id="durHome" role="group"><button type="button" data-d="10">10</button><button type="button" data-d="15">15</button><button type="button" data-d="20">20</button></div></div>
       <button id="create" class="btn primary" data-i="create">Oda kur</button>
       <div class="divider" data-i="orJoin">veya arkadaşının odasına katıl</div>
       <div class="row">
@@ -185,6 +191,8 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
     <div class="panel" id="pReady" hidden>
       <h2 id="readyTitle" data-i="readyTitle">İkiniz de hazır mısınız?</h2>
       <div class="status"><span id="readyMe" class="pill">Sen: bekliyor</span><span id="readyOpp" class="pill">Rakip: bekliyor</span></div>
+      <div class="durrow"><span class="eyebrow" data-i="durLabel">Tur süresi</span><div class="seg" id="durReady" role="group"><button type="button" data-d="10">10</button><button type="button" data-d="15">15</button><button type="button" data-d="20">20</button></div></div>
+      <p class="note" data-i="durNote"></p>
       <button id="readyBtn" class="btn primary">Hazırım</button>
     </div>
 
@@ -220,6 +228,7 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
       <p class="note" id="resSub"></p>
       <div><h3 class="eyebrow" style="margin:0 0 8px" data-i="answers">Kabul edilecek cevaplar</h3><div class="answers" id="resAnswers"></div></div>
       <div class="status"><span id="nextMe" class="pill">Sen: bekliyor</span><span id="nextOpp" class="pill">Rakip: bekliyor</span></div>
+      <div class="durrow"><span class="eyebrow" data-i="durLabel">Tur süresi</span><div class="seg" id="durResult" role="group"><button type="button" data-d="10">10</button><button type="button" data-d="15">15</button><button type="button" data-d="20">20</button></div></div>
       <button id="nextBtn" class="btn primary">Sonraki tur</button>
     </div>
 
@@ -327,12 +336,12 @@ function makeRoomApi(){
 const IS_SITE = true;
 const STR = {
  tr:{
-  eyebrow:'Futbol düellosu · 10 sn seçim · 10 sn tahmin',
+  eyebrow:'Futbol düellosu · 10, 15 ya da 20 saniyelik turlar', durLabel:'Tur süresi', durNote:'Seçim ve tahmin için ayrı ayrı. İkiniz de değiştirebilirsiniz.', sec:'{n} sn',
   lede:'İki oyuncu aynı anda birer takım seçer. İki takımda da forma giymiş bir futbolcuyu ilk yazan turu alır.',
   nickLabel:'Takma adın', nickPh:'örn. Yasir', create:'Oda kur', orJoin:'veya arkadaşının odasına katıl', codePh:'KOD', join:'Katıl',
   practice:'Tek başına antrenman',
-  how1t:'Takımını seç', how1d:'10 saniyen var. Rakibin ne seçtiğini göremezsin.',
-  how2t:'Takımlar açılır, ortak oyuncuyu yaz', how2d:'Tahmin için 10 saniye. Soyadı yeterli, küçük yazım hataları kabul.',
+  how1t:'Takımını seç', how1d:'Süre 10, 15 ya da 20 saniye, odada seçilir. Rakibin ne seçtiğini göremezsin.',
+  how2t:'Takımlar açılır, ortak oyuncuyu yaz', how2d:'Tahmin için de aynı süre var. Soyadı yeterli, küçük yazım hataları kabul.',
   how3t:'İlk doğru cevap turu alır', how3d:'Yanlış cevaplar kırmızıyla çizilir, süre bitene kadar denemeye devam edebilirsin.',
   room:'Oda', training:'Antrenman', copyCode:'Kodu kopyala', copyLink:'Davet linkini kopyala', copied:'Kopyalandı', linkCopied:'Link kopyalandı', codeIs:'Kod: ', leave:'Çık',
   waitTitle:'Rakip bekleniyor', waitText:'Arkadaşın bu sayfayı açıp <b>{code}</b> kodunu girsin. Oyun ikiniz de hazır olunca başlar.',
@@ -344,7 +353,7 @@ const STR = {
   answers:'Kabul edilecek cevaplar', more:'+{n} oyuncu daha', next:'Sonraki tur', newRound:'Yeni tur',
   noMatchTitle:'Ortak oyuncu yok', noMatchNext:'Yeni seçim turu birazdan başlıyor…',
   sameTeam:'İkiniz de {a} seçtiniz. Farklı takımlar seçmelisiniz.', noCommon:'{a} ve {b} arasında veritabanımızda ortak oyuncu bulunamadı.', noCommonGeneric:'Bu iki takım arasında ortak oyuncu bulunamadı.',
-  timeUp:'Süre bitti', youWon:'Turu aldın!', theyWon:'{n} turu aldı', rightAnswer:'Doğru cevap: {p}', nobody:'Kimse 10 saniyede doğru oyuncuyu bulamadı.',
+  timeUp:'Süre bitti', youWon:'Turu aldın!', theyWon:'{n} turu aldı', rightAnswer:'Doğru cevap: {p}', nobody:'Kimse süre içinde doğru oyuncuyu bulamadı.',
   gotIt:'Bildin!', nobodyPractice:'Bu turda doğru oyuncu bulunamadı.',
   you:'sen', rival:'rakip', waiting:'bekleniyor', youShort:'Sen', correct:'doğru', roundsLbl:'Tur', played:'oynanan',
   netChecking:'Online bağlantı kontrol ediliyor…',
@@ -358,12 +367,12 @@ const STR = {
   foot:'Oyuncu verisi: Wikidata (CC0) · 65 kulüp, en az iki kulüpte oynamış 6.600+ futbolcu · Ekim 2026'
  },
  en:{
-  eyebrow:'Football duel · 10 s to pick · 10 s to guess',
+  eyebrow:'Football duel · 10, 15 or 20 second rounds', durLabel:'Round time', durNote:'Applies to picking and to guessing. Either of you can change it.', sec:'{n}s',
   lede:'Two players each pick a club at the same time. The first to name a footballer who played for both clubs wins the round.',
   nickLabel:'Your nickname', nickPh:'e.g. Yasir', create:'Create room', orJoin:"or join your friend's room", codePh:'CODE', join:'Join',
   practice:'Practise solo',
-  how1t:'Pick your club', how1d:"You have 10 seconds. You can't see what your opponent picks.",
-  how2t:'Clubs are revealed, name a shared player', how2d:'10 seconds to guess. A surname is enough and small typos are accepted.',
+  how1t:'Pick your club', how1d:"10, 15 or 20 seconds, chosen in the room. You can't see what your opponent picks.",
+  how2t:'Clubs are revealed, name a shared player', how2d:'The same time to guess. A surname is enough and small typos are accepted.',
   how3t:'First correct answer wins the round', how3d:'Wrong answers get a red strike-through. Keep trying until the clock runs out.',
   room:'Room', training:'Practice', copyCode:'Copy code', copyLink:'Copy invite link', copied:'Copied', linkCopied:'Link copied', codeIs:'Code: ', leave:'Leave',
   waitTitle:'Waiting for an opponent', waitText:'Ask your friend to open this page and enter <b>{code}</b>. The game starts when you are both ready.',
@@ -375,7 +384,7 @@ const STR = {
   answers:'Accepted answers', more:'+{n} more', next:'Next round', newRound:'New round',
   noMatchTitle:'No shared players', noMatchNext:'A new pick round starts shortly…',
   sameTeam:'You both picked {a}. Pick different clubs.', noCommon:'Our database has no player who played for both {a} and {b}.', noCommonGeneric:'These two clubs have no shared player.',
-  timeUp:"Time's up", youWon:'You won the round!', theyWon:'{n} won the round', rightAnswer:'Correct answer: {p}', nobody:'Nobody found a correct player in 10 seconds.',
+  timeUp:"Time's up", youWon:'You won the round!', theyWon:'{n} won the round', rightAnswer:'Correct answer: {p}', nobody:'Nobody found a correct player in time.',
   gotIt:'Got it!', nobodyPractice:'No correct player this round.',
   you:'you', rival:'opponent', waiting:'waiting', youShort:'You', correct:'correct', roundsLbl:'Rounds', played:'played',
   netChecking:'Checking online connection…',
@@ -546,12 +555,13 @@ let MY={}, peers=[];
 let G=null, lastGame=null;   // G: game state when I am host
 let seen={key:'',at:0};
 let CUR=null;              // current view context for handlers
-let PR=null;               // practice state
+let PR=null;
+let HOME_DUR = (function(){ const v=+store.get('oo-dur'); return [10,15,20].includes(v)?v:10; })();               // practice state
 
 $('#nick').value = store.get('oo-nick') || '';
 (function(){ const h=(location.hash||'').slice(1); if(/^[a-z0-9]{4,5}$/i.test(h)) $('#codeIn').value=h.toUpperCase(); })();
 function relabel(){
-  applyLang(); buildGrid(); updateNet();
+  applyLang(); buildGrid(); updateNet(); paintSeg($('#durHome'),HOME_DUR,true);
   $('#copyCode').textContent=t(IS_SITE?'copyLink':'copyCode');
   if(mode==='online'){ $('#roomLabel').textContent=t('room'); setHTML($('#waitText'),t('waitText',{code:code.toUpperCase()})); }
   if(mode==='practice'){ $('#roomLabel').textContent=t('training'); practiceRender(); }
@@ -661,7 +671,13 @@ function players(){
   out.sort((a,b)=>((a.presence.joinedAt||0)-(b.presence.joinedAt||0)) || (a.peer<b.peer?-1:1));
   return out;
 }
-const fresh = () => ({phase:'lobby', r:0, scores:{}, at:now()});
+const fresh = () => ({phase:'lobby', r:0, scores:{}, at:now(), dur:HOME_DUR});
+const DUR = g => (g && [10,15,20].includes(g.dur)) ? g.dur : 10;
+function paintSeg(el,val,enabled){ el.querySelectorAll('button').forEach(b=>{ b.setAttribute('aria-pressed', String(+b.dataset.d===val)); b.textContent=t('sec',{n:b.dataset.d}); b.disabled=!enabled; }); }
+// Either player can change the round time between rounds; the latest request wins.
+function requestDur(d){ if(mode!=='online'||!CUR) return; const host=CUR.duo[0]&&CUR.duo[0].sameTab; setMy({durReq:{d, at: host?now():hostNow()}}); step(); }
+['durReady','durResult'].forEach(id=>$('#'+id).addEventListener('click',e=>{ const b=e.target.closest('button[data-d]'); if(b && !b.disabled) requestDur(+b.dataset.d); }));
+$('#durHome').addEventListener('click',e=>{ const b=e.target.closest('button[data-d]'); if(!b) return; HOME_DUR=+b.dataset.d; store.set('oo-dur',String(HOME_DUR)); paintSeg($('#durHome'),HOME_DUR,true); });
 function setG(patch){ G=Object.assign({},G,patch,{at:now(), v:((G&&G.v)||0)+1}); lastGame=G; setMy({game:G}); }
 function phaseElapsed(game,amHost){ if(amHost) return (now()-game.at)/1000; if(SYNCED && SYNC_HOST && game.at) return Math.max(0,(hostNow()-game.at)/1000); return (now()-seen.at)/1000; }
 
@@ -669,13 +685,18 @@ function hostStep(ps){
   const t=now();
   if(ps.length<2){ if(G.phase!=='lobby' && G.phase!=='result') setG({phase:'lobby'}); return; }
   const want=G.r+1;
+  if(G.phase==='lobby'||G.phase==='result'){
+    const reqs=ps.map(p=>p.presence.durReq).filter(q=>q && [10,15,20].includes(q.d) && q.at>(G.durAt||0)).sort((a,b)=>b.at-a.at);
+    if(reqs.length && reqs[0].d!==G.dur){ G=Object.assign({},G,{dur:reqs[0].d, durAt:reqs[0].at, v:(G.v||0)+1}); lastGame=G; setMy({game:G}); }
+    else if(reqs.length){ G.durAt=reqs[0].at; }
+  }
   if((G.phase==='lobby'||G.phase==='result') && ps.every(p=>(p.presence.ready||0)>=want)){
     setG({phase:'pick', r:want, teams:null, winner:null, winName:null, passed:false}); return;
   }
   if(G.phase==='nomatch' && t-G.at>3500){ setG({phase:'pick', r:want, teams:null, winner:null, winName:null}); return; }
   if(G.phase==='pick'){
     const picks=ps.map(p=>{ const k=p.presence.pick; return k&&k.r===G.r&&CLUB[k.team]?k.team:null; });
-    if(picks.every(Boolean) || t-G.at>12500){
+    if(picks.every(Boolean) || t-G.at>DUR(G)*1000+2500){
       const teams={}; ps.forEach((p,i)=>teams[p.peer]=picks[i]||rnd(CLUBS).id);
       const a=teams[ps[0].peer], b=teams[ps[1].peer];
       setG({phase: common(a,b).length ? 'guess' : 'nomatch', teams});
@@ -689,7 +710,7 @@ function hostStep(ps){
       hits.sort((x,y)=>x.presence.hit.at-y.presence.hit.at);
       const w=hits[0], scores=Object.assign({},G.scores); scores[w.peer]=(scores[w.peer]||0)+1;
       setG({phase:'result', winner:w.peer, winName:w.presence.hit.name, scores});
-    } else if(t-G.at>10800){ setG({phase:'result', winner:null, winName:null}); }
+    } else if(t-G.at>DUR(G)*1000+800){ setG({phase:'result', winner:null, winName:null}); }
   }
 }
 
@@ -714,8 +735,9 @@ function step(){
   const opp = duo.find(p=>!p.sameTab) || null;
   const elapsed=phaseElapsed(game,amHost);
 
-  // auto-pick when my 10 seconds run out
-  if(game.phase==='pick' && amPlayer && elapsed>=10 && !(MY.pick && MY.pick.r===game.r)) pickTeam(rnd(CLUBS).id, true);
+  // auto-pick when my time runs out
+  const D=DUR(game);
+  if(game.phase==='pick' && amPlayer && elapsed>=D && !(MY.pick && MY.pick.r===game.r)) pickTeam(rnd(CLUBS).id, true);
 
   // scoreboard
   const A=duo[0], B=duo[1], sc=game.scores||{};
@@ -732,12 +754,13 @@ function step(){
     show('pReady');
     const meR=(MY.ready||0)>=game.r+1, opR=opp && (opp.presence.ready||0)>=game.r+1;
     readyPills($('#readyMe'),$('#readyOpp'),meR,opR);
+    paintSeg($('#durReady'),D,amPlayer && !meR);
     $('#readyBtn').disabled=!amPlayer||meR; setText($('#readyBtn'), meR?t('waitingOpp'):t('ready'));
     return;
   }
   if(game.phase==='pick'){
     show('pPick'); setText($('#pickRound'),t('round',{n:game.r}));
-    clock($('#pickClock'),10-elapsed,10);
+    clock($('#pickClock'),D-elapsed,D);
     const mine = MY.pick && MY.pick.r===game.r ? MY.pick.team : null;
     grid.querySelectorAll('.team').forEach(b=>{ b.classList.toggle('sel',b.dataset.id===mine); b.disabled=!!mine||!amPlayer; });
     setText($('#pickMine'), mine ? t('yourPick',{t:CLUB[mine].name}) : (amPlayer?t('notPicked'):t('watching')));
@@ -755,9 +778,9 @@ function step(){
   const ca=CLUB[teams[duo[0]&&duo[0].peer]], cb=CLUB[teams[duo[1]&&duo[1].peer]];
   if(game.phase==='guess'){
     renderGuess({a:ca,b:cb,byA:duo[0]&&duo[0].presence.nick,byB:duo[1]&&duo[1].presence.nick,
-      left:10-elapsed, mine:guessesOf(MY,game.r), opp: opp?guessesOf(opp.presence,game.r):[], showOpp:true,
-      locked: !amPlayer || elapsed>=10 || !!(MY.hit && MY.hit.r===game.r) || MY.pass===game.r,
-      passed: MY.pass===game.r, canPass: amPlayer && elapsed<10 && !(MY.hit && MY.hit.r===game.r),
+      left:D-elapsed, dur:D, mine:guessesOf(MY,game.r), opp: opp?guessesOf(opp.presence,game.r):[], showOpp:true,
+      locked: !amPlayer || elapsed>=D || !!(MY.hit && MY.hit.r===game.r) || MY.pass===game.r,
+      passed: MY.pass===game.r, canPass: amPlayer && elapsed<D && !(MY.hit && MY.hit.r===game.r),
       oppPassed: !!(opp && opp.presence.pass===game.r), solo:false});
     return;
   }
@@ -769,6 +792,7 @@ function step(){
     const meR=(MY.ready||0)>=game.r+1, opR=opp && (opp.presence.ready||0)>=game.r+1;
     renderResult({a:ca,b:cb,title,win:!!(winP&&winP.sameTab),sub,guessed});
     readyPills($('#nextMe'),$('#nextOpp'),meR,opR);
+    $('#durResult').parentNode.hidden=false; paintSeg($('#durResult'),D,amPlayer && !meR);
     $('#nextBtn').disabled=!amPlayer||meR||duo.length<2; setText($('#nextBtn'), meR?t('waitingOpp'):t('next'));
     $('#nextMe').hidden=$('#nextOpp').hidden=false;
   }
@@ -808,7 +832,7 @@ function renderGuess(v){
   $('#clubA').lang=(v.a&&v.a.g==='Türkiye')?'tr':'en'; $('#clubB').lang=(v.b&&v.b.g==='Türkiye')?'tr':'en';
   fitName($('#clubA')); fitName($('#clubB'));
   setText($('#byA'),v.byA?t('picked',{n:v.byA}):''); setText($('#byB'),v.byB?t('picked',{n:v.byB}):'');
-  clock($('#guessClock'),v.left,10);
+  clock($('#guessClock'),v.left,v.dur||10);
   $('#guessIn').disabled=v.locked; $('#guessBtn').disabled=v.locked;
   setHTML($('#listMe'), listHTML(v.mine,t('noGuesses')));
   $('#oppCol').hidden=!v.showOpp;
@@ -842,7 +866,7 @@ $('#guessForm').addEventListener('submit',e=>{
   if(!CUR||CUR.game.phase!=='guess'||!CUR.amPlayer) return;
   const g=CUR.game, duo=CUR.duo;
   if(MY.hit && MY.hit.r===g.r) return;
-  if(phaseElapsed(g, !!(CUR.duo[0]&&CUR.duo[0].sameTab))>=10) return;
+  if(phaseElapsed(g, !!(CUR.duo[0]&&CUR.duo[0].sameTab))>=DUR(g)) return;
   const t=g.teams||{}; const list=common(t[duo[0].peer], t[duo[1].peer]);
   const hit=matchGuess(text,list);
   const prev=guessesOf(MY,g.r);
@@ -860,7 +884,7 @@ $('#practiceBtn').addEventListener('click',()=>{
   practiceRound();
 });
 function practiceRound(){
-  Object.assign(PR,{r:PR.r+1,a:null,b:null,at:now(),guesses:[],hit:null,passed:false,phase:'pick'});
+  Object.assign(PR,{r:PR.r+1,a:null,b:null,at:now(),dur:HOME_DUR,guesses:[],hit:null,passed:false,phase:'pick'});
   $('#filter').value=''; grid.querySelectorAll('.team,.grp').forEach(el=>el.hidden=false);
   practiceRender();
 }
@@ -878,7 +902,7 @@ function practicePick(id){
   practiceRender();
 }
 function practiceGuess(text){
-  if(PR.phase!=='guess' || (now()-PR.at)/1000>=10) return;
+  if(PR.phase!=='guess' || (now()-PR.at)/1000>=PR.dur) return;
   const hit=matchGuess(text,common(PR.a,PR.b));
   if(hit && PR.guesses.some(g=>g.p===hit.name)) return;
   PR.guesses.push(hit?{n:text,ok:1,p:hit.name}:{n:text,ok:0});
@@ -890,11 +914,11 @@ function practiceRender(){
   setText($('#nameA'), me); setText($('#tagA'),t('correct'));
   setText($('#nameB'),t('roundsLbl')); setText($('#tagB'),t('played'));
   setText($('#score'), PR.score+' : '+PR.r);
-  const left=10-(now()-PR.at)/1000;
+  const left=PR.dur-(now()-PR.at)/1000;
   if(PR.phase==='pick'){
     if(left<=0){ practicePick(rnd(CLUBS).id); return; }
     show('pPick'); setText($('#pickRound'),t('round',{n:PR.r}));
-    clock($('#pickClock'),left,10);
+    clock($('#pickClock'),left,PR.dur);
     grid.querySelectorAll('.team').forEach(b=>{ b.classList.remove('sel'); b.disabled=false; });
     setText($('#pickMine'), t('notPicked'));
     $('#pickOpp').classList.remove('on'); setText($('#pickOpp'), t('botWaiting'));
@@ -903,12 +927,12 @@ function practiceRender(){
   const a=CLUB[PR.a], b=CLUB[PR.b];
   if(PR.phase==='guess' && left<=0) PR.phase='result';
   if(PR.phase==='guess'){
-    renderGuess({a,b,left,byA:me,byB:t('botName'),mine:PR.guesses,opp:[],showOpp:false,locked:false,canPass:true,passed:false,solo:true});
+    renderGuess({a,b,left,dur:PR.dur,byA:me,byB:t('botName'),mine:PR.guesses,opp:[],showOpp:false,locked:false,canPass:true,passed:false,solo:true});
   } else {
     renderResult({a,b,win:!!PR.hit,title:PR.hit?t('gotIt'):t('timeUp'),
       sub:PR.hit?t('rightAnswer',{p:PR.hit}):PR.passed?t('passedSolo'):t('nobodyPractice'),
       guessed:new Set(PR.hit?[PR.hit]:[])});
-    $('#nextMe').hidden=$('#nextOpp').hidden=true;
+    $('#nextMe').hidden=$('#nextOpp').hidden=true; $('#durResult').parentNode.hidden=true;
     $('#nextBtn').disabled=false; setText($('#nextBtn'),t('newRound'));
   }
 }
