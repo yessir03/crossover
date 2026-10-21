@@ -45,6 +45,7 @@ ALT_ITEMS = {"Galatasaray": ["Q43134"], "Fenerbahçe": ["Q19648"], "Bursaspor": 
 # Wikipedia editions whose "<Club> players" categories are read as a second source (club item -> P6112 category).
 WIKIS = ["en", "tr", "es", "de", "it", "fr", "pt", "nl", "ru", "uk", "el", "ar"]
 MIN_PLAYERS = 7000          # safety net: never publish a suspiciously small dataset
+MIN_WIKIS = 2               # Wikipedia editions that must agree on a club link Wikidata lacks
 MIN_PER_CLUB = 20
 
 LANGS = ["en", "tr", "es", "de", "fr", "it", "pt", "nl"]
@@ -53,6 +54,7 @@ SELECT ?p ?sl %s WHERE {
   ?p p:P54 ?st . ?st ps:P54 wd:%%s ; wikibase:rank ?rk .
   FILTER(?rk != wikibase:DeprecatedRank)
   ?p wdt:P31 wd:Q5 ; wikibase:sitelinks ?sl .
+  FILTER NOT EXISTS { ?p wdt:P21 wd:Q6581072 }
   %s
 }""" % (" ".join("?" + l for l in LANGS),
         "\n  ".join('OPTIONAL { ?p rdfs:label ?%s FILTER(lang(?%s) = "%s") }' % (l, l, l) for l in LANGS))
@@ -77,6 +79,7 @@ DETAILS = """
 SELECT ?p ?sl %s WHERE {
   VALUES ?p { %%s }
   ?p wdt:P31 wd:Q5 ; wikibase:sitelinks ?sl .
+  FILTER NOT EXISTS { ?p wdt:P21 wd:Q6581072 }
   %s
 }""" % (" ".join("?" + l for l in LANGS),
         "\n  ".join('OPTIONAL { ?p rdfs:label ?%s FILTER(lang(?%s) = "%s") }' % (l, l, l) for l in LANGS))
@@ -171,12 +174,16 @@ def main():
 
     # second source: Wikipedia "<Club> players" categories in several languages
     cats = category_titles()
+    # A club link that Wikidata lacks is accepted only when at least MIN_WIKIS language editions agree,
+    # so a mistake in a single Wikipedia (e.g. one edition listing De Bruyne as a Man United player) is ignored.
     for key in KEYS:
-        found = set()
+        support = {}
         for wiki, title in cats.get(key, []):
-            found |= category_members(wiki, title)
+            for pid in category_members(wiki, title):
+                support[pid] = support.get(pid, 0) + 1
         new = 0
-        for pid in found:
+        for pid, n in support.items():
+            if n < MIN_WIKIS: continue
             o = people.get(pid)
             if o is None:
                 o = people[pid] = {"n": None, "s": None, "c": set(), "check": True}
