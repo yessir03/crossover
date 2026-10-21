@@ -490,7 +490,9 @@ const PLAYERS = (function(){
       if(toks.length>2) keys.add(toks[0]+' '+toks[toks.length-1]);
     }
     (ALIAS[name]||'').split('|').filter(Boolean).forEach(a=>keys.add(norm(a)));
-    out.push({name, fame:+parts[1]||0, clubs, keys:[...keys]});
+    keys.forEach(k=>keys.add(normJ(k)));
+    const words = normJ(name).split(' ').filter(Boolean);       // "Eto'o" -> "etoo", "Oxlade-Chamberlain" -> "oxlade chamberlain"
+    out.push({name, fame:+parts[1]||0, clubs, keys:[...keys], words, compact:words.join('')});
   }
   return out;
 })();
@@ -499,19 +501,62 @@ for(const p of PLAYERS) for(let i=0;i<p.clubs.length;i++) for(let j=i+1;j<p.club
   const k=[p.clubs[i],p.clubs[j]].sort().join('|'); if(!PAIR.has(k)) PAIR.set(k,[]); PAIR.get(k).push(p);
 }
 function common(a,b){ if(!a||!b||a===b) return []; return PAIR.get([a,b].sort().join('|')) || []; }
-function lev(a,b){
-  if(Math.abs(a.length-b.length)>1) return 2;
-  const d=Array.from({length:a.length+1},(_,i)=>[i]);
-  for(let j=1;j<=b.length;j++) d[0][j]=j;
-  for(let i=1;i<=a.length;i++) for(let j=1;j<=b.length;j++)
-    d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
-  return d[a.length][b.length];
+// apostrophes and dots vanish instead of splitting the word: "Eto'o" -> "etoo", "N'Golo" -> "ngolo"
+function normJ(s){ return norm(String(s).replace(/['’`´ʼ.]/g,'')); }
+// typos allowed for a word of this length: short words must be exact, long names get more slack
+const tol = n => n<=3 ? 0 : n<=7 ? 1 : n<=12 ? 2 : 3;
+function lev(a,b,max=3){
+  if(Math.abs(a.length-b.length)>max) return max+1;
+  let prev=Array.from({length:b.length+1},(_,j)=>j);
+  for(let i=1;i<=a.length;i++){
+    const cur=[i]; let rowMin=i;
+    for(let j=1;j<=b.length;j++){ cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1)); if(cur[j]<rowMin) rowMin=cur[j]; }
+    if(rowMin>max) return max+1;
+    prev=cur;
+  }
+  return prev[b.length];
+}
+// spelling as it sounds: "tami abrahim" ~ "tammy abraham", "haland" ~ "haaland", "snayder" ~ "sneijder"
+function phon(w){ return w.replace(/ph/g,'f').replace(/ck|q/g,'k').replace(/th/g,'t').replace(/w/g,'v').replace(/ou/g,'u')
+  .replace(/y/g,'i').replace(/ij|ei|ai|ay/g,'ai').replace(/(.)\1+/g,'$1'); }
+// lower is better; null = not this player
+function guessScore(text,p){
+  const n=norm(text), t=normJ(text); if(!t) return null;
+  if(p.keys.includes(n) || p.keys.includes(t)) return 0;                     // exact name, surname or nickname
+  const typed=t.split(' ').filter(Boolean);
+  const raw=fuzzyScore(typed, p.words, p.compact);
+  if(raw!==null) return raw;
+  if(!p.pw){ p.pw=p.words.map(phon); p.pc=p.pw.join(''); }
+  const ph=fuzzyScore(typed.map(phon), p.pw, p.pc);
+  return ph===null ? null : ph+0.5;
+}
+function fuzzyScore(typed, words, compact){
+  const tc=typed.join('');
+  let d=lev(tc,compact); if(d<=tol(compact.length)) return 1+d;
+  for(let k=1;k<=Math.min(3,words.length-1);k++){                            // surname, incl. "van persie", "de bruyne"
+    const tail=words.slice(-k).join(''); if(tail.length<3) continue;
+    d=lev(tc,tail); if(d<=tol(tail.length)) return 2+d;
+  }
+  if(typed.length>=2){                                                       // word by word: "samuel eto", "tami abraham"
+    const used=new Set(); let cost=0, hitLast=false;
+    for(const w of typed){
+      let best=-1, bd=99;
+      words.forEach((pw,i)=>{
+        if(used.has(i)) return;
+        let x=lev(w,pw); if(w.length>=3 && pw.startsWith(w)) x=Math.min(x,.5);
+        if(x<=Math.max(tol(pw.length),.5) && x<bd){ bd=x; best=i; }
+      });
+      if(best<0) return null;
+      used.add(best); cost+=bd; if(best===words.length-1) hitLast=true;
+    }
+    if(hitLast) return 6+cost;
+  }
+  return null;
 }
 function matchGuess(text,list){
-  const n=norm(text); if(!n) return null;
-  for(const p of list) if(p.keys.includes(n)) return p;
-  for(const p of list) for(const k of p.keys) if(k.length>=6 && lev(k,n)<=1) return p;
-  return null;
+  let best=null, bs=1e9;
+  for(const p of list){ const sc=guessScore(text,p); if(sc!==null && sc<bs){ bs=sc; best=p; if(sc===0) break; } }
+  return best;
 }
 const rnd = arr => arr[Math.floor(Math.random()*arr.length)];
 
