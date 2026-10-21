@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Wikidata'dan çek
-        run: python scripts/update_data.py
+        run: python -u scripts/update_data.py
       - name: Değişiklik varsa kaydet
         run: |
           if git diff --quiet -- data/players.txt; then

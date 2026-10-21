@@ -36,7 +36,15 @@ CLUBS = [
  ("Al Nassr","Q482764"),("Schalke 04","Q32494"),("Club Brugge","Q190916"),("Al Ittihad","Q309480"),
 ]
 KEYS = [k for k, _ in CLUBS]
-MIN_PLAYERS = 6000          # safety net: never publish a suspiciously small dataset
+QIDS = dict(CLUBS)
+
+# Some clubs also have a "multi-sports club" item that a few footballers are linked to instead of the football team.
+# Only people whose occupation is association football player are taken from these.
+ALT_ITEMS = {"Galatasaray": ["Q43134"], "Fenerbahçe": ["Q19648"], "Bursaspor": ["Q6096484"], "Trabzonspor": ["Q3536136", "Q28214543"]}
+
+# Wikipedia editions whose "<Club> players" categories are read as a second source (club item -> P6112 category).
+WIKIS = ["en", "tr", "es", "de", "it", "fr", "pt", "nl", "ru", "uk", "el", "ar"]
+MIN_PLAYERS = 7000          # safety net: never publish a suspiciously small dataset
 MIN_PER_CLUB = 20
 
 LANGS = ["en", "tr", "es", "de", "fr", "it", "pt", "nl"]
@@ -62,6 +70,55 @@ def clean(name):
     latin = sum(1 for ch in name if "a" <= ch.lower() <= "z" or "\u00c0" <= ch <= "\u024f")
     letters = sum(1 for ch in name if ch.isalpha())
     return name.translate(CONFUSABLE) if letters and latin / letters >= 0.5 else name
+
+ALT_QUERY = QUERY.replace("?p wdt:P31 wd:Q5 ;", "?p wdt:P31 wd:Q5 ; wdt:P106 wd:Q937857 ;")
+
+DETAILS = """
+SELECT ?p ?sl %s WHERE {
+  VALUES ?p { %%s }
+  ?p wdt:P31 wd:Q5 ; wikibase:sitelinks ?sl .
+  %s
+}""" % (" ".join("?" + l for l in LANGS),
+        "\n  ".join('OPTIONAL { ?p rdfs:label ?%s FILTER(lang(?%s) = "%s") }' % (l, l, l) for l in LANGS))
+
+def http_json(url):
+    for i in range(5):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return json.load(r)
+        except Exception as e:
+            print(f"  retry {i+1}: {e}", file=sys.stderr); time.sleep(3 * (i + 1))
+    raise SystemExit("Wikipedia did not answer; nothing was changed.")
+
+def category_titles():
+    """club key -> [(wiki, 'Category:...'), ...] via each club's 'category for members of a team' (P6112)."""
+    values = " ".join("wd:" + q for q in QIDS.values())
+    rows = sparql("""SELECT ?c ?site ?title WHERE { VALUES ?c { %s } ?c wdt:P6112 ?cat .
+      ?art schema:about ?cat ; schema:isPartOf ?site ; schema:name ?title . }""" % values)
+    by_qid = {q: k for k, q in CLUBS}
+    out = {}
+    for b in rows:
+        site = b["site"]["value"]
+        m = re.match(r"https://([a-z\-]+)\.wikipedia\.org/$", site)
+        if not m or m.group(1) not in WIKIS: continue
+        out.setdefault(by_qid[b["c"]["value"].rsplit("/", 1)[-1]], []).append((m.group(1), b["title"]["value"]))
+    return out
+
+def category_members(wiki, title):
+    """Wikidata items of the articles in a Wikipedia category."""
+    qids, cont = set(), {}
+    for _ in range(60):
+        params = {"action": "query", "format": "json", "generator": "categorymembers", "gcmtitle": title,
+                  "gcmnamespace": "0", "gcmlimit": "500", "prop": "pageprops", "ppprop": "wikibase_item", **cont}
+        j = http_json(f"https://{wiki}.wikipedia.org/w/api.php?" + urllib.parse.urlencode(params))
+        for pg in (j.get("query", {}).get("pages", {}) or {}).values():
+            q = (pg.get("pageprops") or {}).get("wikibase_item")
+            if q: qids.add(q)
+        if "continue" not in j: break
+        cont = j["continue"]
+        time.sleep(0.2)
+    return qids
 
 def pick_name(b):
     """Choose the spelling most languages agree on, so a vandalised label in one language loses."""
@@ -105,7 +162,43 @@ def main():
             o = people.setdefault(pid, {"n": name, "s": int(b["sl"]["value"]), "c": set()})
             o["c"].add(key)
             if not o["n"] and name: o["n"] = name
+        for alt in ALT_ITEMS.get(key, []):
+            for b in sparql(ALT_QUERY % alt):
+                pid = b["p"]["value"].rsplit("/", 1)[-1]
+                o = people.setdefault(pid, {"n": pick_name(b), "s": int(b["sl"]["value"]), "c": set()})
+                o["c"].add(key)
         time.sleep(1)
+
+    # second source: Wikipedia "<Club> players" categories in several languages
+    cats = category_titles()
+    for key in KEYS:
+        found = set()
+        for wiki, title in cats.get(key, []):
+            found |= category_members(wiki, title)
+        new = 0
+        for pid in found:
+            o = people.get(pid)
+            if o is None:
+                o = people[pid] = {"n": None, "s": None, "c": set(), "check": True}
+            if key not in o["c"]: new += 1
+            o["c"].add(key)
+        print(f"{key:20s} +{new:4d} from {len(cats.get(key, []))} Wikipedia categories")
+
+    # names, popularity and a 'is a person' check for people found only through categories
+    todo = [pid for pid, o in people.items() if o.get("check") and len(o["c"]) >= 2]
+    print(f"\nChecking {len(todo)} people found only on Wikipedia")
+    for i in range(0, len(todo), 200):
+        batch = todo[i:i + 200]
+        got = {}
+        for b in sparql(DETAILS % " ".join("wd:" + q for q in batch)):
+            got[b["p"]["value"].rsplit("/", 1)[-1]] = b
+        for pid in batch:
+            b = got.get(pid)
+            if b is None: people.pop(pid, None); continue        # not a person (e.g. a list article)
+            people[pid].update(n=pick_name(b), s=int(b["sl"]["value"]), check=False)
+        time.sleep(1)
+    for pid in [pid for pid, o in people.items() if o.get("check")]:
+        people.pop(pid)                                          # category-only people with fewer than 2 clubs
 
     # manual additions: "Name|Club key,Club key"
     if EXTRA.exists():
