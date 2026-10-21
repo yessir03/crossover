@@ -37,7 +37,7 @@ body{
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .row > input{flex:1 1 140px;min-width:0}
 .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
-h1{font-family:var(--display);font-weight:900;font-size:clamp(52px,15vw,84px);line-height:.86;letter-spacing:.01em;text-transform:uppercase;margin:6px 0 10px;text-wrap:balance}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(46px,13vw,84px);line-height:.86;letter-spacing:.01em;text-transform:uppercase;margin:6px 0 10px;text-wrap:balance}
 h2{font-family:var(--display);font-weight:800;font-size:30px;line-height:1;text-transform:uppercase;margin:0;text-wrap:balance}
 .lede{margin:0;color:var(--muted);max-width:44ch}
 .mast{border-bottom:2px solid var(--chalk);padding-bottom:16px}
@@ -126,6 +126,7 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
 .glist li.bad{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:3px}
 .glist li.ok{color:var(--good);font-weight:700}
 .glist li.ok::before{content:"✓ "}
+.glist li .who{font-weight:700;color:var(--muted);text-decoration:none}
 .glist li.empty{color:var(--muted);font-style:italic;font-size:13px}
 
 .answers{display:flex;flex-wrap:wrap;gap:6px}
@@ -133,6 +134,19 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
 .answers span.hit{border-color:var(--good);color:var(--good);font-weight:700}
 .big{font-family:var(--display);font-weight:900;font-size:clamp(34px,10vw,48px);line-height:.95;text-transform:uppercase;margin:0;text-wrap:balance}
 .big.win{color:var(--amber)}
+.plist{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.pchip{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--ink);border:2px solid var(--line);border-radius:6px;padding:10px 12px;min-width:0}
+.pchip.me{border-color:var(--chalk)}
+.pchip.away{opacity:.55}
+.pchip.ghost{border-style:dashed}
+.pchip .pn{font-family:var(--display);font-weight:800;font-size:19px;text-transform:uppercase;line-height:1.05;min-width:0;overflow-wrap:anywhere;display:flex;flex-direction:column}
+.pchip .pn small{font-family:var(--body);font-size:11px;font-weight:500;text-transform:none;color:var(--muted)}
+.pchip .pts{font-family:var(--mono);font-size:26px;color:var(--amber);font-variant-numeric:tabular-nums}
+.pchip .pts.lead{text-decoration:underline;text-underline-offset:4px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mode{display:flex;flex-direction:column;gap:4px;text-align:left}
+.mode small{font-weight:500;font-size:12px;color:var(--muted)}
+.btn.mode small{color:inherit;opacity:.75}
 .foot{font-size:12px;color:var(--muted);text-align:center;margin:0}
 
 @media (max-width:420px){ .cols{grid-template-columns:1fr} .grid{grid-template-columns:1fr 1fr} }
@@ -151,6 +165,7 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
       <label for="nick" data-i="nickLabel">Takma adın</label>
       <input id="nick" maxlength="16" placeholder="örn. Yasir" data-ip="nickPh" autocomplete="off">
       <div class="durrow"><span class="eyebrow" data-i="durLabel">Tur süresi</span><div class="seg" id="durHome" role="group"><button type="button" data-d="10">10</button><button type="button" data-d="15">15</button><button type="button" data-d="20">20</button></div></div>
+      <div class="durrow"><span class="eyebrow" data-i="tgtLabel">Maç uzunluğu</span><div class="seg" id="tgtHome" role="group"><button type="button" data-d="3">3</button><button type="button" data-d="5">5</button><button type="button" data-d="7">7</button><button type="button" data-d="10">10</button><button type="button" data-d="0">0</button></div></div>
       <button id="create" class="btn primary" data-i="create">Oda kur</button>
       <div class="divider" data-i="orJoin">veya arkadaşının odasına katıl</div>
       <div class="row">
@@ -159,7 +174,10 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
       </div>
       <p id="netNote" class="note">Online bağlantı kontrol ediliyor…</p>
     </div>
-    <button id="practiceBtn" class="btn ghost wide" data-i="practice">Tek başına antrenman</button>
+    <div class="modes">
+      <button id="practiceBtn" class="btn ghost mode" type="button"><span data-i="practice">Tek başına antrenman</span><small data-i="practiceSub">Sen seç, bot seçsin</small></button>
+      <button id="chainBtn" class="btn ghost mode" type="button"><span data-i="chainMode">Zincir modu</span><small data-i="chainSub">Doğru cevap bir sonraki takımı belirler</small></button>
+    </div>
     <ol class="how">
       <li><div><b data-i="how1t">Takımını seç</b><span data-i="how1d">10 saniyen var. Rakibin ne seçtiğini göremezsin.</span></div></li>
       <li><div><b data-i="how2t">Takımlar açılır, ortak oyuncuyu yaz</b><span data-i="how2d">Tahmin için 10 saniye. Soyadı yeterli, küçük yazım hataları kabul.</span></div></li>
@@ -176,7 +194,9 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
       </div>
     </div>
 
-    <div class="board">
+    <div class="plist" id="scoreList" hidden></div>
+    <p class="note" id="matchLine" hidden></p>
+    <div class="board" id="board">
       <div class="side"><span class="pname" id="nameA">—</span><span class="ptag" id="tagA"></span></div>
       <div class="score" id="score">0 : 0</div>
       <div class="side right"><span class="pname" id="nameB">—</span><span class="ptag" id="tagB"></span></div>
@@ -190,14 +210,15 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
 
     <div class="panel" id="pReady" hidden>
       <h2 id="readyTitle" data-i="readyTitle">İkiniz de hazır mısınız?</h2>
-      <div class="status"><span id="readyMe" class="pill">Sen: bekliyor</span><span id="readyOpp" class="pill">Rakip: bekliyor</span></div>
+      <div class="status" id="readyList"></div>
       <div class="durrow"><span class="eyebrow" data-i="durLabel">Tur süresi</span><div class="seg" id="durReady" role="group"><button type="button" data-d="10">10</button><button type="button" data-d="15">15</button><button type="button" data-d="20">20</button></div></div>
+      <div class="durrow"><span class="eyebrow" data-i="tgtLabel">Maç uzunluğu</span><div class="seg" id="tgtReady" role="group"><button type="button" data-d="3">3</button><button type="button" data-d="5">5</button><button type="button" data-d="7">7</button><button type="button" data-d="10">10</button><button type="button" data-d="0">0</button></div></div>
       <p class="note" data-i="durNote"></p>
       <button id="readyBtn" class="btn primary">Hazırım</button>
     </div>
 
     <div class="panel" id="pPick" hidden>
-      <div class="row" style="justify-content:space-between"><h2 data-i="pickTitle">Takımını seç</h2><span class="eyebrow" id="pickRound"></span></div>
+      <div class="row" style="justify-content:space-between"><h2 id="pickTitle">Takımını seç</h2><span class="eyebrow" id="pickRound"></span></div>
       <div class="clock" id="pickClock"><span class="secs">10</span><div class="bar"><i></i></div></div>
       <input id="filter" placeholder="Takım ara…" data-ip="filterPh" autocomplete="off">
       <div class="grid" id="grid"></div>
@@ -210,6 +231,7 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
         <div class="x">×</div>
         <div class="club r"><span class="sw" id="swB"></span><span class="nm" id="clubB"></span><span class="by" id="byB"></span></div>
       </div>
+      <p class="note" id="guessNote" hidden></p>
       <div class="clock" id="guessClock"><span class="secs">10</span><div class="bar"><i></i></div></div>
       <form class="guessform" id="guessForm">
         <input id="guessIn" placeholder="İki takımda da oynamış oyuncu…" data-ip="guessPh" autocomplete="off" autocapitalize="words" enterkeyhint="send">
@@ -218,7 +240,7 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
       <div class="status passrow"><button id="passBtn" class="btn ghost small" type="button" data-i="pass">Pas geç</button><span id="passOpp" class="pill"></span></div>
       <div class="cols">
         <div><h3 data-i="yourGuesses">Senin tahminlerin</h3><ul class="glist" id="listMe"></ul></div>
-        <div id="oppCol"><h3 data-i="opponent">Rakip</h3><ul class="glist" id="listOpp"></ul></div>
+        <div id="oppCol"><h3 id="oppTitle">Rakip</h3><ul class="glist" id="listOpp"></ul></div>
       </div>
     </div>
 
@@ -227,8 +249,9 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
       <p class="big" id="resTitle"></p>
       <p class="note" id="resSub"></p>
       <div><h3 class="eyebrow" style="margin:0 0 8px" data-i="answers">Kabul edilecek cevaplar</h3><div class="answers" id="resAnswers"></div></div>
-      <div class="status"><span id="nextMe" class="pill">Sen: bekliyor</span><span id="nextOpp" class="pill">Rakip: bekliyor</span></div>
+      <div class="status" id="nextList"></div>
       <div class="durrow"><span class="eyebrow" data-i="durLabel">Tur süresi</span><div class="seg" id="durResult" role="group"><button type="button" data-d="10">10</button><button type="button" data-d="15">15</button><button type="button" data-d="20">20</button></div></div>
+      <div class="durrow"><span class="eyebrow" data-i="tgtLabel">Maç uzunluğu</span><div class="seg" id="tgtResult" role="group"><button type="button" data-d="3">3</button><button type="button" data-d="5">5</button><button type="button" data-d="7">7</button><button type="button" data-d="10">10</button><button type="button" data-d="0">0</button></div></div>
       <button id="nextBtn" class="btn primary">Sonraki tur</button>
     </div>
 
@@ -337,14 +360,14 @@ const IS_SITE = true;
 const STR = {
  tr:{
   eyebrow:'Futbol düellosu · 10, 15 ya da 20 saniyelik turlar', durLabel:'Tur süresi', durNote:'Seçim ve tahmin için ayrı ayrı. İkiniz de değiştirebilirsiniz.', sec:'{n} sn',
-  lede:'İki oyuncu aynı anda birer takım seçer. İki takımda da forma giymiş bir futbolcuyu ilk yazan turu alır.',
+  lede:'2-4 kişi oynanır. İki takım seçilir, iki takımda da forma giymiş bir futbolcuyu ilk yazan puanı alır.',
   nickLabel:'Takma adın', nickPh:'örn. Yasir', create:'Oda kur', orJoin:'veya arkadaşının odasına katıl', codePh:'KOD', join:'Katıl',
   practice:'Tek başına antrenman',
-  how1t:'Takımını seç', how1d:'Süre 10, 15 ya da 20 saniye, odada seçilir. Rakibin ne seçtiğini göremezsin.',
+  how1t:'Takımlar seçilir', how1d:'İki kişide ikiniz de seçersiniz; 3-4 kişide her tur sırayla iki kişi seçer. Kimse diğerinin seçimini göremez.',
   how2t:'Takımlar açılır, ortak oyuncuyu yaz', how2d:'Tahmin için de aynı süre var. Soyadı yeterli, küçük yazım hataları kabul.',
-  how3t:'İlk doğru cevap turu alır', how3d:'Yanlış cevaplar kırmızıyla çizilir, süre bitene kadar denemeye devam edebilirsin.',
+  how3t:'İlk doğru cevap puanı alır', how3d:'Yanlışlar kırmızıyla çizilir. Seçtiğiniz puana ilk ulaşan maçı kazanır, sonra rövanş.',
   room:'Oda', training:'Antrenman', copyCode:'Kodu kopyala', copyLink:'Davet linkini kopyala', copied:'Kopyalandı', linkCopied:'Link kopyalandı', codeIs:'Kod: ', leave:'Çık',
-  waitTitle:'Rakip bekleniyor', waitText:'Arkadaşın bu sayfayı açıp <b>{code}</b> kodunu girsin. Oyun ikiniz de hazır olunca başlar.',
+  waitTitle:'Rakip bekleniyor', waitText:'Arkadaşların bu sayfayı açıp <b>{code}</b> kodunu girsin. Odaya 4 kişiye kadar girilebilir, en az 2 kişiyle başlar.',
   readyTitle:'İkiniz de hazır mısınız?', ready:'Hazırım', waitingOpp:'Rakip bekleniyor…',
   meState:'Sen: {s}', oppState:'Rakip: {s}', isReady:'hazır', isWaiting:'bekliyor',
   pickTitle:'Takımını seç', round:'Tur {n}', filterPh:'Takım ara…', notPicked:'Henüz seçmedin', watching:'İzliyorsun', yourPick:'Seçimin: {t}',
@@ -362,20 +385,28 @@ const STR = {
   netOk:'Odayı kur, kodu arkadaşına gönder. O da bu sayfayı açıp kodu girsin.',
   netOkSite:'Odayı kur, davet linkini arkadaşına gönder. Linke tıklayınca kod hazır gelir.',
   needNick:'Önce bir takma ad yaz.', badCode:'Oda kodu 4 karakter olmalı.', joinFail:'Odaya bağlanılamadı ({e}). Biraz sonra tekrar dene.',
-  connClosed:'Bağlantı kapandı ({e}).', connLost:'Bağlantı koptu, yeniden bağlanıyor…', roomFull:'Oda dolu. Maçı izleyici olarak takip ediyorsun.', botName:'Bot', botWaiting:'Bot seçimini bekliyor', pass:'Pas geç', youPassed:'Pas geçtin', oppPassed:'Rakip pas geçti', oppPlaying:'Rakip hâlâ düşünüyor', bothPassed:'İkiniz de pas geçtiniz.', passedSolo:'Pas geçtin.', botPicked:'Bot seçimini yaptı', oppAway:'Rakibin bağlantısı koptu, geri dönmesi bekleniyor…', away:'bağlantı yok',
+  connClosed:'Bağlantı kapandı ({e}).', connLost:'Bağlantı koptu, yeniden bağlanıyor…', roomFull:'Oda dolu (en fazla 4 kişi). Maçı izleyici olarak takip ediyorsun.', botName:'Bot', botWaiting:'Bot seçimini bekliyor', pass:'Pas geç', youPassed:'Pas geçtin', oppPassed:'Rakip pas geçti', oppPlaying:'Rakip hâlâ düşünüyor', bothPassed:'İkiniz de pas geçtiniz.', passedSolo:'Pas geçtin.', botPicked:'Bot seçimini yaptı', oppAway:'Rakibin bağlantısı koptu, geri dönmesi bekleniyor…', away:'bağlantı yok',
   shareText:'Crossover düellosu, oda kodu: {c}',
+ tgtLabel:'Maç uzunluğu', pts:'{n}', firstTo:'{n} puana ilk ulaşan maçı kazanır', noLimit:'Sınırsız maç: istediğiniz kadar oynayın',
+  picking:'takım seçiyor', watchPick:'Takımlar seçiliyor', pickersAre:'Bu tur {a} ve {b} takım seçiyor', namePicked:'{n} seçti', nameThinking:'{n} düşünüyor', pickedCount:'{n}/{m} seçti',
+  opponents:'Rakipler', passedCount:'{n}/{m} kişi pas geçti', allPassed:'Herkes pas geçti.', readyTitleAll:'Herkes hazır mı?', waitOthers:'Diğerleri bekleniyor…',
+  matchWon:'Maçı kazandın!', matchWonBy:'{n} maçı kazandı!', standings:'Sıralama', rematch:'Rövanş',
+  practiceSub:'Sen seç, bot seçsin', chainMode:'Zincir modu', chainSub:'Doğru cevap bir sonraki takımı belirler',
+  chainIntro:'İki takımda da oynamış birini bul. Bulduğun oyuncunun başka bir kulübü sıradaki takım olur.',
+  chainFrom:'{p} sayesinde zincir devam ediyor', chainJump:'{p} bulundu. Kariyerinde yeni bağlantı yoktu, takımlardan biri kaldı.',
+  chainLen:'zincir', record:'Rekor', chainOver:'Zincir: {n}', chainRecord:'Yeni rekor!', chainBestIs:'Rekorun: {n}', chainAgain:'Yeni zincir',
   foot:'Oyuncu verisi: Wikidata (CC0) · 65 kulüp, en az iki kulüpte oynamış 8.600+ futbolcu · her ay güncellenir'
  },
  en:{
   eyebrow:'Football duel · 10, 15 or 20 second rounds', durLabel:'Round time', durNote:'Applies to picking and to guessing. Either of you can change it.', sec:'{n}s',
-  lede:'Two players each pick a club at the same time. The first to name a footballer who played for both clubs wins the round.',
+  lede:'For 2-4 players. Two clubs are picked; the first to name a footballer who played for both scores the point.',
   nickLabel:'Your nickname', nickPh:'e.g. Yasir', create:'Create room', orJoin:"or join your friend's room", codePh:'CODE', join:'Join',
   practice:'Practise solo',
-  how1t:'Pick your club', how1d:"10, 15 or 20 seconds, chosen in the room. You can't see what your opponent picks.",
+  how1t:'Clubs are picked', how1d:"With 2 players you both pick; with 3-4, two players take turns each round. Nobody sees the other pick.",
   how2t:'Clubs are revealed, name a shared player', how2d:'The same time to guess. A surname is enough and small typos are accepted.',
-  how3t:'First correct answer wins the round', how3d:'Wrong answers get a red strike-through. Keep trying until the clock runs out.',
+  how3t:'First correct answer scores', how3d:'Wrong answers get a red strike-through. First to the chosen score wins the match, then rematch.',
   room:'Room', training:'Practice', copyCode:'Copy code', copyLink:'Copy invite link', copied:'Copied', linkCopied:'Link copied', codeIs:'Code: ', leave:'Leave',
-  waitTitle:'Waiting for an opponent', waitText:'Ask your friend to open this page and enter <b>{code}</b>. The game starts when you are both ready.',
+  waitTitle:'Waiting for an opponent', waitText:'Ask your friends to open this page and enter <b>{code}</b>. Up to 4 players; you need at least 2 to start.',
   readyTitle:'Are you both ready?', ready:"I'm ready", waitingOpp:'Waiting for opponent…',
   meState:'You: {s}', oppState:'Opponent: {s}', isReady:'ready', isWaiting:'waiting',
   pickTitle:'Pick your club', round:'Round {n}', filterPh:'Search clubs…', notPicked:'No pick yet', watching:'Spectating', yourPick:'Your pick: {t}',
@@ -393,8 +424,16 @@ const STR = {
   netOk:'Create a room and send the code to your friend. They open this page and enter it.',
   netOkSite:'Create a room and send the invite link to your friend. The code is filled in when they open it.',
   needNick:'Enter a nickname first.', badCode:'Room codes are 4 characters.', joinFail:"Couldn't join the room ({e}). Try again in a moment.",
-  connClosed:'Connection closed ({e}).', connLost:'Connection lost, reconnecting…', roomFull:'The room is full. You are watching as a spectator.', botName:'Bot', botWaiting:'Bot is waiting for your pick', pass:'Pass', youPassed:'You passed', oppPassed:'Opponent passed', oppPlaying:'Opponent is still thinking', bothPassed:'You both passed.', passedSolo:'You passed.', botPicked:'Bot has picked', oppAway:'Your opponent lost connection. Waiting for them to come back…', away:'offline',
+  connClosed:'Connection closed ({e}).', connLost:'Connection lost, reconnecting…', roomFull:'The room is full (4 players max). You are watching as a spectator.', botName:'Bot', botWaiting:'Bot is waiting for your pick', pass:'Pass', youPassed:'You passed', oppPassed:'Opponent passed', oppPlaying:'Opponent is still thinking', bothPassed:'You both passed.', passedSolo:'You passed.', botPicked:'Bot has picked', oppAway:'Your opponent lost connection. Waiting for them to come back…', away:'offline',
   shareText:'Crossover duel, room code: {c}',
+ tgtLabel:'Match length', pts:'{n}', firstTo:'First to {n} points wins the match', noLimit:'No limit: play as long as you like',
+  picking:'picking', watchPick:'Clubs are being picked', pickersAre:'{a} and {b} pick this round', namePicked:'{n} has picked', nameThinking:'{n} is thinking', pickedCount:'{n}/{m} picked',
+  opponents:'Opponents', passedCount:'{n}/{m} passed', allPassed:'Everyone passed.', readyTitleAll:'Is everyone ready?', waitOthers:'Waiting for the others…',
+  matchWon:'You won the match!', matchWonBy:'{n} won the match!', standings:'Standings', rematch:'Rematch',
+  practiceSub:'You pick, the bot picks', chainMode:'Chain mode', chainSub:'Each answer sets the next club',
+  chainIntro:'Find someone who played for both clubs. Another club from that player\'s career becomes the next pairing.',
+  chainFrom:'{p} keeps the chain going', chainJump:'{p} found. No new link in that career, so one club stays.',
+  chainLen:'chain', record:'Record', chainOver:'Chain: {n}', chainRecord:'New record!', chainBestIs:'Your record: {n}', chainAgain:'New chain',
   foot:'Player data: Wikidata (CC0) · 65 clubs, 8,600+ footballers who played for at least two of them · updated monthly'
  }
 };
@@ -601,16 +640,19 @@ let G=null, lastGame=null;   // G: game state when I am host
 let seen={key:'',at:0};
 let CUR=null;              // current view context for handlers
 let PR=null;
-let HOME_DUR = (function(){ const v=+store.get('oo-dur'); return [10,15,20].includes(v)?v:10; })();               // practice state
+let HOME_DUR = (function(){ const v=+store.get('oo-dur'); return [10,15,20].includes(v)?v:10; })();
+let HOME_TGT = (function(){ const v=store.get('oo-tgt'); return v!==null && [3,5,7,10,0].includes(+v) ? +v : 5; })();               // practice state
 
 $('#nick').value = store.get('oo-nick') || '';
 (function(){ const h=(location.hash||'').slice(1); if(/^[a-z0-9]{4,5}$/i.test(h)) $('#codeIn').value=h.toUpperCase(); })();
 function relabel(){
-  applyLang(); buildGrid(); updateNet(); paintSeg($('#durHome'),HOME_DUR,true);
+  applyLang(); buildGrid(); updateNet(); paintSeg($('#durHome'),HOME_DUR,true); paintSeg($('#tgtHome'),HOME_TGT,true,tgtLabel);
   $('#copyCode').textContent=t(IS_SITE?'copyLink':'copyCode');
   if(mode==='online'){ $('#roomLabel').textContent=t('room'); setHTML($('#waitText'),t('waitText',{code:code.toUpperCase()})); }
   if(mode==='practice'){ $('#roomLabel').textContent=t('training'); practiceRender(); }
+  if(mode==='chain'){ $('#roomLabel').textContent=t('chainMode'); }
   if(mode==='online') step();
+  if(mode==='chain' && CH) chainRender();
 }
 $('#langBtn').addEventListener('click',()=>{ LANG = LANG==='tr'?'en':'tr'; try{ localStorage.setItem('oo-lang',LANG); }catch(e){} relabel(); });
 
@@ -691,6 +733,7 @@ async function enter(c,nick){
   $('#home').hidden=true; $('#game').hidden=false;
   $('#roomLabel').textContent=t('room'); setText($('#roomCode'),c.toUpperCase()); setHTML($('#waitText'),t('waitText',{code:c.toUpperCase()}));
   $('#copyCode').hidden=false;
+  $('#board').hidden=true; $('#scoreList').hidden=false; $('#matchLine').hidden=false;
   step();
 }
 function conn(t){ $('#conn').hidden=!t; $('#conn').textContent=t; }
@@ -716,58 +759,82 @@ function players(){
   out.sort((a,b)=>((a.presence.joinedAt||0)-(b.presence.joinedAt||0)) || (a.peer<b.peer?-1:1));
   return out;
 }
-const fresh = () => ({phase:'lobby', r:0, scores:{}, at:now(), dur:HOME_DUR});
+const MAXP = 4;                                    // players per room; anyone beyond watches
+const TARGETS = [3,5,7,10,0];                      // 0 = no limit
+const fresh = () => ({phase:'lobby', r:0, scores:{}, at:now(), dur:HOME_DUR, target:HOME_TGT, match:1});
 const DUR = g => (g && [10,15,20].includes(g.dur)) ? g.dur : 10;
-function paintSeg(el,val,enabled){ el.querySelectorAll('button').forEach(b=>{ b.setAttribute('aria-pressed', String(+b.dataset.d===val)); b.textContent=t('sec',{n:b.dataset.d}); b.disabled=!enabled; }); }
-// Either player can change the round time between rounds; the latest request wins.
-function requestDur(d){ if(mode!=='online'||!CUR) return; const host=CUR.duo[0]&&CUR.duo[0].sameTab; setMy({durReq:{d, at: host?now():hostNow()}}); step(); }
+const TGT = g => (g && TARGETS.includes(g.target)) ? g.target : 5;
+function paintSeg(el,val,enabled,fmt){ el.querySelectorAll('button').forEach(b=>{ const d=+b.dataset.d; b.setAttribute('aria-pressed', String(d===val)); b.textContent=fmt?fmt(d):t('sec',{n:d}); b.disabled=!enabled; }); }
+function tgtLabel(d){ return d ? t('pts',{n:d}) : '∞'; }
+// Any player can change round time and match length between rounds; the latest request wins.
+function amHostNow(){ return !!(CUR && CUR.roster[0] && CUR.roster[0].sameTab); }
+function requestDur(d){ if(mode!=='online'||!CUR) return; setMy({durReq:{d, at: amHostNow()?now():hostNow()}}); step(); }
+function requestTgt(d){ if(mode!=='online'||!CUR) return; setMy({tgtReq:{d, at: amHostNow()?now():hostNow()}}); step(); }
 ['durReady','durResult'].forEach(id=>$('#'+id).addEventListener('click',e=>{ const b=e.target.closest('button[data-d]'); if(b && !b.disabled) requestDur(+b.dataset.d); }));
+['tgtReady','tgtResult'].forEach(id=>$('#'+id).addEventListener('click',e=>{ const b=e.target.closest('button[data-d]'); if(b && !b.disabled) requestTgt(+b.dataset.d); }));
 $('#durHome').addEventListener('click',e=>{ const b=e.target.closest('button[data-d]'); if(!b) return; HOME_DUR=+b.dataset.d; store.set('oo-dur',String(HOME_DUR)); paintSeg($('#durHome'),HOME_DUR,true); });
+$('#tgtHome').addEventListener('click',e=>{ const b=e.target.closest('button[data-d]'); if(!b) return; HOME_TGT=+b.dataset.d; store.set('oo-tgt',String(HOME_TGT)); paintSeg($('#tgtHome'),HOME_TGT,true,tgtLabel); });
 function setG(patch){ G=Object.assign({},G,patch,{at:now(), v:((G&&G.v)||0)+1}); lastGame=G; setMy({game:G}); }
 function phaseElapsed(game,amHost){ if(amHost) return (now()-game.at)/1000; if(SYNCED && SYNC_HOST && game.at) return Math.max(0,(hostNow()-game.at)/1000); return (now()-seen.at)/1000; }
+// With 2 players both pick; with 3-4 the two pickers rotate every round and everyone guesses.
+function pickersFor(roster, r){
+  if(roster.length<=2) return roster.map(p=>p.peer);
+  const i=(r-1)%roster.length; return [roster[i].peer, roster[(i+1)%roster.length].peer];
+}
+function adoptLatest(ps, field, key, valid){
+  const reqs=ps.map(p=>p.presence[field]).filter(q=>q && valid(q.d) && q.at>(G[key+'At']||0)).sort((a,b)=>b.at-a.at);
+  if(!reqs.length) return;
+  if(reqs[0].d!==G[key]){ G=Object.assign({},G,{[key]:reqs[0].d, [key+'At']:reqs[0].at, v:(G.v||0)+1}); lastGame=G; setMy({game:G}); }
+  else G[key+'At']=reqs[0].at;
+}
 
 function hostStep(ps){
   const t=now();
+  const active=ps.filter(p=>!p.away);
   if(ps.length<2){ if(G.phase!=='lobby' && G.phase!=='result') setG({phase:'lobby'}); return; }
   const want=G.r+1;
   if(G.phase==='lobby'||G.phase==='result'){
-    const reqs=ps.map(p=>p.presence.durReq).filter(q=>q && [10,15,20].includes(q.d) && q.at>(G.durAt||0)).sort((a,b)=>b.at-a.at);
-    if(reqs.length && reqs[0].d!==G.dur){ G=Object.assign({},G,{dur:reqs[0].d, durAt:reqs[0].at, v:(G.v||0)+1}); lastGame=G; setMy({game:G}); }
-    else if(reqs.length){ G.durAt=reqs[0].at; }
+    adoptLatest(ps,'durReq','dur',d=>[10,15,20].includes(d));
+    adoptLatest(ps,'tgtReq','target',d=>TARGETS.includes(d));
+    if(active.length>=2 && active.every(p=>(p.presence.ready||0)>=want)){
+      const rematch=!!G.champion;
+      setG({phase:'pick', r:want, pickers:pickersFor(ps,want), pair:null, winner:null, winName:null, passed:false,
+            champion:null, scores: rematch ? {} : (G.scores||{}), match:(G.match||1)+(rematch?1:0)});
+    }
+    return;
   }
-  if((G.phase==='lobby'||G.phase==='result') && ps.every(p=>(p.presence.ready||0)>=want)){
-    setG({phase:'pick', r:want, teams:null, winner:null, winName:null, passed:false}); return;
-  }
-  if(G.phase==='nomatch' && t-G.at>3500){ setG({phase:'pick', r:want, teams:null, winner:null, winName:null}); return; }
+  if(G.phase==='nomatch' && t-G.at>3500){ setG({phase:'pick', r:want, pickers:pickersFor(ps,want), pair:null, winner:null, winName:null}); return; }
   if(G.phase==='pick'){
-    const picks=ps.map(p=>{ const k=p.presence.pick; return k&&k.r===G.r&&CLUB[k.team]?k.team:null; });
+    const pk=(G.pickers||[]).map(id=>ps.find(p=>p.peer===id));
+    const picks=pk.map(p=>{ const k=p&&p.presence.pick; return k&&k.r===G.r&&CLUB[k.team]?k.team:null; });
     if(picks.every(Boolean) || t-G.at>DUR(G)*1000+2500){
-      const teams={}; ps.forEach((p,i)=>teams[p.peer]=picks[i]||rnd(CLUBS).id);
-      const a=teams[ps[0].peer], b=teams[ps[1].peer];
-      setG({phase: common(a,b).length ? 'guess' : 'nomatch', teams});
+      const pair=picks.map(x=>x||rnd(CLUBS).id);
+      setG({phase: common(pair[0],pair[1]).length ? 'guess' : 'nomatch', pair});
     }
     return;
   }
   if(G.phase==='guess'){
     const hits=ps.filter(p=>p.presence.hit && p.presence.hit.r===G.r);
-    if(!hits.length && ps.every(p=>p.presence.pass===G.r)){ setG({phase:'result', winner:null, winName:null, passed:true}); return; }
+    if(!hits.length && active.length && active.every(p=>p.presence.pass===G.r)){ setG({phase:'result', winner:null, winName:null, passed:true}); return; }
     if(hits.length){
       hits.sort((x,y)=>x.presence.hit.at-y.presence.hit.at);
       const w=hits[0], scores=Object.assign({},G.scores); scores[w.peer]=(scores[w.peer]||0)+1;
-      setG({phase:'result', winner:w.peer, winName:w.presence.hit.name, scores});
+      const champion = TGT(G) && scores[w.peer]>=TGT(G) ? w.peer : null;
+      setG({phase:'result', winner:w.peer, winName:w.presence.hit.name, scores, champion});
     } else if(t-G.at>DUR(G)*1000+800){ setG({phase:'result', winner:null, winName:null}); }
   }
 }
 
+function nameOf(roster,id){ const p=roster.find(x=>x.peer===id); return p ? p.presence.nick : '?'; }
 function step(){
   if(mode!=='online') return;
-  const ps=players(), duo=ps.slice(0,2), host=duo[0];
+  const ps=players(), roster=ps.slice(0,MAXP), host=roster[0];
   const amHost = !!(host && host.sameTab);
   if(amHost){
     if(!G){ G=Object.assign({}, lastGame||fresh(), {at:now(), v:((lastGame&&lastGame.v)||0)+1}); setMy({game:G}); }
-    else { const o=duo.find(p=>!p.sameTab && p.presence.game && (p.presence.game.v||0)>(G.v||0));
+    else { const o=roster.find(p=>!p.sameTab && p.presence.game && (p.presence.game.v||0)>(G.v||0));
       if(o){ G=Object.assign({}, o.presence.game, {at:now(), v:o.presence.game.v+1}); lastGame=G; setMy({game:G}); } }
-    hostStep(duo);
+    hostStep(roster);
   } else {
     if(G){ G=null; setMy({game:null}); }
     if(host && host.presence.game) lastGame=host.presence.game;
@@ -776,90 +843,112 @@ function step(){
   const game = amHost ? G : (lastGame||fresh());
   const key=game.phase+':'+game.r;
   if(key!==seen.key){ seen={key,at:now()}; onPhase(game); }
-  const amPlayer = duo.some(p=>p.sameTab);
-  const opp = duo.find(p=>!p.sameTab) || null;
+  const me = roster.find(p=>p.sameTab);
+  const amPlayer = !!me;
+  const others = roster.filter(p=>!p.sameTab);
   const elapsed=phaseElapsed(game,amHost);
+  const D=DUR(game), TG=TGT(game);
+  const pickers=game.pickers||[];
+  const amPicker = amPlayer && pickers.includes(me.peer);
 
   // auto-pick when my time runs out
-  const D=DUR(game);
-  if(game.phase==='pick' && amPlayer && elapsed>=D && !(MY.pick && MY.pick.r===game.r)) pickTeam(rnd(CLUBS).id, true);
+  if(game.phase==='pick' && amPicker && elapsed>=D && !(MY.pick && MY.pick.r===game.r)) pickTeam(rnd(CLUBS).id, true);
 
-  // scoreboard
-  const A=duo[0], B=duo[1], sc=game.scores||{};
-  setText($('#nameA'), A?A.presence.nick:'—'); setText($('#tagA'), A?(A.sameTab?t('you'):t('rival')):'');
-  setText($('#nameB'), B?B.presence.nick:t('waiting')); setText($('#tagB'), B?(B.sameTab?t('you'):t('rival')):'');
-  setText($('#score'), (A?sc[A.peer]||0:0)+' : '+(B?sc[B.peer]||0:0));
-  conn(OWN_LOST ? t('connLost') : (opp && opp.away) ? t('oppAway') : (!amPlayer && ps.length>2) ? t('roomFull') : '');
-  if(A&&A.away) setText($('#tagA'), t('away')); if(B&&B.away) setText($('#tagB'), t('away'));
+  // scoreboard: one chip per player
+  const sc=game.scores||{};
+  setHTML($('#scoreList'), roster.map(p=>{
+    const tag = p.away ? t('away') : p.sameTab ? t('you') : (game.phase==='pick' && pickers.includes(p.peer)) ? t('picking') : '';
+    const lead = TG && (sc[p.peer]||0)>0 && (sc[p.peer]||0)===Math.max(...roster.map(x=>sc[x.peer]||0));
+    return `<div class="pchip${p.sameTab?' me':''}${p.away?' away':''}"><span class="pn">${esc(p.presence.nick)}<small>${esc(tag)}</small></span><span class="pts${lead?' lead':''}">${sc[p.peer]||0}</span></div>`;
+  }).join('') + (roster.length<2 ? `<div class="pchip ghost"><span class="pn">${esc(t('waiting'))}</span><span class="pts">–</span></div>` : ''));
+  setText($('#matchLine'), TG ? t('firstTo',{n:TG}) : t('noLimit'));
+  const oppAway = others.some(p=>p.away);
+  conn(OWN_LOST ? t('connLost') : oppAway ? t('oppAway') : (!amPlayer && ps.length>MAXP) ? t('roomFull') : '');
 
-  CUR={game,duo,amPlayer,opp};
+  CUR={game,roster,amPlayer,others,amPicker,me};
 
-  if(duo.length<2 && (game.phase==='lobby'||game.phase==='result')){ show('pWait'); return; }
+  if(roster.length<2 && (game.phase==='lobby'||game.phase==='result')){ show('pWait'); return; }
+  const readyList = (el, want) => setHTML(el, roster.map(p=>{
+    const r=(p.presence.ready||0)>=want;
+    return `<span class="pill${r?' on':''}">${esc(p.sameTab?t('youShort'):p.presence.nick)}: ${esc(r?t('isReady'):t('isWaiting'))}</span>`;
+  }).join(''));
   if(game.phase==='lobby'){
     show('pReady');
-    const meR=(MY.ready||0)>=game.r+1, opR=opp && (opp.presence.ready||0)>=game.r+1;
-    readyPills($('#readyMe'),$('#readyOpp'),meR,opR);
+    const meR=(MY.ready||0)>=game.r+1;
+    setText($('#readyTitle'), roster.length>2 ? t('readyTitleAll') : t('readyTitle'));
+    readyList($('#readyList'), game.r+1);
     paintSeg($('#durReady'),D,amPlayer && !meR);
-    $('#readyBtn').disabled=!amPlayer||meR; setText($('#readyBtn'), meR?t('waitingOpp'):t('ready'));
+    paintSeg($('#tgtReady'),TG,amPlayer && !meR,tgtLabel);
+    $('#readyBtn').disabled=!amPlayer||meR; setText($('#readyBtn'), meR?t('waitOthers'):t('ready'));
     return;
   }
   if(game.phase==='pick'){
     show('pPick'); setText($('#pickRound'),t('round',{n:game.r}));
     clock($('#pickClock'),D-elapsed,D);
     const mine = MY.pick && MY.pick.r===game.r ? MY.pick.team : null;
-    grid.querySelectorAll('.team').forEach(b=>{ b.classList.toggle('sel',b.dataset.id===mine); b.disabled=!!mine||!amPlayer; });
-    setText($('#pickMine'), mine ? t('yourPick',{t:CLUB[mine].name}) : (amPlayer?t('notPicked'):t('watching')));
-    const op = opp && opp.presence.pick && opp.presence.pick.r===game.r;
-    $('#pickOpp').classList.toggle('on',!!op); setText($('#pickOpp'), op?t('oppPicked'):t('oppThinking'));
+    grid.querySelectorAll('.team').forEach(b=>{ b.classList.toggle('sel',b.dataset.id===mine); b.disabled=!!mine||!amPicker; });
+    setText($('#pickTitle'), amPicker ? t('pickTitle') : t('watchPick'));
+    setText($('#pickMine'), mine ? t('yourPick',{t:CLUB[mine].name}) : amPicker ? t('notPicked') : t('pickersAre',{a:nameOf(roster,pickers[0]),b:nameOf(roster,pickers[1])}));
+    const otherPickers=pickers.filter(id=>!me||id!==me.peer).map(id=>roster.find(p=>p.peer===id)).filter(Boolean);
+    const done=otherPickers.filter(p=>p.presence.pick&&p.presence.pick.r===game.r).length;
+    $('#pickOpp').classList.toggle('on', otherPickers.length>0 && done===otherPickers.length);
+    setText($('#pickOpp'), otherPickers.length===1 ? (done ? t('namePicked',{n:otherPickers[0].presence.nick}) : t('nameThinking',{n:otherPickers[0].presence.nick})) : t('pickedCount',{n:done,m:otherPickers.length}));
     return;
   }
+  const pair=game.pair||[];
+  const ca=CLUB[pair[0]], cb=CLUB[pair[1]];
   if(game.phase==='nomatch'){
     show('pNomatch');
-    const tm=game.teams||{}; const a=CLUB[tm[duo[0]&&duo[0].peer]], b=CLUB[tm[duo[1]&&duo[1].peer]];
-    setText($('#nomatchText'), (a&&b&&a===b)? t('sameTeam',{a:a.name}) : (a&&b)? t('noCommon',{a:a.name,b:b.name}) : t('noCommonGeneric'));
+    setText($('#nomatchText'), (ca&&cb&&ca===cb)? t('sameTeam',{a:ca.name}) : (ca&&cb)? t('noCommon',{a:ca.name,b:cb.name}) : t('noCommonGeneric'));
     return;
   }
-  const teams=game.teams||{};
-  const ca=CLUB[teams[duo[0]&&duo[0].peer]], cb=CLUB[teams[duo[1]&&duo[1].peer]];
   if(game.phase==='guess'){
-    renderGuess({a:ca,b:cb,byA:duo[0]&&duo[0].presence.nick,byB:duo[1]&&duo[1].presence.nick,
-      left:D-elapsed, dur:D, mine:guessesOf(MY,game.r), opp: opp?guessesOf(opp.presence,game.r):[], showOpp:true,
+    const oppGuesses=[]; others.forEach(p=>guessesOf(p.presence,game.r).forEach(g=>oppGuesses.push(Object.assign({who: others.length>1 ? p.presence.nick : ''},g))));
+    const activeOthers=others.filter(p=>!p.away), passedN=activeOthers.filter(p=>p.presence.pass===game.r).length;
+    renderGuess({a:ca,b:cb,byA:nameOf(roster,pickers[0]),byB:nameOf(roster,pickers[1]),
+      left:D-elapsed, dur:D, mine:guessesOf(MY,game.r), opp:oppGuesses, showOpp:others.length>0, oppTitle: others.length>1 ? t('opponents') : t('opponent'),
       locked: !amPlayer || elapsed>=D || !!(MY.hit && MY.hit.r===game.r) || MY.pass===game.r,
       passed: MY.pass===game.r, canPass: amPlayer && elapsed<D && !(MY.hit && MY.hit.r===game.r),
-      oppPassed: !!(opp && opp.presence.pass===game.r), solo:false});
+      oppPassed: activeOthers.length>0 && passedN===activeOthers.length,
+      passText: activeOthers.length===1 ? (passedN ? t('oppPassed') : t('oppPlaying')) : t('passedCount',{n:passedN,m:activeOthers.length}),
+      solo:false});
     return;
   }
   if(game.phase==='result'){
-    const winP = duo.find(p=>p.peer===game.winner);
-    const title = !game.winner ? t('timeUp') : (winP&&winP.sameTab ? t('youWon') : t('theyWon',{n:winP?winP.presence.nick:t('opponent')}));
-    const sub = game.winner ? t('rightAnswer',{p:game.winName}) : game.passed ? t('bothPassed') : t('nobody');
-    const guessed=new Set([...guessesOf(MY,game.r), ...(opp?guessesOf(opp.presence,game.r):[])].filter(g=>g.ok).map(g=>g.p));
-    const meR=(MY.ready||0)>=game.r+1, opR=opp && (opp.presence.ready||0)>=game.r+1;
-    renderResult({a:ca,b:cb,title,win:!!(winP&&winP.sameTab),sub,guessed});
-    readyPills($('#nextMe'),$('#nextOpp'),meR,opR);
+    const winP = roster.find(p=>p.peer===game.winner);
+    const champ = game.champion ? roster.find(p=>p.peer===game.champion) : null;
+    let title = !game.winner ? t('timeUp') : (winP&&winP.sameTab ? t('youWon') : t('theyWon',{n:winP?winP.presence.nick:t('opponent')}));
+    let sub = game.winner ? t('rightAnswer',{p:game.winName}) : game.passed ? (roster.length>2?t('allPassed'):t('bothPassed')) : t('nobody');
+    if(game.champion){
+      title = champ&&champ.sameTab ? t('matchWon') : t('matchWonBy',{n:champ?champ.presence.nick:'?'});
+      const order=roster.slice().sort((a,b)=>(sc[b.peer]||0)-(sc[a.peer]||0));
+      sub = t('rightAnswer',{p:game.winName}) + ' · ' + t('standings') + ': ' + order.map((p,i)=>`${i+1}. ${p.presence.nick} ${sc[p.peer]||0}`).join(', ');
+    }
+    const guessed=new Set(roster.flatMap(p=>guessesOf(p.sameTab?MY:p.presence,game.r)).filter(g=>g.ok).map(g=>g.p));
+    const meR=(MY.ready||0)>=game.r+1;
+    renderResult({a:ca,b:cb,title,win:!!(game.champion ? champ&&champ.sameTab : winP&&winP.sameTab),sub,guessed,over:!!game.champion});
+    readyList($('#nextList'), game.r+1); $('#nextList').hidden=false;
     $('#durResult').parentNode.hidden=false; paintSeg($('#durResult'),D,amPlayer && !meR);
-    $('#nextBtn').disabled=!amPlayer||meR||duo.length<2; setText($('#nextBtn'), meR?t('waitingOpp'):t('next'));
-    $('#nextMe').hidden=$('#nextOpp').hidden=false;
+    $('#tgtResult').parentNode.hidden=false; paintSeg($('#tgtResult'),TG,amPlayer && !meR,tgtLabel);
+    $('#nextBtn').disabled=!amPlayer||meR||roster.length<2;
+    setText($('#nextBtn'), meR ? t('waitOthers') : game.champion ? t('rematch') : t('next'));
   }
-}
-function readyPills(me,op,meR,opR){
-  me.classList.toggle('on',meR); setText(me,t('meState',{s:meR?t('isReady'):t('isWaiting')}));
-  op.classList.toggle('on',!!opR); setText(op,t('oppState',{s:opR?t('isReady'):t('isWaiting')}));
 }
 function guessesOf(pres,r){ return pres && pres.guesses && pres.guesses.r===r ? pres.guesses.list : []; }
 function onPhase(game){
-  if(game.phase==='pick'){ $('#filter').value=''; grid.querySelectorAll('.team').forEach(b=>b.hidden=false); }
-  if(game.phase==='guess'){ $('#guessIn').value=''; setTimeout(()=>{ if(CUR&&CUR.amPlayer!==false) $('#guessIn').focus(); },50); }
+  if(game.phase==='pick'){ $('#filter').value=''; grid.querySelectorAll('.team,.grp').forEach(b=>b.hidden=false); }
+  if(game.phase==='guess'){ $('#guessIn').value=''; setTimeout(()=>{ if(CUR&&CUR.amPlayer) $('#guessIn').focus(); },50); }
 }
 function pickTeam(id,auto){
   if(mode==='practice'){ practicePick(id); return; }
-  if(mode!=='online'||!CUR||CUR.game.phase!=='pick'||!CUR.amPlayer) return;
+  if(mode!=='online'||!CUR||CUR.game.phase!=='pick'||!CUR.amPicker) return;
   if(MY.pick && MY.pick.r===CUR.game.r) return;
   setMy({pick:{r:CUR.game.r, team:id, auto:!!auto}}); step();
 }
 $('#readyBtn').addEventListener('click',()=>{ if(CUR) { setMy({ready:CUR.game.r+1}); step(); } });
 $('#nextBtn').addEventListener('click',()=>{
   if(mode==='practice'){ practiceRound(); return; }
+  if(mode==='chain'){ chainStart(); return; }
   if(CUR){ setMy({ready:CUR.game.r+1}); step(); }
 });
 
@@ -880,15 +969,17 @@ function renderGuess(v){
   clock($('#guessClock'),v.left,v.dur||10);
   $('#guessIn').disabled=v.locked; $('#guessBtn').disabled=v.locked;
   setHTML($('#listMe'), listHTML(v.mine,t('noGuesses')));
-  $('#oppCol').hidden=!v.showOpp;
+  $('#oppCol').hidden=!v.showOpp; setText($('#oppTitle'), v.oppTitle||t('opponent'));
+  const gn=$('#guessNote'); gn.hidden=!v.note; if(v.note) setText(gn,v.note);
   const pb=$('#passBtn'); pb.disabled=!v.canPass || v.passed; setText(pb, v.passed ? t('youPassed') : t('pass'));
   const po=$('#passOpp'); po.hidden=v.solo; po.classList.toggle('on',!!v.oppPassed);
-  if(!v.solo) setText(po, v.oppPassed ? t('oppPassed') : t('oppPlaying'));
+  if(!v.solo) setText(po, v.passText || (v.oppPassed ? t('oppPassed') : t('oppPlaying')));
   if(v.showOpp) setHTML($('#listOpp'), listHTML(v.opp,t('noGuesses')));
 }
 function listHTML(list,empty){
   if(!list.length) return `<li class="empty">${empty}</li>`;
-  return list.map(g=> g.ok ? `<li class="ok">${esc(g.p)}</li>` : `<li class="bad">${esc(g.n)}</li>`).join('');
+  const who=g=>g.who ? `<b class="who">${esc(g.who)}:</b> ` : '';
+  return list.map(g=> g.ok ? `<li class="ok">${who(g)}${esc(g.p)}</li>` : `<li class="bad">${who(g)}${esc(g.n)}</li>`).join('');
 }
 function renderResult(v){
   show('pResult');
@@ -908,16 +999,18 @@ $('#guessForm').addEventListener('submit',e=>{
   if(!text) return;
   inp.value=''; inp.focus();
   if(mode==='practice') return practiceGuess(text);
+  if(mode==='chain') return chainGuess(text);
   if(!CUR||CUR.game.phase!=='guess'||!CUR.amPlayer) return;
-  const g=CUR.game, duo=CUR.duo;
+  const g=CUR.game;
   if(MY.hit && MY.hit.r===g.r) return;
-  if(phaseElapsed(g, !!(CUR.duo[0]&&CUR.duo[0].sameTab))>=DUR(g)) return;
-  const t=g.teams||{}; const list=common(t[duo[0].peer], t[duo[1].peer]);
+  if(MY.pass===g.r) return;
+  if(phaseElapsed(g, amHostNow())>=DUR(g)) return;
+  const pair=g.pair||[]; const list=common(pair[0], pair[1]);
   const hit=matchGuess(text,list);
   const prev=guessesOf(MY,g.r);
   const entry = hit ? {n:text,ok:1,p:hit.name} : {n:text,ok:0};
   const patch={guesses:{r:g.r, list:[...prev,entry].slice(-12)}};
-  if(hit) patch.hit={r:g.r, name:hit.name, at:(duo[0]&&duo[0].sameTab)?now():hostNow()};
+  if(hit) patch.hit={r:g.r, name:hit.name, at:amHostNow()?now():hostNow()};
   setMy(patch); step();
 });
 
@@ -926,6 +1019,7 @@ $('#practiceBtn').addEventListener('click',()=>{
   mode='practice'; PR={r:0,score:0};
   $('#home').hidden=true; $('#game').hidden=false;
   $('#roomLabel').textContent=t('training'); setText($('#roomCode'),''); $('#copyCode').hidden=true; conn('');
+  $('#board').hidden=false; $('#scoreList').hidden=true; $('#matchLine').hidden=true;
   practiceRound();
 });
 function practiceRound(){
@@ -965,7 +1059,7 @@ function practiceRender(){
     show('pPick'); setText($('#pickRound'),t('round',{n:PR.r}));
     clock($('#pickClock'),left,PR.dur);
     grid.querySelectorAll('.team').forEach(b=>{ b.classList.remove('sel'); b.disabled=false; });
-    setText($('#pickMine'), t('notPicked'));
+    setText($('#pickTitle'), t('pickTitle')); setText($('#pickMine'), t('notPicked'));
     $('#pickOpp').classList.remove('on'); setText($('#pickOpp'), t('botWaiting'));
     return;
   }
@@ -977,16 +1071,89 @@ function practiceRender(){
     renderResult({a,b,win:!!PR.hit,title:PR.hit?t('gotIt'):t('timeUp'),
       sub:PR.hit?t('rightAnswer',{p:PR.hit}):PR.passed?t('passedSolo'):t('nobodyPractice'),
       guessed:new Set(PR.hit?[PR.hit]:[])});
-    $('#nextMe').hidden=$('#nextOpp').hidden=true; $('#durResult').parentNode.hidden=true;
+    $('#nextList').hidden=true; $('#durResult').parentNode.hidden=true; $('#tgtResult').parentNode.hidden=true;
     $('#nextBtn').disabled=false; setText($('#nextBtn'),t('newRound'));
   }
 }
 
 $('#passBtn').addEventListener('click',()=>{
   if(mode==='practice'){ if(PR && PR.phase==='guess'){ PR.passed=true; PR.phase='result'; practiceRender(); } return; }
+  if(mode==='chain'){ if(CH && CH.phase==='guess'){ CH.phase='over'; chainRender(); } return; }
   if(mode!=='online' || !CUR || CUR.game.phase!=='guess' || !CUR.amPlayer) return;
   setMy({pass:CUR.game.r}); step();
 });
+
+/* ---------- chain mode ----------
+   Name a player who played for both clubs; one of those clubs stays and another club of that
+   player's career comes in. How long can the chain get? A player can be used once per chain. */
+let CH=null;
+const chainBest = () => +store.get('oo-chain-best') || 0;
+$('#chainBtn').addEventListener('click',()=>{
+  mode='chain';
+  $('#home').hidden=true; $('#game').hidden=false;
+  $('#roomLabel').textContent=t('chainMode'); setText($('#roomCode'),''); $('#copyCode').hidden=true; conn('');
+  $('#board').hidden=false; $('#scoreList').hidden=true; $('#matchLine').hidden=true;
+  chainStart();
+});
+function chainUnused(a,b){ return common(a,b).filter(p=>!CH.used.has(p.name)); }
+function chainStart(){
+  let a,b,n=0;
+  do{ a=rnd(CLUBS).id; b=rnd(CLUBS).id; n++; } while(common(a,b).length<4 && n<3000);
+  CH={len:0, a, b, used:new Set(), at:now(), dur:HOME_DUR, guesses:[], phase:'guess', from:null, last:null, path:[]};
+  $('#guessIn').value=''; setTimeout(()=>$('#guessIn').focus(),50);
+  chainRender();
+}
+// After a correct answer: keep one of the two clubs and bring in another club from that player's career.
+function chainNext(player){
+  const opts=[];
+  for(const keep of [CH.a, CH.b]) for(const c of player.clubs){
+    if(c===CH.a || c===CH.b) continue;
+    const n=chainUnused(keep,c).length; if(n) opts.push({keep, c, n});
+  }
+  let pick=null;
+  const good=opts.filter(o=>o.n>=2); if(good.length) pick=rnd(good); else if(opts.length) pick=rnd(opts);
+  if(!pick){                                      // the player's career leads nowhere new: keep a club, pick any playable partner
+    for(const keep of [CH.b, CH.a]){
+      const pool=CLUBS.filter(c=>c.id!==CH.a && c.id!==CH.b && chainUnused(keep,c.id).length>=3);
+      if(pool.length){ pick={keep, c:rnd(pool).id, jump:true}; break; }
+    }
+  }
+  if(!pick){ CH.phase='over'; return; }
+  CH.a=pick.keep; CH.b=pick.c; CH.jump=!!pick.jump;
+}
+function chainGuess(text){
+  if(CH.phase!=='guess' || (now()-CH.at)/1000>=CH.dur) return;
+  const hit=matchGuess(text, chainUnused(CH.a,CH.b));
+  if(!hit){ CH.guesses.push({n:text, ok:0}); chainRender(); return; }
+  CH.used.add(hit.name); CH.len++; CH.last=hit.name;
+  CH.path.push(hit.name);
+  if(CH.len>chainBest()) store.set('oo-chain-best',String(CH.len));
+  chainNext(hit);
+  if(CH.phase==='over'){ chainRender(); return; }
+  CH.at=now(); CH.guesses=[]; CH.from=hit.name;
+  $('#guessIn').value='';
+  chainRender();
+}
+function chainRender(){
+  const best=chainBest();
+  setText($('#nameA'), $('#nick').value.trim()||t('youShort')); setText($('#tagA'),t('chainLen'));
+  setText($('#nameB'), t('record')); setText($('#tagB'), '');
+  setText($('#score'), CH.len+' : '+best);
+  const left=CH.dur-(now()-CH.at)/1000;
+  if(CH.phase==='guess' && left<=0) CH.phase='over';
+  const a=CLUB[CH.a], b=CLUB[CH.b];
+  if(CH.phase==='guess'){
+    renderGuess({a,b,left,dur:CH.dur,byA:'',byB:'',mine:CH.guesses,opp:[],showOpp:false,locked:false,canPass:true,passed:false,solo:true,
+      note: CH.from ? t(CH.jump?'chainJump':'chainFrom',{p:CH.from}) : t('chainIntro')});
+    return;
+  }
+  const record = CH.len>0 && CH.len>=best;
+  renderResult({a,b,win:record,title:t('chainOver',{n:CH.len}),
+    sub:(record?t('chainRecord'):t('chainBestIs',{n:best})) + (CH.path.length? ' · '+CH.path.join(' → ') : ''),
+    guessed:new Set()});
+  $('#nextList').hidden=true; $('#durResult').parentNode.hidden=true; $('#tgtResult').parentNode.hidden=true;
+  $('#nextBtn').disabled=false; setText($('#nextBtn'),t('chainAgain'));
+}
 
 /* ---------- room bar ---------- */
 $('#copyCode').addEventListener('click',()=>{
@@ -1004,12 +1171,12 @@ $('#copyCode').addEventListener('click',()=>{
 $('#leave').addEventListener('click',async()=>{
   if(mode==='online'){ unsubs.forEach(u=>{try{u()}catch(e){}}); unsubs=[]; try{ await R.leave(); }catch(e){} R=null; }
   clearInterval(pingTimer); FAST={}; try{ sessionStorage.removeItem('oo-room'); }catch(e){}
-  mode='home'; MY={}; peers=[]; G=null; lastGame=null; PR=null; conn('');
+  mode='home'; MY={}; peers=[]; G=null; lastGame=null; PR=null; CH=null; conn('');
   $('#game').hidden=true; $('#home').hidden=false;
 });
 
 /* ---------- ticker ---------- */
-setInterval(()=>{ if(mode==='online') step(); else if(mode==='practice' && PR) practiceRender(); },200);
+setInterval(()=>{ if(mode==='online') step(); else if(mode==='practice' && PR) practiceRender(); else if(mode==='chain' && CH && CH.phase==='guess') chainRender(); },200);
 </script>
 
 </body>
