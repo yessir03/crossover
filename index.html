@@ -7,6 +7,9 @@
 <meta name="theme-color" content="#0e3b2c">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Crossover">
 <style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 </head>
 <body>
@@ -1193,6 +1196,11 @@ $('#leave').addEventListener('click',async()=>{
 
 /* ---------- ticker ---------- */
 setInterval(()=>{ if(mode==='online') step(); else if(mode==='practice' && PR) practiceRender(); else if(mode==='chain' && CH && CH.phase==='guess') chainRender(); },200);
+
+/* ---------- offline / install support (sw.js) ---------- */
+if('serviceWorker' in navigator && (location.protocol==='https:' || location.hostname==='localhost')){
+  addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
+}
 </script>
 
 </body>
