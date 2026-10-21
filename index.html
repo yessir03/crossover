@@ -126,7 +126,7 @@ input:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-
 .glist li.bad{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:3px}
 .glist li.ok{color:var(--good);font-weight:700}
 .glist li.ok::before{content:"✓ "}
-.glist li .who{font-weight:700;color:var(--muted);text-decoration:none}
+.glist li .who{display:inline-block;margin-right:4px;font-weight:700;color:var(--muted)}
 .glist li.empty{color:var(--muted);font-style:italic;font-size:13px}
 
 .answers{display:flex;flex-wrap:wrap;gap:6px}
@@ -307,7 +307,7 @@ function makeRoomApi(){
         if(old){ try{ client.removeChannel(old); }catch(e){} }
         try{ if(!client.realtime.isConnected()) client.realtime.connect(); }catch(e){}
         const c = client.channel(name, {config:{presence:{key:myPeer}, broadcast:{self:false, ack:false}}});
-        ['me','ping','pong'].forEach(ev=>c.on('broadcast',{event:ev}, msg=>{
+        ['me','ping','pong','bye'].forEach(ev=>c.on('broadcast',{event:ev}, msg=>{
           if(my!==gen) return; const p = msg && msg.payload; if(!p) return;
           (handlers[ev]||[]).forEach(f=>{ try{ f({peer:p.f, data:p.d, sameTab:p.f===myPeer}); }catch(e){} });
         }));
@@ -359,7 +359,7 @@ function makeRoomApi(){
 const IS_SITE = true;
 const STR = {
  tr:{
-  eyebrow:'Futbol düellosu · 10, 15 ya da 20 saniyelik turlar', durLabel:'Tur süresi', durNote:'Seçim ve tahmin için ayrı ayrı. İkiniz de değiştirebilirsiniz.', sec:'{n} sn',
+  eyebrow:'Futbol düellosu · 10, 15 ya da 20 saniyelik turlar', durLabel:'Tur süresi', durNote:'Seçim ve tahmin için ayrı ayrı. Odadaki herkes değiştirebilir.', sec:'{n} sn',
   lede:'2-4 kişi oynanır. İki takım seçilir, iki takımda da forma giymiş bir futbolcuyu ilk yazan puanı alır.',
   nickLabel:'Takma adın', nickPh:'örn. Yasir', create:'Oda kur', orJoin:'veya arkadaşının odasına katıl', codePh:'KOD', join:'Katıl',
   practice:'Tek başına antrenman',
@@ -398,7 +398,7 @@ const STR = {
   foot:'Oyuncu verisi: Wikidata (CC0) · 65 kulüp, en az iki kulüpte oynamış 8.600+ futbolcu · her ay güncellenir'
  },
  en:{
-  eyebrow:'Football duel · 10, 15 or 20 second rounds', durLabel:'Round time', durNote:'Applies to picking and to guessing. Either of you can change it.', sec:'{n}s',
+  eyebrow:'Football duel · 10, 15 or 20 second rounds', durLabel:'Round time', durNote:'Applies to picking and to guessing. Anyone in the room can change it.', sec:'{n}s',
   lede:'For 2-4 players. Two clubs are picked; the first to name a footballer who played for both scores the point.',
   nickLabel:'Your nickname', nickPh:'e.g. Yasir', create:'Create room', orJoin:"or join your friend's room", codePh:'CODE', join:'Join',
   practice:'Practise solo',
@@ -694,7 +694,8 @@ $('#codeIn').addEventListener('keydown',e=>{ if(e.key==='Enter') $('#joinBtn').c
 let unsubs=[];
 /* A player whose connection drops is kept in the game as "away" for GRACE ms,
    so a locked screen or a network blip doesn't reset the round or hand the host role over. */
-const GRACE=25000; let GHOST={}, OWN_LOST=false;
+const GRACE=25000; let GHOST={}, GONE={}, HEARD={}, OWN_LOST=false;
+const STALE=10000;   // real ms without an 'I am here' signal before a connection counts as dead
 const CID=(function(){ try{ let v=sessionStorage.getItem('oo-cid'); if(!v){ v=Math.random().toString(36).slice(2,12); sessionStorage.setItem('oo-cid',v); } return v; }catch(e){ return Math.random().toString(36).slice(2,12); } })();
 /* Fast path: every change to my state is also sent as an instant message ('me'),
    so the other phone doesn't wait for the slower presence sync.
@@ -710,12 +711,13 @@ async function enter(c,nick){
   code=c; mode='online'; G=null; lastGame=null; seen={key:'',at:0}; peers=[];
   const jk='oo-j-'+c; let joined=now();
   try{ const v=+sessionStorage.getItem(jk); if(v) joined=v; else sessionStorage.setItem(jk,String(joined)); }catch(e){}
-  MY={nick, cid:CID, joinedAt:joined, ready:0}; GHOST={}; OWN_LOST=false;
+  MY={nick, cid:CID, joinedAt:joined, ready:0, ses:Date.now()}; GHOST={}; GONE={}; HEARD={}; OWN_LOST=false;
   try{ sessionStorage.setItem('oo-room', c); }catch(e){}
   R.presence(MY).catch(()=>{});
   unsubs.push(R.onPeers(ch=>{ peers=ch.peers; step(); }, err=>{ conn(t('connClosed',{e:err.code})); }));
   FAST={}; SEQ=0; OFFSET=0; SYNCED=false; SYNC_HOST=null; SAMPLES=[];
-  listen('me',(peer,d)=>{ if(d && typeof d==='object' && (!FAST[peer] || (d.seq||0)>=(FAST[peer].seq||0))){ FAST[peer]=d; step(); } });
+  listen('me',(peer,d)=>{ HEARD[peer]=Date.now(); if(d && typeof d==='object' && (!FAST[peer] || (d.seq||0)>=(FAST[peer].seq||0))){ FAST[peer]=d; step(); } });
+  listen('bye',(peer,d)=>{ if(d && d.cid){ delete GHOST[d.cid]; GONE[d.cid]=Math.max(GONE[d.cid]||0, d.ses||0); } delete FAST[peer]; step(); });
   listen('ping',(peer,d)=>{ const h=players()[0]; if(h && h.sameTab && d) emit('pong',{to:peer,t0:d.t0,h:now()}); });
   listen('pong',(peer,d)=>{
     if(!d || d.to!==myPeerId()) return;
@@ -726,7 +728,7 @@ async function enter(c,nick){
   });
   clearInterval(pingTimer); let pings=0;
   document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible' && mode==='online'){ sendPing(); emit('me',Object.assign({},MY)); step(); } });
-  pingTimer=setInterval(()=>{ pings++; if(pings<=6 || pings%5===0) sendPing(); },1500);
+  pingTimer=setInterval(()=>{ pings++; if(pings<=6 || pings%5===0) sendPing(); if(pings%2===0) emit('me',Object.assign({},MY)); },1500);
   emit('me',Object.assign({},MY,{seq:SEQ}));
   let lostAt=0;
   unsubs.push(R.onConnection(ok=>{ if(ok){ lostAt=0; OWN_LOST=false; sendPing(); step(); } else { lostAt=now(); setTimeout(()=>{ if(lostAt && now()-lostAt>=1900){ OWN_LOST=true; step(); } },2000); } }));
@@ -754,8 +756,22 @@ function players(){
   const by={};   // one entry per player, even if a reload left an old connection behind
   for(const p of list){ const o=by[p.peer]; if(!o || p.sameTab || (!o.sameTab && (p.presence.seq||0)>(o.presence.seq||0))) by[p.peer]=p; }
   const t0=now(), out=Object.values(by);
-  for(const p of out) if(!p.sameTab) GHOST[p.peer]={p, t:t0};
-  for(const id in GHOST){ if(by[id]) continue; if(t0-GHOST[id].t<GRACE) out.push(Object.assign({},GHOST[id].p,{away:true})); else delete GHOST[id]; }
+  // someone who pressed "Leave" disappears at once, even while their presence is still fading out;
+  // the same person entering again has a newer session and shows up immediately
+  for(let i=out.length-1;i>=0;i--){ const p=out[i], g=GONE[p.peer]; if(g && !p.sameTab && (p.presence.ses||0)<=g) out.splice(i,1); }
+  // a connection we have not heard from for a while, with a live namesake (the same person on a new tab), is a leftover
+  const rt=Date.now();
+  for(let i=out.length-1;i>=0;i--){ const p=out[i]; if(p.sameTab || !p.tp || !HEARD[p.tp] || rt-HEARD[p.tp]<6500) continue;
+    const nk=(p.presence.nick||'').toLowerCase();
+    if(out.some(q=>q!==p && (q.presence.nick||'').toLowerCase()===nk && (q.sameTab || (q.tp && HEARD[q.tp] && rt-HEARD[q.tp]<STALE)))){ out.splice(i,1); delete GHOST[p.peer]; } }
+  for(const p of out){ if(!p.sameTab) GHOST[p.peer]={p, t:t0}; }
+  const liveNicks=new Set(out.map(p=>(p.presence.nick||'').toLowerCase()));
+  for(const id in GHOST){
+    if(by[id]) continue;
+    const gp=GHOST[id].p;
+    if(GONE[id] || t0-GHOST[id].t>=GRACE || liveNicks.has((gp.presence.nick||'').toLowerCase())){ delete GHOST[id]; continue; }
+    out.push(Object.assign({},gp,{away:true}));
+  }
   out.sort((a,b)=>((a.presence.joinedAt||0)-(b.presence.joinedAt||0)) || (a.peer<b.peer?-1:1));
   return out;
 }
@@ -978,7 +994,7 @@ function renderGuess(v){
 }
 function listHTML(list,empty){
   if(!list.length) return `<li class="empty">${empty}</li>`;
-  const who=g=>g.who ? `<b class="who">${esc(g.who)}:</b> ` : '';
+  const who=g=>g.who ? `<b class="who">${esc(g.who)}:</b>` : '';
   return list.map(g=> g.ok ? `<li class="ok">${who(g)}${esc(g.p)}</li>` : `<li class="bad">${who(g)}${esc(g.n)}</li>`).join('');
 }
 function renderResult(v){
@@ -1169,7 +1185,7 @@ $('#copyCode').addEventListener('click',()=>{
   try{ navigator.clipboard.writeText(c).then(()=>done(t('copied')),()=>done(t('codeIs')+c)); }catch(e){ done(t('codeIs')+c); }
 });
 $('#leave').addEventListener('click',async()=>{
-  if(mode==='online'){ unsubs.forEach(u=>{try{u()}catch(e){}}); unsubs=[]; try{ await R.leave(); }catch(e){} R=null; }
+  if(mode==='online'){ emit('bye',{cid:CID, ses:MY.ses}); await new Promise(r=>setTimeout(r,150)); unsubs.forEach(u=>{try{u()}catch(e){}}); unsubs=[]; try{ await R.leave(); }catch(e){} R=null; }
   clearInterval(pingTimer); FAST={}; try{ sessionStorage.removeItem('oo-room'); }catch(e){}
   mode='home'; MY={}; peers=[]; G=null; lastGame=null; PR=null; CH=null; conn('');
   $('#game').hidden=true; $('#home').hidden=false;
