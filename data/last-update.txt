@@ -1,4 +1,4 @@
 2026-10-21
-players=10219
-added=2816
-removed=0
+players=8697
+added=0
+removed=1518
